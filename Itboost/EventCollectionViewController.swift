@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class EventCollectionViewController: UICollectionViewController, EventCellLayoutDelegate {
+class EventCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, EventCellLayoutDelegate {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var eventsList = [String]()
     var pictureList = [UIImage]()
@@ -34,24 +36,24 @@ class EventCollectionViewController: UICollectionViewController, EventCellLayout
     
     //MARK: UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:"AudioHeader", forIndexPath: indexPath)
         
         return headerView
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
         return pictureList.count
         
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let eventCell = collectionView.dequeueReusableCellWithReuseIdentifier("EventCell", forIndexPath: indexPath) as! EventCollectionCell
         
@@ -73,7 +75,7 @@ class EventCollectionViewController: UICollectionViewController, EventCellLayout
     
     //MARK: UICollectionViewDelegate
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         collectionView.deselectItemAtIndexPath(indexPath, animated: true)
         
