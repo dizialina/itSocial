@@ -22,11 +22,11 @@
             </objects>
             <point key="canvasLocation" x="827" y="-299"/>
         </scene>
-        <!--Item-->
+        <!--New event-->
         <scene sceneID="R1K-Ml-cSV">
             <objects>
                 <navigationController id="iCd-2n-KOa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="MUO-D1-Ezu"/>
+                    <tabBarItem key="tabBarItem" title="New event" id="MUO-D1-Ezu"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vwk-Wy-5KJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

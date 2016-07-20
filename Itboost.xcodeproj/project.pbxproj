@@ -97,10 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				84A43DD01D3E735B00F09B14 /* AppDelegate.swift */,
-				84A43DE51D3E767300F09B14 /* EventCollectionViewController.swift */,
-				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
-				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
-				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
+				84A43DF91D3EBCE800F09B14 /* View Controllers */,
 				84A43DEF1D3E82BC00F09B14 /* Cells */,
 				84A43DF21D3E835B00F09B14 /* Extensions */,
 				84A43DD41D3E735B00F09B14 /* Main.storyboard */,
@@ -129,6 +126,17 @@
 				84A43DF71D3E98A700F09B14 /* ViewTextHeight.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		84A43DF91D3EBCE800F09B14 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84A43DE51D3E767300F09B14 /* EventCollectionViewController.swift */,
+				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
+				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
+				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
