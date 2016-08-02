@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
+		842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */; };
+		842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A12E31D4F46B000AD2673 /* ServerManager.swift */; };
+		842A12E71D4F47DA00AD2673 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */; };
+		842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13261D50D37400AD2673 /* User+CoreDataProperties.swift */; };
+		842A132B1D50D37400AD2673 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13271D50D37400AD2673 /* User.swift */; };
+		842A132C1D50D37400AD2673 /* Community+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13281D50D37400AD2673 /* Community+CoreDataProperties.swift */; };
+		842A132D1D50D37400AD2673 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13291D50D37400AD2673 /* Community.swift */; };
 		84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DD01D3E735B00F09B14 /* AppDelegate.swift */; };
 		84A43DD61D3E735B00F09B14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A43DD41D3E735B00F09B14 /* Main.storyboard */; };
 		84A43DD91D3E735B00F09B14 /* Itboost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DD71D3E735B00F09B14 /* Itboost.xcdatamodeld */; };
@@ -27,6 +34,13 @@
 /* Begin PBXFileReference section */
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventOneColumnCellLayout.swift; sourceTree = "<group>"; };
+		842A12E31D4F46B000AD2673 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
+		842A13261D50D37400AD2673 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		842A13271D50D37400AD2673 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		842A13281D50D37400AD2673 /* Community+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		842A13291D50D37400AD2673 /* Community.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
 		84A43DCD1D3E735B00F09B14 /* Itboost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itboost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A43DD01D3E735B00F09B14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84A43DD51D3E735B00F09B14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -75,6 +89,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		842A12E51D4F46B500AD2673 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				842A12E31D4F46B000AD2673 /* ServerManager.swift */,
+				842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		842A13151D50C7C700AD2673 /* CoreData Models */ = {
+			isa = PBXGroup;
+			children = (
+				842A13261D50D37400AD2673 /* User+CoreDataProperties.swift */,
+				842A13271D50D37400AD2673 /* User.swift */,
+				842A13281D50D37400AD2673 /* Community+CoreDataProperties.swift */,
+				842A13291D50D37400AD2673 /* Community.swift */,
+			);
+			name = "CoreData Models";
+			sourceTree = "<group>";
+		};
 		84A43DC41D3E735A00F09B14 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				84A43DD01D3E735B00F09B14 /* AppDelegate.swift */,
+				842A12E51D4F46B500AD2673 /* Managers */,
 				84A43DF91D3EBCE800F09B14 /* View Controllers */,
 				84A43DEF1D3E82BC00F09B14 /* Cells */,
 				84A43DF21D3E835B00F09B14 /* Extensions */,
@@ -106,6 +141,7 @@
 				84A43DDC1D3E735B00F09B14 /* LaunchScreen.storyboard */,
 				84A43DDF1D3E735B00F09B14 /* Info.plist */,
 				84A43DD71D3E735B00F09B14 /* Itboost.xcdatamodeld */,
+				842A13151D50C7C700AD2673 /* CoreData Models */,
 			);
 			path = Itboost;
 			sourceTree = "<group>";
@@ -114,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				84A43DF51D3E937000F09B14 /* EventCellLayout.swift */,
+				842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */,
 				84A43DED1D3E828A00F09B14 /* EventCollectionCell.swift */,
 			);
 			name = Cells;
@@ -264,12 +301,19 @@
 				84A43DD91D3E735B00F09B14 /* Itboost.xcdatamodeld in Sources */,
 				84A43DF81D3E98A700F09B14 /* ViewTextHeight.swift in Sources */,
 				84A43DF11D3E831900F09B14 /* CollectionCellExtension.swift in Sources */,
+				842A132D1D50D37400AD2673 /* Community.swift in Sources */,
 				84A43DF61D3E937000F09B14 /* EventCellLayout.swift in Sources */,
+				842A132C1D50D37400AD2673 /* Community+CoreDataProperties.swift in Sources */,
+				842A132B1D50D37400AD2673 /* User.swift in Sources */,
+				842A12E71D4F47DA00AD2673 /* DataBaseManager.swift in Sources */,
 				84A43DE81D3E768900F09B14 /* ProfileViewController.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
 				84A43DEC1D3E76AE00F09B14 /* TabBarViewController.swift in Sources */,
+				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
 				84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,
+				842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */,
+				842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */,
 				84A43DE61D3E767300F09B14 /* EventCollectionViewController.swift in Sources */,
 				84A43DF41D3E897600F09B14 /* Constants.swift in Sources */,
 			);

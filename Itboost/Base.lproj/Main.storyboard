@@ -109,7 +109,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cBj-he-FGs">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="HLx-ae-59z" customClass="EventCellLayout" customModule="Itboost" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="HLx-ae-59z" customClass="EventOneColumnCellLayout" customModule="Itboost" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="EventCell" reuseIdentifier="EventCell" id="5gb-79-28o" customClass="EventCollectionCell" customModule="Itboost" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="64" width="143" height="169"/>
@@ -127,17 +127,17 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt2-kJ-k28">
                                                             <rect key="frame" x="4" y="4" width="135" height="32"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="vt2-kJ-k28" firstAttribute="top" secondItem="8f1-in-707" secondAttribute="top" constant="4" id="5VO-KJ-eug"/>
-                                                        <constraint firstAttribute="trailing" secondItem="vt2-kJ-k28" secondAttribute="trailing" constant="4" id="7wP-xS-m7V"/>
-                                                        <constraint firstAttribute="height" constant="40" id="G0E-7J-VJM"/>
-                                                        <constraint firstAttribute="bottom" secondItem="vt2-kJ-k28" secondAttribute="bottom" constant="4" id="HDs-AG-FJb"/>
-                                                        <constraint firstItem="vt2-kJ-k28" firstAttribute="leading" secondItem="8f1-in-707" secondAttribute="leading" constant="4" id="pI2-M6-wpf"/>
+                                                        <constraint firstItem="vt2-kJ-k28" firstAttribute="top" secondItem="8f1-in-707" secondAttribute="top" constant="4" id="ARV-Xe-lEH"/>
+                                                        <constraint firstAttribute="trailing" secondItem="vt2-kJ-k28" secondAttribute="trailing" constant="4" id="EcR-Hq-rT9"/>
+                                                        <constraint firstItem="vt2-kJ-k28" firstAttribute="leading" secondItem="8f1-in-707" secondAttribute="leading" constant="4" id="f2K-ye-taX"/>
+                                                        <constraint firstAttribute="bottom" secondItem="vt2-kJ-k28" secondAttribute="bottom" constant="4" id="jxV-En-K9C"/>
+                                                        <constraint firstAttribute="height" constant="40" id="q9j-3k-znq"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -145,13 +145,13 @@
                                         </view>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="8f1-in-707" secondAttribute="bottom" id="BgZ-cp-3K5"/>
-                                            <constraint firstItem="8f1-in-707" firstAttribute="leading" secondItem="5gb-79-28o" secondAttribute="leading" id="Vkb-ru-1wR"/>
-                                            <constraint firstItem="TAf-3S-DPI" firstAttribute="top" secondItem="5gb-79-28o" secondAttribute="top" id="lHp-mP-XYW"/>
-                                            <constraint firstAttribute="trailing" secondItem="8f1-in-707" secondAttribute="trailing" id="s2q-6k-vgi"/>
-                                            <constraint firstAttribute="trailing" secondItem="TAf-3S-DPI" secondAttribute="trailing" id="uZV-JC-JKQ"/>
-                                            <constraint firstItem="8f1-in-707" firstAttribute="top" secondItem="TAf-3S-DPI" secondAttribute="bottom" id="wNt-A3-omR"/>
-                                            <constraint firstItem="TAf-3S-DPI" firstAttribute="leading" secondItem="5gb-79-28o" secondAttribute="leading" id="xYy-VA-zdh"/>
+                                            <constraint firstItem="TAf-3S-DPI" firstAttribute="top" secondItem="5gb-79-28o" secondAttribute="top" id="1oD-Nk-6Yk"/>
+                                            <constraint firstAttribute="trailing" secondItem="8f1-in-707" secondAttribute="trailing" id="A7f-U2-eae"/>
+                                            <constraint firstAttribute="bottom" secondItem="8f1-in-707" secondAttribute="bottom" id="GAb-CX-pkL"/>
+                                            <constraint firstItem="8f1-in-707" firstAttribute="top" secondItem="TAf-3S-DPI" secondAttribute="bottom" id="JZ9-gI-Zkg"/>
+                                            <constraint firstItem="8f1-in-707" firstAttribute="leading" secondItem="5gb-79-28o" secondAttribute="leading" id="PY8-ZU-Vhb"/>
+                                            <constraint firstItem="TAf-3S-DPI" firstAttribute="leading" secondItem="5gb-79-28o" secondAttribute="leading" id="Phd-EQ-mEw"/>
+                                            <constraint firstAttribute="trailing" secondItem="TAf-3S-DPI" secondAttribute="trailing" id="m1Q-9Y-L41"/>
                                         </constraints>
                                         <size key="customSize" width="143" height="169"/>
                                         <userDefinedRuntimeAttributes>
@@ -167,7 +167,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="image" destination="TAf-3S-DPI" id="8Nf-UW-gg0"/>
-                                            <outlet property="textViewHeight" destination="G0E-7J-VJM" id="rq3-Dn-chf"/>
+                                            <outlet property="textViewHeight" destination="q9j-3k-znq" id="t5R-oj-p94"/>
                                             <outlet property="titleLabel" destination="vt2-kJ-k28" id="m2M-dW-cbq"/>
                                         </connections>
                                     </collectionViewCell>

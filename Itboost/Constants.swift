@@ -11,7 +11,7 @@ import UIKit
 
 class Constants {
     
-    static let linkToServerAPI = "http://itboost.org/api/"
+    static let linkToServerAPI = "http://api.itboost.org/app_dev.php/api/"
     
     // MARK: Notification Keys
     

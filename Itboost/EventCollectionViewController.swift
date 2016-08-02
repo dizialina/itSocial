@@ -21,11 +21,13 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let layout = collectionView?.collectionViewLayout as? EventCellLayout {
+        self.navigationItem.title = "События"
+        
+        if let layout = collectionView?.collectionViewLayout as? EventOneColumnCellLayout {
             layout.delegate = self
         }
         
-        eventsList = ["Hello First Event", "Light The Night in Cinema", "Pianoboy Big Concert on 03.03", "One More Event"]
+        eventsList = ["Ukraine Sport Events - инновационная компания, которая оказывает услуги обслуживания и организацию спортивных мероприятий по всей территории Украины. Мы предоставляем высокотехнологичный сервис онлайн регистрации участников для организаторов мероприятий, семинаров и событий.", "Light The Night in Cinema", "Didorovka Trail Run – это интереснейший трейловый горный забег в Голосеево. Трасса не оставит вас равнодушными! Спуски и подъемы, торчки и тягуны, живописные лесные тропинки и петляющие дорожки!", "«ГОНКА НАЦІЇ» — вражаючі забіги з перешкодами. Навіть якщо Ви раніше приймали участь в марафонах, тріатлоні, пейтбольних іграх, займаєтесь CrossFit чи іншими видами активного спорту, «ГОНКА НАЦІЇ» стане для Вас справжнім випробуванням та справжньою авантюрою, яка по силах кожному, тому кожен повинен це спробувати."]
         pictureList = [UIImage(named:"PhotoExample1")!, UIImage(named:"PhotoExample2")!, UIImage(named:"PhotoExample4")!, UIImage(named:"PhotoExample3")!]
     }
     
