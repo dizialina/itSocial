@@ -25,7 +25,7 @@ class DataBaseManager {
                 let communityDictionary = community as! [String:AnyObject]
                 let currentCommunity = NSEntityDescription.insertNewObjectForEntityForName("Community", inManagedObjectContext: self.managedObjectContext) as! Community
                 
-                currentCommunity.name = communityDictionary["name"] as? String
+                currentCommunity.name = (communityDictionary["name"] as? String)!
                 currentCommunity.detailDescription = communityDictionary["description"] as? String
                 
                 let createdAtString = communityDictionary["created_at"] as? String
@@ -43,7 +43,7 @@ class DataBaseManager {
                 let creator = communityDictionary["created_by"] as? [String:AnyObject]
                 let currentCreator = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: self.managedObjectContext) as! User
                 
-                currentCreator.userName = creator!["username"] as? String
+                currentCreator.userName = (creator!["username"] as? String)!
                 currentCreator.email = creator!["email"] as? String
                 currentCreator.firstName = creator!["firstname"] as? String
                 currentCreator.lastName = creator!["lastName"] as? String
@@ -73,11 +73,11 @@ class DataBaseManager {
                     let communityID = Int(requestCommunity.communityID.intValue)
                     let newCommunity = communities[communityID]
                     
-                    requestCommunity.name = newCommunity?.name
+                    requestCommunity.name = (newCommunity?.name)!
                     requestCommunity.detailDescription = newCommunity?.detailDescription
                     requestCommunity.createdAt = newCommunity?.createdAt
                     requestCommunity.eventDate = newCommunity?.eventDate
-                    requestCommunity.createdBy = newCommunity?.createdBy
+                    requestCommunity.createdBy = (newCommunity?.createdBy)!
                     
                     managedObjectContext.deleteObject(newCommunity!)
                 }
@@ -88,7 +88,7 @@ class DataBaseManager {
             
             do {
                 try managedObjectContext.save()
-                printAllCommunitiesForDebug()
+                NSNotificationCenter.defaultCenter().postNotificationName(Constants.kLoadCommunitiesNotification, object: nil)
             } catch {
                 print("Can't save to coredata new communities")
             }

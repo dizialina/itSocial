@@ -15,7 +15,7 @@ class Constants {
     
     // MARK: Notification Keys
     
-    static let loadTasksNotification = "kLoadTasksNotification"
+    static let kLoadCommunitiesNotification = "LoadCommunitiesNotification"
     
     // MARK: NSUserDefaults Keys
     

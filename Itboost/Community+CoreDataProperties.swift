@@ -15,10 +15,10 @@ import CoreData
 extension Community {
 
     @NSManaged var communityID: NSDecimalNumber
-    @NSManaged var name: String?
+    @NSManaged var name: String
     @NSManaged var detailDescription: String?
     @NSManaged var createdAt: NSDate?
     @NSManaged var eventDate: NSDate?
-    @NSManaged var createdBy: User?
+    @NSManaged var createdBy: User
 
 }
