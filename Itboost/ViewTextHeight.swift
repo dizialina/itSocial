@@ -15,7 +15,7 @@ extension NSString {
         
         let offset:CGFloat = 5.0
         
-        var font = UIFont.systemFontOfSize(16.0)
+        var font = UIFont.systemFontOfSize(15.0)
         
         if device == "iPad" {
             font = UIFont.systemFontOfSize(23.0)
