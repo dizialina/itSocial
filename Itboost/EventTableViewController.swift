@@ -22,6 +22,13 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if NSUserDefaults.standardUserDefaults().boolForKey(Constants.kAlreadyRun) {
+            if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) == nil) {
+                //self.performSegueWithIdentifier("userNotLogin", sender: nil)
+            }
+            NSUserDefaults.standardUserDefaults().setBool(false,forKey:Constants.kAlreadyRun)
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.kLoadCommunitiesNotification, object: nil)
         
         self.navigationItem.title = "События"

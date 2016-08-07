@@ -54,5 +54,78 @@ class ServerManager {
         }
         
     }
+    
+    // MARK: Profile methods
+    
+    func postAuthorization(userInfo:NSDictionary, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["_username": userInfo["username"]!,
+                                   "_password": userInfo["password"]!]
+        
+        sessionManager.POST("login_check", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
+                if let results = response["response"] {
+                    
+//                    let token = results["token"]
+//                    let receivedUserInfo = results["user"]
+//                    if receivedUserInfo != nil {
+//                        if let userID = receivedUserInfo!!["id"] {
+//                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
+//                        }
+//                    }
+//                    if token != nil {
+//                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
+//                    }
+//                    success(response: nil)
+                    
+                }
+            } else {
+                print("Post authorization didn't return dictionary responce")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while authorization: " + error.localizedDescription)
+            failure(error: error)
+        }
+        
+    }
+    
+    func postRegistration(userInfo:NSDictionary, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["email": userInfo["email"]!,
+                                   "username": userInfo["username"]!,
+                                   "password": userInfo["password"]!]
+        
+        sessionManager.POST("api/registration", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
+                if let results = response["response"] {
+                    
+//                    let token = results["token"]
+//                    let receivedUserInfo = results["user"]
+//                    if receivedUserInfo != nil {
+//                        if let userID = receivedUserInfo!!["id"] {
+//                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
+//                        }
+//                    }
+//                    if token != nil {
+//                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
+//                    }
+//                    success(response: nil)
+                    
+                    
+                }
+            } else {
+                print("Post registration didn't return dictionary responce")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while sending registration info: " + error.localizedDescription)
+            failure(error: error)
+        }
+        
+    }
+
 }
 

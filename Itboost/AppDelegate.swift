@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         
+        NSUserDefaults.standardUserDefaults().setBool(true,forKey:Constants.kAlreadyRun)
+        
         ServerManager().getAllCommunitiesFromServer()
         
         return true

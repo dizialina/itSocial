@@ -17,6 +17,10 @@
 		842A132D1D50D37400AD2673 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13291D50D37400AD2673 /* Community.swift */; };
 		84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */; };
 		84A21FF91D57A6500003E1BA /* EventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FF81D57A6500003E1BA /* EventTableCell.swift */; };
+		84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FFA1D57BAD30003E1BA /* EnterScreenViewController.swift */; };
+		84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FFC1D57BAFD0003E1BA /* LoginViewController.swift */; };
+		84A21FFF1D57BB0E0003E1BA /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FFE1D57BB0E0003E1BA /* RegistrationViewController.swift */; };
+		84A220041D57BE6B0003E1BA /* ReusableMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A220031D57BE6B0003E1BA /* ReusableMethods.swift */; };
 		84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DD01D3E735B00F09B14 /* AppDelegate.swift */; };
 		84A43DD61D3E735B00F09B14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A43DD41D3E735B00F09B14 /* Main.storyboard */; };
 		84A43DD91D3E735B00F09B14 /* Itboost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DD71D3E735B00F09B14 /* Itboost.xcdatamodeld */; };
@@ -45,6 +49,10 @@
 		842A13291D50D37400AD2673 /* Community.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
 		84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		84A21FF81D57A6500003E1BA /* EventTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableCell.swift; sourceTree = "<group>"; };
+		84A21FFA1D57BAD30003E1BA /* EnterScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterScreenViewController.swift; sourceTree = "<group>"; };
+		84A21FFC1D57BAFD0003E1BA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		84A21FFE1D57BB0E0003E1BA /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		84A220031D57BE6B0003E1BA /* ReusableMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableMethods.swift; sourceTree = "<group>"; };
 		84A43DCD1D3E735B00F09B14 /* Itboost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itboost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A43DD01D3E735B00F09B14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84A43DD51D3E735B00F09B14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -113,6 +121,25 @@
 			name = "CoreData Models";
 			sourceTree = "<group>";
 		};
+		84A220001D57BB1C0003E1BA /* Login/Registration */ = {
+			isa = PBXGroup;
+			children = (
+				84A21FFA1D57BAD30003E1BA /* EnterScreenViewController.swift */,
+				84A21FFC1D57BAFD0003E1BA /* LoginViewController.swift */,
+				84A21FFE1D57BB0E0003E1BA /* RegistrationViewController.swift */,
+			);
+			name = Login/Registration;
+			sourceTree = "<group>";
+		};
+		84A220051D57BE700003E1BA /* Hepler Classes */ = {
+			isa = PBXGroup;
+			children = (
+				84A43DF31D3E897600F09B14 /* Constants.swift */,
+				84A220031D57BE6B0003E1BA /* ReusableMethods.swift */,
+			);
+			name = "Hepler Classes";
+			sourceTree = "<group>";
+		};
 		84A43DC41D3E735A00F09B14 = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +167,7 @@
 				84A43DEF1D3E82BC00F09B14 /* Cells */,
 				84A43DF21D3E835B00F09B14 /* Extensions */,
 				84A43DD41D3E735B00F09B14 /* Main.storyboard */,
-				84A43DF31D3E897600F09B14 /* Constants.swift */,
+				84A220051D57BE700003E1BA /* Hepler Classes */,
 				84A43DDA1D3E735B00F09B14 /* Assets.xcassets */,
 				84A43DDC1D3E735B00F09B14 /* LaunchScreen.storyboard */,
 				84A43DDF1D3E735B00F09B14 /* Info.plist */,
@@ -173,6 +200,7 @@
 		84A43DF91D3EBCE800F09B14 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84A220001D57BB1C0003E1BA /* Login/Registration */,
 				84A43DE51D3E767300F09B14 /* EventCollectionViewController.swift */,
 				84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */,
 				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
@@ -308,22 +336,26 @@
 				84A43DF81D3E98A700F09B14 /* ViewTextHeight.swift in Sources */,
 				84A43DF11D3E831900F09B14 /* CollectionCellExtension.swift in Sources */,
 				84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */,
+				84A21FFF1D57BB0E0003E1BA /* RegistrationViewController.swift in Sources */,
 				842A132D1D50D37400AD2673 /* Community.swift in Sources */,
 				84A43DF61D3E937000F09B14 /* EventCellLayout.swift in Sources */,
 				842A132C1D50D37400AD2673 /* Community+CoreDataProperties.swift in Sources */,
 				842A132B1D50D37400AD2673 /* User.swift in Sources */,
 				842A12E71D4F47DA00AD2673 /* DataBaseManager.swift in Sources */,
 				84A43DE81D3E768900F09B14 /* ProfileViewController.swift in Sources */,
+				84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
 				84A43DEC1D3E76AE00F09B14 /* TabBarViewController.swift in Sources */,
 				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
 				84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */,
+				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,
 				842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */,
 				842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */,
 				84A21FF91D57A6500003E1BA /* EventTableCell.swift in Sources */,
 				84A43DE61D3E767300F09B14 /* EventCollectionViewController.swift in Sources */,
 				84A43DF41D3E897600F09B14 /* Constants.swift in Sources */,
+				84A220041D57BE6B0003E1BA /* ReusableMethods.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
