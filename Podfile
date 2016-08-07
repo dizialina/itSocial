@@ -5,6 +5,7 @@ target ’Itboost’ do
 use_frameworks!
 
 pod 'AFNetworking', '~> 3.1'
+pod 'IQKeyboardManagerSwift'
 
 end
 

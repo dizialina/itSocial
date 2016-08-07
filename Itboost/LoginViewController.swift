@@ -33,6 +33,7 @@ class LoginViewController: UIViewController {
         
         ServerManager().postAuthorization(userInfo, success: { (response) -> Void in
             self.showAlertWithHandler()
+            
         }) { (error) -> Void in
             let alertController = ReusableMethods().showAlertWithTitle("Ошибка", message: "Неправильный e-mail или пароль")
             self.presentViewController(alertController, animated: true, completion: nil)

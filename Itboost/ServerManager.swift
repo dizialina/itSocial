@@ -67,18 +67,17 @@ class ServerManager {
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     
-//                    let token = results["token"]
-//                    let receivedUserInfo = results["user"]
-//                    if receivedUserInfo != nil {
-//                        if let userID = receivedUserInfo!!["id"] {
-//                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
-//                        }
-//                    }
-//                    if token != nil {
-//                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
-//                    }
-//                    success(response: nil)
-                    
+                    let token = results["token"]
+                    let receivedUserInfo = results["user"]
+                    if receivedUserInfo != nil {
+                        if let userID = receivedUserInfo!!["id"] {
+                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
+                        }
+                    }
+                    if token != nil {
+                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
+                    }
+                    success(response: nil)
                 }
             } else {
                 print("Post authorization didn't return dictionary responce")
@@ -97,24 +96,22 @@ class ServerManager {
                                    "username": userInfo["username"]!,
                                    "password": userInfo["password"]!]
         
-        sessionManager.POST("api/registration", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.POST("registration", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     
-//                    let token = results["token"]
-//                    let receivedUserInfo = results["user"]
-//                    if receivedUserInfo != nil {
-//                        if let userID = receivedUserInfo!!["id"] {
-//                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
-//                        }
-//                    }
-//                    if token != nil {
-//                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
-//                    }
-//                    success(response: nil)
-                    
-                    
+                    let token = results["token"]
+                    let receivedUserInfo = results["user"]
+                    if receivedUserInfo != nil {
+                        if let userID = receivedUserInfo!!["id"] {
+                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
+                        }
+                    }
+                    if token != nil {
+                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
+                    }
+                    success(response: nil)
                 }
             } else {
                 print("Post registration didn't return dictionary responce")

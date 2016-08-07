@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         
         NSUserDefaults.standardUserDefaults().setBool(true,forKey:Constants.kAlreadyRun)
+        
+        IQKeyboardManager.sharedManager().enable = true
         
         ServerManager().getAllCommunitiesFromServer()
         

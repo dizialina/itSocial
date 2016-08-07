@@ -24,7 +24,9 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if NSUserDefaults.standardUserDefaults().boolForKey(Constants.kAlreadyRun) {
             if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) == nil) {
-                //self.performSegueWithIdentifier("userNotLogin", sender: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateViewControllerWithIdentifier("EnterScreenViewController") as! EnterScreenViewController
+                self.presentViewController(viewController, animated: true, completion: nil)
             }
             NSUserDefaults.standardUserDefaults().setBool(false,forKey:Constants.kAlreadyRun)
         }
@@ -34,6 +36,12 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationItem.title = "События"
         
         pictureList = [UIImage(named:"PhotoExample1")!]
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getCommunitiesFromDatabase()
     }
     
     override func didReceiveMemoryWarning() {
