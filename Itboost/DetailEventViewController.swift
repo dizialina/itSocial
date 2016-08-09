@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
-class DetailEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var communityObject: NSManagedObject!
     var isDescriptionOpen = false
+    var newPostText = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: TableView DataSource and Delegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -69,6 +70,15 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             }
         
             return eventCell
+            
+        } else if indexPath.row == 1 {
+            
+            let addPostCell = tableView.dequeueReusableCellWithIdentifier("AddPostToEventCell", forIndexPath: indexPath) as! AddPostToEventCell
+            
+            addPostCell.sendButton.addTarget(self, action: #selector(DetailEventViewController.sendPostToEvent), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            addPostCell.textField.delegate = self
+            
         }
         
         return cell
@@ -93,7 +103,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             } else {
                 return 280.0
             }
-            
+        
+        } else if indexPath.row == 1 {
+            return 60.0
         } else {
             return 280.0
         }
@@ -107,6 +119,28 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             //let indexPath = tableView.indexPathForSelectedRow
         }
         
+    }
+    
+    // MARK: TextField Delegate
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        tableView.reloadData()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        newPostText = textField.text!
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        newPostText = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        return true
+    }
+    
+    func textFieldShouldClear(textField: UITextField) -> Bool {
+        newPostText = ""
+        return true
     }
     
     // MARK: Actions
@@ -142,7 +176,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.beginUpdates()
         CATransaction.setCompletionBlock {
             if !self.isDescriptionOpen {
-                //eventCell.heightViewDescription.constant = 1.0
                 eventCell.descriptionLabel.text = ""
             }
         }
@@ -151,6 +184,16 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         CATransaction.commit()
         
         
+    }
+    
+    func sendPostToEvent() {
+        
+        //let addPostCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! AddPostToEventCell
+        //let postBody = addPostCell.textField.text
+        
+        if newPostText.characters.count > 0 {
+            print(newPostText)
+        }
     }
     
     // MARK: Helping methods

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
+		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */; };
 		842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A12E31D4F46B000AD2673 /* ServerManager.swift */; };
 		842A12E71D4F47DA00AD2673 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
 		842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventOneColumnCellLayout.swift; sourceTree = "<group>"; };
 		842A12E31D4F46B000AD2673 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				84A43DF51D3E937000F09B14 /* EventCellLayout.swift */,
 				84A21FF81D57A6500003E1BA /* EventTableCell.swift */,
+				84023D021D5A835D005DD716 /* AddPostToEventCell.swift */,
 				84A220081D5A52B30003E1BA /* DetailEventCell.swift */,
 				842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */,
 				84A43DED1D3E828A00F09B14 /* EventCollectionCell.swift */,
@@ -353,6 +356,7 @@
 				84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
 				84A43DEC1D3E76AE00F09B14 /* TabBarViewController.swift in Sources */,
+				84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */,
 				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
 				84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
