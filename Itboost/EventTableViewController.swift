@@ -116,7 +116,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //self.performSegueWithIdentifier("openMail", sender: nil)
+        self.performSegueWithIdentifier("openEvent", sender: nil)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -139,9 +139,10 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if (segue.identifier == "openMail") {
-            //let viewController = segue.destinationViewController as! AnswerTaskViewController
-            //let indexPath = tableView.indexPathForSelectedRow
+        if (segue.identifier == "openEvent") {
+            let viewController = segue.destinationViewController as! DetailEventViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            viewController.communityObject = communityList[(indexPath?.row)!]
         }
         
     }
