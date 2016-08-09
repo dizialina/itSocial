@@ -326,8 +326,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="280"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZIR-vT-tEb">
-                                                    <rect key="frame" x="8" y="8" width="584" height="263"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZIR-vT-tEb">
+                                                    <rect key="frame" x="4" y="4" width="592" height="272"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppleLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Yf6-XR-QSE">
                                                             <rect key="frame" x="16" y="16" width="85" height="85"/>
@@ -336,21 +336,21 @@
                                                                 <constraint firstAttribute="height" constant="85" id="ARG-03-eho"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4-недельный онлайн-курс «QA Automation» с использованием Selenium и Java" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.65000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="Vy8-tP-a76">
-                                                            <rect key="frame" x="122" y="16" width="443" height="45"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4-недельный онлайн-курс «QA Automation» с использованием Selenium и Java" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.65000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="Vy8-tP-a76">
+                                                            <rect key="frame" x="116" y="16" width="457" height="65"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="45" id="xJW-HR-QgG"/>
+                                                                <constraint firstAttribute="height" constant="65" id="xJW-HR-QgG"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <color key="textColor" red="0.078431372550000003" green="0.24313725489999999" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Посмотреть описание" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E4T-Ps-GEM">
-                                                            <rect key="frame" x="160" y="73" width="405" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Посмотреть описание" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="E4T-Ps-GEM">
+                                                            <rect key="frame" x="149" y="82" width="424" height="40"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="bCn-Qw-aWx"/>
+                                                                <constraint firstAttribute="height" constant="40" id="bCn-Qw-aWx"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -360,25 +360,25 @@
                                                                 <constraint firstAttribute="height" constant="21" id="kYt-Y2-hCm"/>
                                                                 <constraint firstAttribute="width" constant="103" id="kfT-O1-Wv0"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                             <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Состоится: 19:00 18.08.2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Djd-Jc-x7d">
-                                                            <rect key="frame" x="59" y="136" width="506" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Состоится: 19:00 18.08.2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="Djd-Jc-x7d">
+                                                            <rect key="frame" x="59" y="136" width="514" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="fgb-az-AEA"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                             <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Организатор: igorsha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hya-k2-76y">
-                                                            <rect key="frame" x="59" y="175" width="506" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Организатор: igorsha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="hya-k2-76y">
+                                                            <rect key="frame" x="59" y="175" width="514" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="Esa-QZ-nvX"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                             <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -388,7 +388,7 @@
                                                                 <constraint firstAttribute="width" constant="60" id="R7u-0O-OuL"/>
                                                                 <constraint firstAttribute="height" constant="21" id="YFk-Lh-ztu"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                             <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -397,10 +397,10 @@
                                                             <state key="normal" backgroundImage="CheckRound"/>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCZ-5Y-clY">
-                                                            <rect key="frame" x="122" y="69" width="30" height="30"/>
+                                                            <rect key="frame" x="116" y="89" width="25" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="Zt5-pb-2b3"/>
-                                                                <constraint firstAttribute="height" constant="30" id="yMV-G3-xiE"/>
+                                                                <constraint firstAttribute="width" constant="25" id="Zt5-pb-2b3"/>
+                                                                <constraint firstAttribute="height" constant="25" id="yMV-G3-xiE"/>
                                                             </constraints>
                                                             <state key="normal" backgroundImage="Detail"/>
                                                         </button>
@@ -427,10 +427,11 @@
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPi-vs-oUW">
-                                                            <rect key="frame" x="8" y="252" width="568" height="1"/>
+                                                            <rect key="frame" x="8" y="252" width="576" height="1"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsX-ik-5Kj">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="576" height="1"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <string key="text">С 29 по 31 июля приглашаем всех в Одессу на 7-ю конференцию WebCamp, которая посвящена технологиям веб-разработки, управлению проектами и развитию бизнеса. </string>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" red="0.078431372550000003" green="0.24313725489999999" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -457,7 +458,7 @@
                                                         <constraint firstItem="uCZ-5Y-clY" firstAttribute="top" secondItem="Vy8-tP-a76" secondAttribute="bottom" constant="8" id="HfG-kA-N8f"/>
                                                         <constraint firstItem="hbg-FS-FZs" firstAttribute="centerX" secondItem="DGC-EU-YVL" secondAttribute="centerX" id="Hg3-i2-wsT"/>
                                                         <constraint firstAttribute="trailing" secondItem="Vy8-tP-a76" secondAttribute="trailing" constant="19" id="Le5-2D-g1x"/>
-                                                        <constraint firstItem="Vy8-tP-a76" firstAttribute="leading" secondItem="Yf6-XR-QSE" secondAttribute="trailing" constant="21" id="NfV-aQ-UEI"/>
+                                                        <constraint firstItem="Vy8-tP-a76" firstAttribute="leading" secondItem="Yf6-XR-QSE" secondAttribute="trailing" constant="15" id="NfV-aQ-UEI"/>
                                                         <constraint firstAttribute="trailing" secondItem="Djd-Jc-x7d" secondAttribute="trailing" constant="19" id="Qmj-lM-jdc"/>
                                                         <constraint firstItem="Yf6-XR-QSE" firstAttribute="leading" secondItem="ZIR-vT-tEb" secondAttribute="leading" constant="16" id="Sbt-04-121"/>
                                                         <constraint firstItem="8nX-ST-OWQ" firstAttribute="leading" secondItem="w22-er-St1" secondAttribute="trailing" constant="8" id="TpA-N1-VEj"/>
@@ -466,7 +467,7 @@
                                                         <constraint firstItem="Yf6-XR-QSE" firstAttribute="top" secondItem="ZIR-vT-tEb" secondAttribute="top" constant="16" id="YSA-si-MLu"/>
                                                         <constraint firstItem="TPi-vs-oUW" firstAttribute="top" secondItem="w22-er-St1" secondAttribute="bottom" constant="10" id="Zst-5t-ovn"/>
                                                         <constraint firstItem="Vy8-tP-a76" firstAttribute="top" secondItem="ZIR-vT-tEb" secondAttribute="top" constant="16" id="arn-ID-a0v"/>
-                                                        <constraint firstItem="uCZ-5Y-clY" firstAttribute="leading" secondItem="Yf6-XR-QSE" secondAttribute="trailing" constant="21" id="c0c-23-6nm"/>
+                                                        <constraint firstItem="uCZ-5Y-clY" firstAttribute="leading" secondItem="Yf6-XR-QSE" secondAttribute="trailing" constant="15" id="c0c-23-6nm"/>
                                                         <constraint firstItem="hya-k2-76y" firstAttribute="leading" secondItem="hbg-FS-FZs" secondAttribute="trailing" constant="13" id="crI-Kn-WN9"/>
                                                         <constraint firstItem="w22-er-St1" firstAttribute="leading" secondItem="ZIR-vT-tEb" secondAttribute="leading" constant="16" id="d1d-hC-fbj"/>
                                                         <constraint firstItem="hya-k2-76y" firstAttribute="centerY" secondItem="hbg-FS-FZs" secondAttribute="centerY" id="eRz-lu-lOJ"/>
@@ -485,16 +486,16 @@
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="15"/>
+                                                            <real key="value" value="10"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ZIR-vT-tEb" firstAttribute="top" secondItem="2sh-qc-IDV" secondAttribute="top" constant="8" id="5T8-oA-9ZN"/>
-                                                <constraint firstItem="ZIR-vT-tEb" firstAttribute="leading" secondItem="2sh-qc-IDV" secondAttribute="leading" constant="8" id="HUF-21-Afb"/>
-                                                <constraint firstAttribute="bottom" secondItem="ZIR-vT-tEb" secondAttribute="bottom" constant="8" id="ON8-CO-6ur"/>
-                                                <constraint firstAttribute="trailing" secondItem="ZIR-vT-tEb" secondAttribute="trailing" constant="8" id="hAH-Sc-jCS"/>
+                                                <constraint firstItem="ZIR-vT-tEb" firstAttribute="top" secondItem="2sh-qc-IDV" secondAttribute="top" constant="4" id="5T8-oA-9ZN"/>
+                                                <constraint firstItem="ZIR-vT-tEb" firstAttribute="leading" secondItem="2sh-qc-IDV" secondAttribute="leading" constant="4" id="HUF-21-Afb"/>
+                                                <constraint firstAttribute="bottom" secondItem="ZIR-vT-tEb" secondAttribute="bottom" constant="4" id="ON8-CO-6ur"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZIR-vT-tEb" secondAttribute="trailing" constant="4" id="hAH-Sc-jCS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>

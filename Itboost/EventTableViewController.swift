@@ -105,7 +105,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         // Calculate height of description lable
         
         let title:NSString = textToShow
-        let commentHeight = title.heightForText(title, viewWidth: (self.view.frame.width - 125), device: nil)
+        let commentHeight = title.heightForText(title, viewWidth: (self.view.frame.width - 125), offset:5.0, device: nil)
         let height = commentHeight + 8 * 2
         
         eventCell.logoImage.image = pictureList[0]
@@ -128,7 +128,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let title:NSString = textToShow
         
-        let commentHeight = title.heightForText(title, viewWidth: (self.view.frame.width - 125), device: nil)
+        let commentHeight = title.heightForText(title, viewWidth: (self.view.frame.width - 125), offset:5.0, device: nil)
         let height = commentHeight + 8 * 2
         
         guard height > 91.0 else { return 91.0 }

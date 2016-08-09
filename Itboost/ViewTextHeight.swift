@@ -11,9 +11,7 @@ import UIKit
 
 extension NSString {
     
-    func heightForText(text:NSString, viewWidth:CGFloat, device:String?) -> CGFloat {
-        
-        let offset:CGFloat = 5.0
+    func heightForText(text:NSString, viewWidth:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
         
         var font = UIFont.systemFontOfSize(15.0)
         

@@ -58,7 +58,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             if isDescriptionOpen {
             
                 let detailDescription:NSString = community.detailDescription!
-                let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), device: nil)
+                let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
             
                 eventCell.heightViewDescription.constant = detailHeight
                 eventCell.descriptionLabel.text = detailDescription as String
@@ -87,7 +87,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             if isDescriptionOpen {
             
                 let detailDescription:NSString = community.detailDescription!
-                let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), device: nil)
+                let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
                 return 280.0 + detailHeight
             
             } else {
@@ -121,7 +121,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             isDescriptionOpen = true
             
             let detailDescription:NSString = community.detailDescription!
-            let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), device: nil)
+            let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
             
             eventCell.heightViewDescription.constant = detailHeight
             eventCell.descriptionLabel.text = community.detailDescription

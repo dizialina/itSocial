@@ -97,7 +97,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
         
         let title:NSString = textToShow
         
-        let commentHeight = title.heightForText(title, viewWidth: cellWidth, device: nil)
+        let commentHeight = title.heightForText(title, viewWidth: cellWidth,  offset:5.0, device: nil)
         let height = commentHeight + 4 * 2
         
         eventCell.titleLabel.text = title as String
@@ -142,7 +142,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
         let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
         
         let text:NSString = textToShow
-        let commentHeight = text.heightForText(text, viewWidth: width, device: nil)
+        let commentHeight = text.heightForText(text, viewWidth: width, offset:5.0, device: nil)
         let height = commentHeight + annotationPadding * 2
         
         return height
