@@ -61,6 +61,7 @@ class ServerManager {
         
         let params:NSDictionary = ["_username": userInfo["username"]!,
                                    "_password": userInfo["password"]!]
+        print(params)
         
         sessionManager.POST("login_check", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)

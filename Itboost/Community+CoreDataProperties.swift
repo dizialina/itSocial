@@ -15,6 +15,7 @@ import CoreData
 extension Community {
 
     @NSManaged var communityID: NSDecimalNumber
+    @NSManaged var threadID: NSDecimalNumber
     @NSManaged var name: String
     @NSManaged var detailDescription: String?
     @NSManaged var createdAt: NSDate?

@@ -21,6 +21,7 @@
 		84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FFC1D57BAFD0003E1BA /* LoginViewController.swift */; };
 		84A21FFF1D57BB0E0003E1BA /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FFE1D57BB0E0003E1BA /* RegistrationViewController.swift */; };
 		84A220041D57BE6B0003E1BA /* ReusableMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A220031D57BE6B0003E1BA /* ReusableMethods.swift */; };
+		84A220071D5A3D3D0003E1BA /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A220061D5A3D3D0003E1BA /* ViewExtension.swift */; };
 		84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DD01D3E735B00F09B14 /* AppDelegate.swift */; };
 		84A43DD61D3E735B00F09B14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A43DD41D3E735B00F09B14 /* Main.storyboard */; };
 		84A43DD91D3E735B00F09B14 /* Itboost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DD71D3E735B00F09B14 /* Itboost.xcdatamodeld */; };
@@ -53,6 +54,7 @@
 		84A21FFC1D57BAFD0003E1BA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		84A21FFE1D57BB0E0003E1BA /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		84A220031D57BE6B0003E1BA /* ReusableMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableMethods.swift; sourceTree = "<group>"; };
+		84A220061D5A3D3D0003E1BA /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		84A43DCD1D3E735B00F09B14 /* Itboost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itboost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A43DD01D3E735B00F09B14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84A43DD51D3E735B00F09B14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				84A43DF01D3E831900F09B14 /* CollectionCellExtension.swift */,
+				84A220061D5A3D3D0003E1BA /* ViewExtension.swift */,
 				84A43DF71D3E98A700F09B14 /* ViewTextHeight.swift */,
 			);
 			name = Extensions;
@@ -336,6 +339,7 @@
 				84A43DF81D3E98A700F09B14 /* ViewTextHeight.swift in Sources */,
 				84A43DF11D3E831900F09B14 /* CollectionCellExtension.swift in Sources */,
 				84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */,
+				84A220071D5A3D3D0003E1BA /* ViewExtension.swift in Sources */,
 				84A21FFF1D57BB0E0003E1BA /* RegistrationViewController.swift in Sources */,
 				842A132D1D50D37400AD2673 /* Community.swift in Sources */,
 				84A43DF61D3E937000F09B14 /* EventCellLayout.swift in Sources */,

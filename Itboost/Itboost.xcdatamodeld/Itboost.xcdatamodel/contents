@@ -6,6 +6,7 @@
         <attribute name="detailDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="threadID" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="createdBy" maxCount="1" deletionRule="Cascade" destinationEntity="User" inverseName="createdCommunity" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName=".User" syncable="YES">
@@ -20,7 +21,7 @@
         <relationship name="createdCommunity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Community" inverseName="createdBy" inverseEntity="Community" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Community" positionX="-3935" positionY="-432" width="128" height="133"/>
+        <element name="Community" positionX="-3935" positionY="-432" width="128" height="148"/>
         <element name="User" positionX="-3708" positionY="-477" width="128" height="178"/>
     </elements>
 </model>

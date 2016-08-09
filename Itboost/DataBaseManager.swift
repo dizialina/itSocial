@@ -40,6 +40,9 @@ class DataBaseManager {
                 communities[communityIDInt!] = currentCommunity
                 newID.append(communityIDInt!)
                 
+                let threadIDInt = communityDictionary["thread_id"] as? Int
+                currentCommunity.threadID = NSDecimalNumber(integer: threadIDInt!)
+                
                 let creator = communityDictionary["created_by"] as? [String:AnyObject]
                 let currentCreator = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: self.managedObjectContext) as! User
                 
