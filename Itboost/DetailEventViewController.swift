@@ -17,6 +17,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     var communityObject: NSManagedObject!
     var isDescriptionOpen = false
     var newPostText = String()
+    var wallPostsArray = [WallPost]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +29,27 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        getEventWallPosts()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: Get data methods
+    
+    func getEventWallPosts() {
+        
+        let community = communityObject as! Community
+        let wallThreadID = Int(community.threadID.intValue)
+        
+        ServerManager().getEventWallPosts(wallThreadID, success: { (response) in
+            self.wallPostsArray = ResponseParser().parseWallPost(response as! [AnyObject])
+            print(self.wallPostsArray)
+        }) { (error) in
+            print("Error receiving wall posts from event: " + error!.localizedDescription)
+        }
+        
     }
     
     // MARK: TableView DataSource and Delegate

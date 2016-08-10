@@ -685,7 +685,7 @@
                                             <outlet property="sendButton" destination="hVd-9a-wy6" id="zaR-83-SPj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="rj0-bQ-lBy">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WallPostCell" rowHeight="125" id="rj0-bQ-lBy" customClass="WallPostCell" customModule="Itboost" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="432" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rj0-bQ-lBy" id="4cE-Rk-B2s">
@@ -782,6 +782,14 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="commentsButton" destination="vQt-Rq-Skp" id="gXt-Rc-gW1"/>
+                                            <outlet property="commentsCountLabel" destination="23m-t6-pYH" id="a4P-5D-PUA"/>
+                                            <outlet property="heightBodyView" destination="82B-Tn-VbE" id="ytX-oZ-eU6"/>
+                                            <outlet property="postBodyLabel" destination="kUp-z7-3zG" id="yiO-4Z-2Q6"/>
+                                            <outlet property="postDateLabel" destination="bV7-nX-YMw" id="FfP-sy-bcG"/>
+                                            <outlet property="postTitleLabel" destination="o3D-0Z-sbp" id="HTN-Sy-LLM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
