@@ -11,7 +11,6 @@ import UIKit
 
 class AddPostToEventCell: UITableViewCell {
     
-    @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     
 }

@@ -77,8 +77,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             addPostCell.sendButton.addTarget(self, action: #selector(DetailEventViewController.sendPostToEvent), forControlEvents: UIControlEvents.TouchUpInside)
             
-            addPostCell.textField.delegate = self
-            
         }
         
         return cell
@@ -108,15 +106,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             return 60.0
         } else {
             return 280.0
-        }
-        
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if (segue.identifier == "openMail") {
-            //let viewController = segue.destinationViewController as! AnswerTaskViewController
-            //let indexPath = tableView.indexPathForSelectedRow
         }
         
     }
@@ -187,13 +176,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func sendPostToEvent() {
-        
-        //let addPostCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! AddPostToEventCell
-        //let postBody = addPostCell.textField.text
-        
-        if newPostText.characters.count > 0 {
-            print(newPostText)
-        }
+        self.performSegueWithIdentifier("addPostToWall", sender: nil)
     }
     
     // MARK: Helping methods
@@ -203,6 +186,18 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy 'в' HH:mm"
         return dateFormatter.stringFromDate(date)
+    }
+    
+    // MARK: Seque
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "addPostToWall") {
+            let viewController = segue.destinationViewController as! NewPostViewController
+            let community = communityObject as! Community
+            viewController.wallThreadID = Int(community.threadID.intValue)
+        }
+        
     }
     
 }

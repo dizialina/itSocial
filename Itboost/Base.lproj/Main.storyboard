@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--События-->
@@ -303,6 +304,125 @@
             </objects>
             <point key="canvasLocation" x="2253" y="-299"/>
         </scene>
+        <!--New Post View Controller-->
+        <scene sceneID="Jav-go-qOa">
+            <objects>
+                <viewController id="Kz5-bI-v5c" customClass="NewPostViewController" customModule="Itboost" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qs1-Wf-sH1"/>
+                        <viewControllerLayoutGuide type="bottom" id="geG-y5-Vw7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YBD-vn-B3Z">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название записи" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ph3-b2-REo">
+                                <rect key="frame" x="20" y="82" width="560" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="EWk-c2-MDT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Что бы вы хотели опубликовать?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zf-nf-gjK">
+                                <rect key="frame" x="20" y="166" width="560" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="BSd-X9-pd7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите название записи" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hx9-DR-TEI">
+                                <rect key="frame" x="20" y="117" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Iqj-vj-WYm"/>
+                                </constraints>
+                                <color key="textColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="Kz5-bI-v5c" id="TyB-E5-I7k"/>
+                                </connections>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="L13-ho-DuI">
+                                <rect key="frame" x="20" y="211" width="560" height="286"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="Kz5-bI-v5c" id="eSq-0x-0fd"/>
+                                </connections>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdZ-1h-Tbg">
+                                <rect key="frame" x="210" y="505" width="180" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="V8v-g8-yG6"/>
+                                    <constraint firstAttribute="height" constant="38" id="f26-lp-lrD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Отправить">
+                                    <color key="titleColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendPost:" destination="Kz5-bI-v5c" eventType="touchUpInside" id="Gax-ge-ZM3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="geG-y5-Vw7" firstAttribute="top" secondItem="wdZ-1h-Tbg" secondAttribute="bottom" constant="8" id="2LG-k2-VMP"/>
+                            <constraint firstItem="L13-ho-DuI" firstAttribute="leading" secondItem="YBD-vn-B3Z" secondAttribute="leading" constant="20" id="2WP-KD-VsI"/>
+                            <constraint firstItem="3zf-nf-gjK" firstAttribute="trailing" secondItem="YBD-vn-B3Z" secondAttribute="trailingMargin" id="3Fb-YV-uYR"/>
+                            <constraint firstItem="hx9-DR-TEI" firstAttribute="top" secondItem="Ph3-b2-REo" secondAttribute="bottom" constant="8" id="4r3-F2-mWq"/>
+                            <constraint firstItem="Ph3-b2-REo" firstAttribute="leading" secondItem="YBD-vn-B3Z" secondAttribute="leading" constant="20" id="HA7-85-ahh"/>
+                            <constraint firstItem="3zf-nf-gjK" firstAttribute="top" secondItem="hx9-DR-TEI" secondAttribute="bottom" constant="19" id="OCg-og-pyu"/>
+                            <constraint firstItem="Ph3-b2-REo" firstAttribute="top" secondItem="qs1-Wf-sH1" secondAttribute="bottom" constant="18" id="Qna-wY-0kR"/>
+                            <constraint firstItem="wdZ-1h-Tbg" firstAttribute="top" secondItem="L13-ho-DuI" secondAttribute="bottom" constant="8" id="VNw-HY-HJm"/>
+                            <constraint firstAttribute="trailing" secondItem="Ph3-b2-REo" secondAttribute="trailing" constant="20" id="a4d-1U-hGh"/>
+                            <constraint firstItem="hx9-DR-TEI" firstAttribute="leading" secondItem="YBD-vn-B3Z" secondAttribute="leading" constant="20" id="cNS-z2-rKk"/>
+                            <constraint firstAttribute="trailing" secondItem="L13-ho-DuI" secondAttribute="trailing" constant="20" id="hCL-xx-Gbr"/>
+                            <constraint firstItem="L13-ho-DuI" firstAttribute="top" secondItem="3zf-nf-gjK" secondAttribute="bottom" constant="18" id="iih-jd-LtT"/>
+                            <constraint firstItem="wdZ-1h-Tbg" firstAttribute="centerX" secondItem="YBD-vn-B3Z" secondAttribute="centerX" id="loU-EE-9hE"/>
+                            <constraint firstAttribute="trailing" secondItem="hx9-DR-TEI" secondAttribute="trailing" constant="20" id="npT-hd-aUc"/>
+                            <constraint firstItem="3zf-nf-gjK" firstAttribute="leading" secondItem="YBD-vn-B3Z" secondAttribute="leadingMargin" id="tnq-P8-mDE"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="postBodyTextView" destination="L13-ho-DuI" id="e7D-5z-stI"/>
+                        <outlet property="titleField" destination="hx9-DR-TEI" id="FfH-oc-Xrh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hhn-5j-DTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3681" y="-299"/>
+        </scene>
         <!--Detail Event View Controller-->
         <scene sceneID="fjG-UB-HfG">
             <objects>
@@ -528,35 +648,23 @@
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-9a-wy6">
-                                                            <rect key="frame" x="499" y="13" width="85" height="30"/>
+                                                            <rect key="frame" x="38" y="13" width="270" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="Jod-Xl-kUl"/>
-                                                                <constraint firstAttribute="width" constant="85" id="p8E-rJ-AOo"/>
+                                                                <constraint firstAttribute="width" constant="270" id="r5Z-jk-Zmv"/>
+                                                                <constraint firstAttribute="height" constant="30" id="uga-57-mGd"/>
                                                             </constraints>
-                                                            <state key="normal" title="Отправить">
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <state key="normal" title="Добавить новую запись на стене">
                                                                 <color key="titleColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                         </button>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Новая запись" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qy9-aH-Zgs">
-                                                            <rect key="frame" x="46" y="11" width="445" height="35"/>
-                                                            <color key="tintColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="35" id="CQn-nf-1EU"/>
-                                                            </constraints>
-                                                            <color key="textColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
-                                                        </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="hVd-9a-wy6" secondAttribute="trailing" constant="8" id="7Co-Jh-5RW"/>
-                                                        <constraint firstItem="qy9-aH-Zgs" firstAttribute="centerY" secondItem="GMo-N2-ojY" secondAttribute="centerY" id="AY2-tl-UfG"/>
-                                                        <constraint firstItem="qy9-aH-Zgs" firstAttribute="leading" secondItem="nxV-L5-jRC" secondAttribute="trailing" constant="8" id="Bfn-d1-4vE"/>
+                                                        <constraint firstItem="hVd-9a-wy6" firstAttribute="centerY" secondItem="nxV-L5-jRC" secondAttribute="centerY" id="5Gi-7b-sJZ"/>
                                                         <constraint firstItem="nxV-L5-jRC" firstAttribute="leading" secondItem="GMo-N2-ojY" secondAttribute="leading" constant="8" id="IFe-zt-jEb"/>
-                                                        <constraint firstItem="hVd-9a-wy6" firstAttribute="centerY" secondItem="GMo-N2-ojY" secondAttribute="centerY" id="JRJ-QB-Gp6"/>
                                                         <constraint firstItem="nxV-L5-jRC" firstAttribute="centerY" secondItem="GMo-N2-ojY" secondAttribute="centerY" id="QA1-ps-yZW"/>
-                                                        <constraint firstItem="hVd-9a-wy6" firstAttribute="leading" secondItem="qy9-aH-Zgs" secondAttribute="trailing" constant="8" id="lC0-Va-G3i"/>
+                                                        <constraint firstItem="hVd-9a-wy6" firstAttribute="leading" secondItem="nxV-L5-jRC" secondAttribute="trailing" id="QpV-ba-S71"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -575,7 +683,6 @@
                                         <color key="backgroundColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="sendButton" destination="hVd-9a-wy6" id="zaR-83-SPj"/>
-                                            <outlet property="textField" destination="qy9-aH-Zgs" id="FYV-G8-r0l"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -597,11 +704,12 @@
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
                         <outlet property="tableView" destination="hD1-ox-DDz" id="f7O-7Q-d9a"/>
+                        <segue destination="Kz5-bI-v5c" kind="show" identifier="addPostToWall" id="Wdk-kJ-nuw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tyh-7V-1X0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2953" y="-299"/>
+            <point key="canvasLocation" x="2965" y="-399"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="ljA-A8-uuA">
