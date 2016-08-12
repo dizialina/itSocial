@@ -132,6 +132,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             let postBodyText:NSString = wallPost.postBody
             wallPostCell.postBodyLabel.text = postBodyText as String
             
+            let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            wallPostCell.heightBodyView.constant = bodyHeight
+            
         }
         
         return cell
@@ -160,7 +163,16 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         } else if indexPath.row == 1 {
             return 60.0
         } else {
-            return 125.0
+            
+            let wallPost = wallPostsArray[indexPath.row - 2]
+            
+            let postBodyText:NSString = wallPost.postBody
+            let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            
+            guard bodyHeight > 30 else { return 125.0 }
+            
+            let deltaHeight =  bodyHeight - 30
+            return 125.0 + deltaHeight
         }
         
     }
