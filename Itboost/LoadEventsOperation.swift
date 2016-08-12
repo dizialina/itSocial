@@ -40,7 +40,7 @@ class LoadEventsOperation: NSOperation {
     func createOperationForLoadTask(linkToLoad:String, queue:NSOperationQueue) {
         let serverManager = ServerManager()
         
-        serverManager.getOnePageCommunityFromServer(linkToLoad, operationQueue: queue, success: { (response) in
+        serverManager.getOnePageCommunityFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
             
             let communitiesArray = response as! [AnyObject]
             
@@ -48,9 +48,9 @@ class LoadEventsOperation: NSOperation {
             if countOfCommunitiesPerOnePage == 10 {
                 
                 DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:false)
-                
-                //let lastID = 0
-                let newLoadEventsOperataion = LoadEventsOperation(linkToData: "", queue: self.dispatchQueue)
+                let nextPage = currentPage + 1
+                let newLinkToData = self.linkToRequestData + "?page=\(nextPage)"
+                let newLoadEventsOperataion = LoadEventsOperation(linkToData: newLinkToData, queue: self.dispatchQueue)
                 self.dispatchQueue.addOperation(newLoadEventsOperataion)
                 
             } else {

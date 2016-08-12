@@ -55,21 +55,24 @@ class ServerManager: NSObject {
         
     }
     
-    func getOnePageCommunityFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getOnePageCommunityFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!, currentPage:Int) -> Void, failure: (error: NSError?) -> Void) {
         
         let manager = AFHTTPRequestOperationManager()
-        manager.requestSerializer.setValue("application/json; charset=UTF-8", forHTTPHeaderField:"Content-Type")
+        //manager.requestSerializer.setValue("application/json; charset=UTF-8", forHTTPHeaderField:"Content-Type")
         manager.operationQueue = operationQueue
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        //manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         
         manager.GET(sourceURL, parameters: nil, success: { (operation, responce) in
             if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
-                print(response)
-                //                if let results = response["response"] {
-                //                    DataBaseManager().writeAllCommunities(results as! [AnyObject])
-                //                } else {
-                //                    print("Reques tasks from server = nil")
-                //                }
+                //print(response)
+                if let results = response["response"] {
+                    if let communitiesArray = results["items"] as? [AnyObject] {
+                        let currentPage = results["current_page_number"] as! Int
+                        success(response: communitiesArray, currentPage: currentPage)
+                    } else {
+                        print("Response of community page has 0 items")
+                    }
+                }
             }
         }) { (operation, error) in
             print("Error loading one page community with url \(sourceURL): " + error.localizedDescription)
