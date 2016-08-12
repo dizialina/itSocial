@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03ABF4E81D5CD8220053FAD9 /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4E71D5CD8220053FAD9 /* DownloadTask.swift */; };
 		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
 		03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
@@ -48,7 +47,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03ABF4E71D5CD8220053FAD9 /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
 		03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadEventsOperation.swift; sourceTree = "<group>"; };
 		03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPaginaionManager.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
@@ -225,7 +223,6 @@
 		84A43DF21D3E835B00F09B14 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				03ABF4E71D5CD8220053FAD9 /* DownloadTask.swift */,
 				03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */,
 				84A220061D5A3D3D0003E1BA /* ViewExtension.swift */,
 				84A43DF71D3E98A700F09B14 /* ViewTextHeight.swift */,
@@ -396,7 +393,6 @@
 				84023D091D5B3EFF005DD716 /* ResponseParses.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,
-				03ABF4E81D5CD8220053FAD9 /* DownloadTask.swift in Sources */,
 				842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */,
 				842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */,
 				03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */,
