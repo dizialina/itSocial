@@ -35,7 +35,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.navigationItem.title = "События"
         
-        pictureList = [UIImage(named:"PhotoExample1")!]
+        pictureList = [UIImage(named:"AppleLogo")!]
     }
     
     override func viewWillAppear(animated: Bool) {

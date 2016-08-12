@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
 		03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */; };
+		03ABF5271D5E22130053FAD9 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5261D5E22130053FAD9 /* CommentCell.swift */; };
+		03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */; };
+		03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF52A1D5E28670053FAD9 /* PostComment.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
 		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D041D5B2CA1005DD716 /* NewPostViewController.swift */; };
@@ -49,6 +52,9 @@
 /* Begin PBXFileReference section */
 		03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadEventsOperation.swift; sourceTree = "<group>"; };
 		03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPaginaionManager.swift; sourceTree = "<group>"; };
+		03ABF5261D5E22130053FAD9 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		03ABF52A1D5E28670053FAD9 /* PostComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
@@ -123,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				84023D0A1D5B3F86005DD716 /* WallPost.swift */,
+				03ABF52A1D5E28670053FAD9 /* PostComment.swift */,
 			);
 			name = "Simple Models";
 			sourceTree = "<group>";
@@ -215,6 +222,7 @@
 				84A220081D5A52B30003E1BA /* DetailEventCell.swift */,
 				84023D061D5B3B4E005DD716 /* WallPostCell.swift */,
 				842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */,
+				03ABF5261D5E22130053FAD9 /* CommentCell.swift */,
 				84A43DED1D3E828A00F09B14 /* EventCollectionCell.swift */,
 			);
 			name = Cells;
@@ -236,6 +244,7 @@
 				84A220001D57BB1C0003E1BA /* Login/Registration */,
 				84A43DE51D3E767300F09B14 /* EventCollectionViewController.swift */,
 				84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */,
+				03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */,
 				84023D041D5B2CA1005DD716 /* NewPostViewController.swift */,
 				84A2200A1D5A577F0003E1BA /* DetailEventViewController.swift */,
 				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
@@ -377,6 +386,7 @@
 				842A132D1D50D37400AD2673 /* Community.swift in Sources */,
 				84023D0B1D5B3F86005DD716 /* WallPost.swift in Sources */,
 				84A43DF61D3E937000F09B14 /* EventCellLayout.swift in Sources */,
+				03ABF5271D5E22130053FAD9 /* CommentCell.swift in Sources */,
 				842A132C1D50D37400AD2673 /* Community+CoreDataProperties.swift in Sources */,
 				84023D071D5B3B4E005DD716 /* WallPostCell.swift in Sources */,
 				842A132B1D50D37400AD2673 /* User.swift in Sources */,
@@ -384,12 +394,14 @@
 				84A43DE81D3E768900F09B14 /* ProfileViewController.swift in Sources */,
 				84A2200B1D5A577F0003E1BA /* DetailEventViewController.swift in Sources */,
 				84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */,
+				03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
 				84A43DEC1D3E76AE00F09B14 /* TabBarViewController.swift in Sources */,
 				84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */,
 				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
 				84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */,
 				84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */,
+				03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */,
 				84023D091D5B3EFF005DD716 /* ResponseParses.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,

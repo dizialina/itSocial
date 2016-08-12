@@ -8,11 +8,12 @@
 
 import Foundation
 
-class WallPost {
+class WallPost: NSObject {
     
     var postTitle = ""
     var postBody = ""
     var authorUsername = ""
+    var commentsArray = [AnyObject]()
     var commentsCount = 0
     var postID = Int()
     var postedAt = NSDate()

@@ -73,8 +73,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
-        
         if indexPath.row == 0 {
         
             let eventCell = tableView.dequeueReusableCellWithIdentifier("DetailEventCell", forIndexPath: indexPath) as! DetailEventCell
@@ -114,6 +112,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             addPostCell.sendButton.addTarget(self, action: #selector(DetailEventViewController.sendPostToEvent), forControlEvents: UIControlEvents.TouchUpInside)
             
+            return addPostCell
+            
         } else {
             
             let wallPostCell = tableView.dequeueReusableCellWithIdentifier("WallPostCell", forIndexPath: indexPath) as! WallPostCell
@@ -129,15 +129,19 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             wallPostCell.postDateLabel.text = convertDateToText(wallPost.postedAt)
             wallPostCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
+            wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            wallPostCell.commentsButton.tag = wallPost.postID
+            
             let postBodyText:NSString = wallPost.postBody
             wallPostCell.postBodyLabel.text = postBodyText as String
             
             let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             wallPostCell.heightBodyView.constant = bodyHeight
             
+            return wallPostCell
+            
         }
         
-        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -281,8 +285,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.endUpdates()
         
         CATransaction.commit()
-        
-        
+    }
+    
+    func openPostComments(sender: UIButton) {
+        self.performSegueWithIdentifier("showPostComments", sender: sender.tag)
     }
     
     func sendPostToEvent() {
@@ -306,6 +312,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             let viewController = segue.destinationViewController as! NewPostViewController
             let community = communityObject as! Community
             viewController.wallThreadID = Int(community.threadID.intValue)
+            
+        } else if (segue.identifier == "showPostComments") {
+            let viewController = segue.destinationViewController as! CommentsViewController
+            viewController.postID = sender as! Int
         }
         
     }

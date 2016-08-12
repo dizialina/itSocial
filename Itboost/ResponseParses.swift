@@ -33,6 +33,7 @@ class ResponseParser {
                 
                 let comments = currentWallPost["comments"] as! [AnyObject]
                 if comments.count > 0 {
+                    newPost.commentsArray = comments
                     newPost.commentsCount = comments.count
                 }
                 
@@ -52,6 +53,38 @@ class ResponseParser {
         }
         
         return postsArray
+    }
+    
+    func parsePostComments(response: [AnyObject]) -> [PostComment] {
+        
+        var commentsArray = [PostComment]()
+        
+        if response.count > 0 {
+            
+            for postComment in response {
+                
+                let currentPostComment = postComment as! [String:AnyObject]
+                let newComment = PostComment()
+                
+                newComment.commentBody = currentPostComment["body"] as! String
+                newComment.commentID = currentPostComment["id"] as! Int
+                
+                let postedAtString = currentPostComment["posted_at"] as! String
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                newComment.postedAt = dateFormatter.dateFromString(postedAtString)!
+                
+                let author = currentPostComment["author"] as! [String:AnyObject]
+                if let authorUsername = author["username"] {
+                    newComment.authorUsername = authorUsername as! String
+                }
+                
+                commentsArray.append(newComment)
+            }
+            
+        }
+        
+        return commentsArray
     }
     
 }

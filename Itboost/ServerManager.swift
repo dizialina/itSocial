@@ -198,15 +198,39 @@ class ServerManager: NSObject {
                 print("Response with posts is empty")
                 success(response: [])
             }
-            })
+        })
         { (task:NSURLSessionDataTask?, error:NSError) in
             print("Error receiving wall posts from event: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }
-        
-        
     }
+    
+    func getPostComments(postID: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["post_id": postID]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.GET("wall.getPost", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    success(response: results)
+                }
+            } else {
+                print("Response with current post is empty")
+            }
+        })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error receiving current post from event: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+
 
 }
 
