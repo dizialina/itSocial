@@ -13,16 +13,28 @@ import CoreData
 class DetailEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var viewMore: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var refreshControl:UIRefreshControl!
     
     var communityObject: NSManagedObject!
     var isDescriptionOpen = false
     var newPostText = String()
     var wallPostsArray = [WallPost]()
+    var loadMoreStatus = false
+    var currentPostsPage = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "Событие"
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.clearColor()
+        tableView.addSubview(refreshControl)
+        self.tableView.tableFooterView = viewMore
+        self.tableView.tableFooterView!.hidden = true
         
     }
     
@@ -43,7 +55,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         let community = communityObject as! Community
         let wallThreadID = Int(community.threadID.intValue)
         
-        ServerManager().getEventWallPosts(wallThreadID, success: { (response) in
+        ServerManager().getEventWallPosts(wallThreadID, currentPage: currentPostsPage, success: { (response) in
             self.wallPostsArray = ResponseParser().parseWallPost(response as! [AnyObject])
             self.tableView.reloadData()
         }) { (error) in
@@ -150,6 +162,46 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             return 280.0
         }
         
+    }
+    
+    // MARK: Refreshing Table
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        
+        if deltaOffset <= 0 {
+            loadMore()
+        }
+    }
+    
+    func loadMore() {
+        if !loadMoreStatus {
+            self.loadMoreStatus = true
+            self.activityIndicator.startAnimating()
+            self.tableView.tableFooterView!.hidden = false
+            loadMoreBegin("Load more",
+                          loadMoreEnd: {(x:Int) -> () in
+                            self.tableView.reloadData()
+                            self.loadMoreStatus = false
+                            self.activityIndicator.stopAnimating()
+                            self.tableView.tableFooterView!.hidden = true
+            })
+        }
+    }
+    
+    func loadMoreBegin(newtext:String, loadMoreEnd:(Int) -> ()) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            print("loadmore")
+            //self.text = newtext
+            //self.countRow += 20
+            sleep(2)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                loadMoreEnd(0)
+            }
+        }
     }
     
     // MARK: TextField Delegate

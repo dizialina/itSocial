@@ -438,6 +438,32 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="280" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hD1-ox-DDz">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="XPm-JM-jYq">
+                                    <rect key="frame" x="0.0" y="557" width="600" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Wtd-0Q-IMi">
+                                            <rect key="frame" x="246" y="9" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lnz-hT-B5R">
+                                            <rect key="frame" x="274" y="9" width="80" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="CWD-VM-D4O"/>
+                                                <constraint firstAttribute="width" constant="80" id="Xgh-VS-qzV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="Lnz-hT-B5R" firstAttribute="centerY" secondItem="Wtd-0Q-IMi" secondAttribute="centerY" id="FeL-cc-BQm"/>
+                                        <constraint firstItem="Wtd-0Q-IMi" firstAttribute="centerY" secondItem="XPm-JM-jYq" secondAttribute="centerY" id="PgC-xy-iVi"/>
+                                        <constraint firstItem="Wtd-0Q-IMi" firstAttribute="centerX" secondItem="XPm-JM-jYq" secondAttribute="centerX" constant="-44" id="Xx4-am-01K"/>
+                                        <constraint firstItem="Lnz-hT-B5R" firstAttribute="leading" secondItem="Wtd-0Q-IMi" secondAttribute="trailing" constant="8" id="j7I-1R-rlY"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailEventCell" rowHeight="280" id="BM3-wb-FYP" customClass="DetailEventCell" customModule="Itboost" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="280"/>
@@ -809,7 +835,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Wtd-0Q-IMi" id="aRr-Kl-l9G"/>
                         <outlet property="tableView" destination="hD1-ox-DDz" id="f7O-7Q-d9a"/>
+                        <outlet property="viewMore" destination="XPm-JM-jYq" id="Een-CP-z4h"/>
                         <segue destination="Kz5-bI-v5c" kind="show" identifier="addPostToWall" id="Wdk-kJ-nuw"/>
                     </connections>
                 </viewController>

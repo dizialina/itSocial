@@ -177,19 +177,22 @@ class ServerManager: NSObject {
         
     }
     
-    func getEventWallPosts(threadID: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getEventWallPosts(threadID: Int, currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
-        let params:NSDictionary = ["thread_id": threadID]
+        let params:NSDictionary = ["thread_id": threadID,
+                                   "page": currentPage]
         
         if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
         sessionManager.GET("wall.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            //print(responseObject)
+            print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
-                if let results = response["response"] as? [AnyObject] {
-                    success(response: results)
+                if let results = response["response"] as? [String:AnyObject] {
+                    if let postsArray = results["items"] as? [AnyObject] {
+                        success(response: postsArray)
+                    }
                 }
             } else {
                 print("Response with posts is empty")

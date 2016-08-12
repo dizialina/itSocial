@@ -110,7 +110,7 @@ class RegistrationViewController: UIViewController {
             
             //ServerManager.sharedInstance.getTaskListFromServer(true)
             
-            self.presentingViewController?.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)

@@ -62,6 +62,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         communityList.removeAll()
         
         let fetchRequest = NSFetchRequest(entityName: "Community")
+        fetchRequest.fetchBatchSize = 15
         let sortDescriptor = NSSortDescriptor(key: "eventDate", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
