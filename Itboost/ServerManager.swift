@@ -231,6 +231,36 @@ class ServerManager: NSObject {
         }
     }
 
+    func postComment(postID: Int, commentText: String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["post_id": postID,
+                                   "body": commentText]
+        print(params)
+        
+        sessionManager.requestSerializer = AFJSONRequestSerializer()
+        sessionManager.responseSerializer = AFJSONResponseSerializer()
+        sessionManager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        //sessionManager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.POST("wall.addComment", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    success(response: results)
+                }
+            } else {
+                print("Response sending comment is empty")
+            }
+        })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error sending comment to post: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
 
 }
 

@@ -13,6 +13,7 @@ import CoreData
 class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var newCommentField: UITextField!
     
     var postID = Int()
     var currentPost = WallPost()
@@ -140,13 +141,25 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        tableView.reloadData()
         return true
     }
     
     // MARK: Actions
     
-    
+    @IBAction func sendComment(sender: AnyObject) {
+        
+        if newCommentField.text!.characters.count > 0 {
+            
+            ServerManager().postComment(postID, commentText: newCommentField.text!, success: { (response) in
+                self.newCommentField.text = ""
+                self.getPostComments()
+            }, failure: { (error) in
+                print("Error sending comment to post: " + error!.localizedDescription)
+            })
+            
+        }
+        
+    }
     
     // MARK: Helping methods
     
