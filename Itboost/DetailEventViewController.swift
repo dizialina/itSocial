@@ -41,6 +41,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        currentPostsPage = 1
+        wallPostsArray.removeAll()
+        tableView.reloadData()
         getEventWallPosts()
     }
     
@@ -156,7 +159,11 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
             if isDescriptionOpen {
             
-                let detailDescription:NSString = community.detailDescription!
+                var detailDescription:NSString = ""
+                if community.detailDescription != nil {
+                    detailDescription = community.detailDescription!
+                }
+                
                 let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
                 return 280.0 + detailHeight
             
@@ -257,7 +264,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         if !isDescriptionOpen {
             isDescriptionOpen = true
             
-            let detailDescription:NSString = community.detailDescription!
+            var detailDescription:NSString = ""
+            if community.detailDescription != nil {
+                detailDescription = community.detailDescription!
+            }
             let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
             
             eventCell.heightViewDescription.constant = detailHeight
