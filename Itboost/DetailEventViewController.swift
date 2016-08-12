@@ -69,7 +69,13 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             let community = communityObject as! Community
         
             eventCell.eventTitle.text = community.name
-            eventCell.dateLabel.text = "Состоится: \(convertDateToText(community.eventDate!))"
+            
+            var eventDate = "no date"
+            if community.eventDate != nil {
+                eventDate = convertDateToText(community.eventDate!)
+            }
+            eventCell.dateLabel.text = "Состоится: \(eventDate)"
+            
             eventCell.creatorLabel.text = "Организатор: \(community.createdBy.userName)"
             
             eventCell.detailButton.addTarget(self, action: #selector(DetailEventViewController.openDetailDescription), forControlEvents: UIControlEvents.TouchUpInside)

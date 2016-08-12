@@ -42,7 +42,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func cancelLogin(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func showAlertWithHandler() {

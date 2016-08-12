@@ -14,8 +14,9 @@ class EnterScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.hidden = true
+        
         if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) != nil) {
-            //performSegueWithIdentifier("passEnterScreen", sender: nil)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }

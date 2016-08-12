@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
         if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) == nil) {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewControllerWithIdentifier("EnterScreenViewController") as! EnterScreenViewController
+            let viewController = storyboard.instantiateViewControllerWithIdentifier("NavigationEnterScreen") as! UINavigationController
             self.presentViewController(viewController, animated: true, completion: nil)
         }
     }

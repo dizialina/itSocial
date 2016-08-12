@@ -29,11 +29,12 @@ class DataBaseManager: NSObject {
                 currentCommunity.detailDescription = communityDictionary["description"] as? String
                 
                 let createdAtString = communityDictionary["created_at"] as? String
-                let eventDateString = communityDictionary["event_date"] as? String
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                 currentCommunity.createdAt = dateFormatter.dateFromString(createdAtString!)
-                currentCommunity.eventDate = dateFormatter.dateFromString(eventDateString!)
+                if let eventDateString = communityDictionary["event_date"] as? String {
+                    currentCommunity.eventDate = dateFormatter.dateFromString(eventDateString)
+                }
                 
                 let communityIDInt = communityDictionary["id"] as? Int
                 currentCommunity.communityID = NSDecimalNumber(integer: communityIDInt!)

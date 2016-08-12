@@ -25,7 +25,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         if NSUserDefaults.standardUserDefaults().boolForKey(Constants.kAlreadyRun) {
             if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) == nil) {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = storyboard.instantiateViewControllerWithIdentifier("EnterScreenViewController") as! EnterScreenViewController
+                let viewController = storyboard.instantiateViewControllerWithIdentifier("NavigationEnterScreen") as! UINavigationController
                 self.presentViewController(viewController, animated: true, completion: nil)
             }
             NSUserDefaults.standardUserDefaults().setBool(false,forKey:Constants.kAlreadyRun)
@@ -91,7 +91,10 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let community = communityList[indexPath.item]
         
-        let eventDate = convertDateToText(community.eventDate!)
+        var eventDate = "no date"
+        if community.eventDate != nil {
+            eventDate = convertDateToText(community.eventDate!)
+        }
         let textToShow = "\(community.name) \n\nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
         
         // Make event title bold
@@ -124,7 +127,10 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let community = communityList[indexPath.item]
         
-        let eventDate = convertDateToText(community.eventDate!)
+        var eventDate = "no date"
+        if community.eventDate != nil {
+            eventDate = convertDateToText(community.eventDate!)
+        }
         let textToShow = "\(community.name) \n\nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
         
         let title:NSString = textToShow

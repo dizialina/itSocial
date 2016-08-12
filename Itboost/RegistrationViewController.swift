@@ -100,7 +100,7 @@ class RegistrationViewController: UIViewController {
     }
     
     @IBAction func cancelAction(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func showAlertWithHandler() {

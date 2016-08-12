@@ -1072,6 +1072,22 @@
             </objects>
             <point key="canvasLocation" x="-1330" y="-364"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Lce-8H-CcX">
+            <objects>
+                <navigationController storyboardIdentifier="NavigationEnterScreen" id="WTc-RK-JWm" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tbe-qQ-R95">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9ME-Qj-gkx" kind="relationship" relationship="rootViewController" id="lqX-Fh-2Hp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="73P-7e-ZQY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18" y="-1090"/>
+        </scene>
         <!--Enter Screen View Controller-->
         <scene sceneID="5Ql-9E-FeC">
             <objects>
@@ -1095,7 +1111,7 @@
                                     <color key="titleColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                 </state>
                                 <connections>
-                                    <segue destination="GM4-1b-isp" kind="presentation" id="ykD-rM-eYv"/>
+                                    <segue destination="GM4-1b-isp" kind="show" id="yn5-Xr-3ay"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-mf-hXh">
@@ -1105,7 +1121,7 @@
                                     <color key="titleColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                 </state>
                                 <connections>
-                                    <segue destination="x0e-ER-3tD" kind="presentation" id="OXj-Pw-GtY"/>
+                                    <segue destination="x0e-ER-3tD" kind="show" id="oz8-lh-9bp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZh-7v-vyH">
@@ -1134,6 +1150,7 @@
                             <constraint firstItem="WxD-hI-PJr" firstAttribute="centerY" secondItem="wmp-k5-4WJ" secondAttribute="centerY" constant="-28.5" id="xGh-7B-wEl"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="hy8-Hd-v27"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lnS-34-L8k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
