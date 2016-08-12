@@ -1118,7 +1118,7 @@
                                     <color key="titleColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                 </state>
                                 <connections>
-                                    <segue destination="pBg-Al-0wo" kind="presentation" identifier="passLogin" id="ead-Va-2vy"/>
+                                    <action selector="passAuthorization:" destination="9ME-Qj-gkx" eventType="touchUpInside" id="q6r-io-2aG"/>
                                 </connections>
                             </button>
                         </subviews>

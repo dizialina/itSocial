@@ -25,6 +25,11 @@ class EnterScreenViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func passAuthorization(sender: AnyObject) {
+        (presentingViewController as! TabBarViewController).selectedIndex = 0
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if (segue.identifier == "passLogin") {
