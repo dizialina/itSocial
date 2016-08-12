@@ -56,7 +56,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         let wallThreadID = Int(community.threadID.intValue)
         
         ServerManager().getEventWallPosts(wallThreadID, currentPage: currentPostsPage, success: { (response) in
-            self.wallPostsArray = ResponseParser().parseWallPost(response as! [AnyObject])
+            self.wallPostsArray += ResponseParser().parseWallPost(response as! [AnyObject])
+            self.currentPostsPage += 1
             self.tableView.reloadData()
         }) { (error) in
             print("Error receiving wall posts from event: " + error!.localizedDescription)
@@ -129,7 +130,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             wallPostCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
             let postBodyText:NSString = wallPost.postBody
-            
+            wallPostCell.postBodyLabel.text = postBodyText as String
             
         }
         
@@ -159,7 +160,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         } else if indexPath.row == 1 {
             return 60.0
         } else {
-            return 280.0
+            return 125.0
         }
         
     }
@@ -194,9 +195,12 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     func loadMoreBegin(newtext:String, loadMoreEnd:(Int) -> ()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             print("loadmore")
-            //self.text = newtext
-            //self.countRow += 20
-            sleep(2)
+            
+            if self.currentPostsPage != 1 {
+                self.getEventWallPosts()
+            }
+            
+            sleep(3)
             
             dispatch_async(dispatch_get_main_queue()) {
                 loadMoreEnd(0)

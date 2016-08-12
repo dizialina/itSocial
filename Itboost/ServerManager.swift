@@ -187,7 +187,7 @@ class ServerManager: NSObject {
         }
         
         sessionManager.GET("wall.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            print(responseObject)
+            //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let postsArray = results["items"] as? [AnyObject] {
