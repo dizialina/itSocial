@@ -9,11 +9,11 @@
 import Foundation
 import CoreData
 
-class DataBaseManager {
+class DataBaseManager: NSObject {
     
     // MARK: Custom methods
     
-    func writeAllCommunities(communitiesArray:[AnyObject]) {
+    func writeAllCommunities(communitiesArray:[AnyObject], isLastPage:Bool) {
         
         if communitiesArray.count > 0 {
             
@@ -91,7 +91,9 @@ class DataBaseManager {
             
             do {
                 try managedObjectContext.save()
-                NSNotificationCenter.defaultCenter().postNotificationName(Constants.kLoadCommunitiesNotification, object: nil)
+                if isLastPage {
+                    NSNotificationCenter.defaultCenter().postNotificationName(Constants.kLoadCommunitiesNotification, object: nil)
+                }
             } catch {
                 print("Can't save to coredata new communities")
             }

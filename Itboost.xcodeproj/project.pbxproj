@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03ABF4E81D5CD8220053FAD9 /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4E71D5CD8220053FAD9 /* DownloadTask.swift */; };
+		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
+		03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
 		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D041D5B2CA1005DD716 /* NewPostViewController.swift */; };
@@ -45,6 +48,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03ABF4E71D5CD8220053FAD9 /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
+		03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadEventsOperation.swift; sourceTree = "<group>"; };
+		03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPaginaionManager.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 			children = (
 				842A12E31D4F46B000AD2673 /* ServerManager.swift */,
 				842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */,
+				03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */,
 				84023D081D5B3EFF005DD716 /* ResponseParses.swift */,
 			);
 			name = Managers;
@@ -218,6 +225,8 @@
 		84A43DF21D3E835B00F09B14 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				03ABF4E71D5CD8220053FAD9 /* DownloadTask.swift */,
+				03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */,
 				84A220061D5A3D3D0003E1BA /* ViewExtension.swift */,
 				84A43DF71D3E98A700F09B14 /* ViewTextHeight.swift */,
 			);
@@ -274,6 +283,7 @@
 				TargetAttributes = {
 					84A43DCC1D3E735B00F09B14 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 67YHSUMF82;
 					};
 				};
 			};
@@ -361,6 +371,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */,
 				84A43DD91D3E735B00F09B14 /* Itboost.xcdatamodeld in Sources */,
 				84A43DF81D3E98A700F09B14 /* ViewTextHeight.swift in Sources */,
 				84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */,
@@ -385,8 +396,10 @@
 				84023D091D5B3EFF005DD716 /* ResponseParses.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,
+				03ABF4E81D5CD8220053FAD9 /* DownloadTask.swift in Sources */,
 				842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */,
 				842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */,
+				03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */,
 				84A21FF91D57A6500003E1BA /* EventTableCell.swift in Sources */,
 				84A43DE61D3E767300F09B14 /* EventCollectionViewController.swift in Sources */,
 				84A220091D5A52B30003E1BA /* DetailEventCell.swift in Sources */,
@@ -507,6 +520,7 @@
 			baseConfigurationReference = E80277291D164602F12D96DC /* Pods-Itboost.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;
@@ -519,6 +533,7 @@
 			baseConfigurationReference = 175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;

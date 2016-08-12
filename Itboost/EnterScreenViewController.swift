@@ -15,7 +15,8 @@ class EnterScreenViewController: UIViewController {
         super.viewDidLoad()
         
         if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) != nil) {
-            performSegueWithIdentifier("passEnterScreen", sender: nil)
+            //performSegueWithIdentifier("passEnterScreen", sender: nil)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     

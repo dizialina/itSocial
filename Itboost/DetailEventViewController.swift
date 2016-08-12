@@ -45,7 +45,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
         ServerManager().getEventWallPosts(wallThreadID, success: { (response) in
             self.wallPostsArray = ResponseParser().parseWallPost(response as! [AnyObject])
-            print(self.wallPostsArray)
+            self.tableView.reloadData()
         }) { (error) in
             print("Error receiving wall posts from event: " + error!.localizedDescription)
         }
@@ -55,7 +55,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: TableView DataSource and Delegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 2 + wallPostsArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -94,6 +94,24 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             let addPostCell = tableView.dequeueReusableCellWithIdentifier("AddPostToEventCell", forIndexPath: indexPath) as! AddPostToEventCell
             
             addPostCell.sendButton.addTarget(self, action: #selector(DetailEventViewController.sendPostToEvent), forControlEvents: UIControlEvents.TouchUpInside)
+            
+        } else {
+            
+            let wallPostCell = tableView.dequeueReusableCellWithIdentifier("WallPostCell", forIndexPath: indexPath) as! WallPostCell
+            
+            let wallPost = wallPostsArray[indexPath.row - 2]
+            
+            if wallPost.postTitle.characters.count > 0 {
+                wallPostCell.postTitleLabel.text = wallPost.postTitle
+            } else {
+                wallPostCell.postTitleLabel.text = "Без названия"
+            }
+            
+            wallPostCell.postDateLabel.text = convertDateToText(wallPost.postedAt)
+            wallPostCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
+            
+            let postBodyText:NSString = wallPost.postBody
+            
             
         }
         
@@ -202,7 +220,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     func convertDateToText(date:NSDate) -> String {
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy 'в' HH:mm"
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
         return dateFormatter.stringFromDate(date)
     }
     

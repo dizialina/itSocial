@@ -9,11 +9,11 @@
 import Foundation
 import AFNetworking
 
-class ServerManager {
+class ServerManager: NSObject {
     
     var sessionManager = AFHTTPSessionManager()
     
-    init() {
+    override init() {
         let serverURL = NSURL(string: Constants.linkToServerAPI)
         sessionManager = AFHTTPSessionManager(baseURL: serverURL)
     }
@@ -35,22 +35,40 @@ class ServerManager {
         
     }
     
-    // MARK: GET methods
+    // MARK: Communities methods
     
     func getAllCommunitiesFromServer() {
         
         sessionManager.GET("community.getAll", parameters:nil, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
-                    //print(results)
-                    DataBaseManager().writeAllCommunities(results as! [AnyObject])
+                    print(results)
+                    DataBaseManager().writeAllCommunities(results as! [AnyObject], isLastPage:true)
                 } else {
                     print("Reques tasks from server = nil")
                 }
             }
         })
         { (task:NSURLSessionDataTask?, error:NSError) in
-            print("Error: " + error.localizedDescription)
+            print("Error loading all communities: " + error.localizedDescription)
+        }
+        
+    }
+    
+    func getOnePageCommunityFromServer(lastID lastID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        sessionManager.GET("community.getAll", parameters:nil, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
+                print(response)
+//                if let results = response["response"] {
+//                    DataBaseManager().writeAllCommunities(results as! [AnyObject])
+//                } else {
+//                    print("Reques tasks from server = nil")
+//                }
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error loading one page community with lastID \(lastID): " + error.localizedDescription)
         }
         
     }
