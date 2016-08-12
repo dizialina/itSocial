@@ -39,7 +39,7 @@ class ServerManager: NSObject {
     
     func getAllCommunitiesFromServer() {
         
-        sessionManager.GET("community.getAll", parameters:nil, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.GET("community.getAll", parameters:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     print(results)
@@ -55,21 +55,26 @@ class ServerManager: NSObject {
         
     }
     
-    func getOnePageCommunityFromServer(lastID lastID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getOnePageCommunityFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
-        sessionManager.GET("community.getAll", parameters:nil, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer.setValue("application/json; charset=UTF-8", forHTTPHeaderField:"Content-Type")
+        manager.operationQueue = operationQueue
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        manager.GET(sourceURL, parameters: nil, success: { (operation, responce) in
+            if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
                 print(response)
-//                if let results = response["response"] {
-//                    DataBaseManager().writeAllCommunities(results as! [AnyObject])
-//                } else {
-//                    print("Reques tasks from server = nil")
-//                }
+                //                if let results = response["response"] {
+                //                    DataBaseManager().writeAllCommunities(results as! [AnyObject])
+                //                } else {
+                //                    print("Reques tasks from server = nil")
+                //                }
             }
-            })
-        { (task:NSURLSessionDataTask?, error:NSError) in
-            print("Error loading one page community with lastID \(lastID): " + error.localizedDescription)
+        }) { (operation, error) in
+            print("Error loading one page community with url \(sourceURL): " + error.localizedDescription)
         }
+
         
     }
     
@@ -81,7 +86,7 @@ class ServerManager: NSObject {
                                    "_password": userInfo["password"]!]
         print(params)
         
-        sessionManager.POST("login_check", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.POST("login_check", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
@@ -115,7 +120,7 @@ class ServerManager: NSObject {
                                    "username": userInfo["username"]!,
                                    "password": userInfo["password"]!]
         
-        sessionManager.POST("registration", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.POST("registration", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
@@ -156,7 +161,7 @@ class ServerManager: NSObject {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("wall.post", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.POST("wall.post", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)
             success(response: nil)
             })
@@ -177,7 +182,7 @@ class ServerManager: NSObject {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("wall.get", parameters:params, progress:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.GET("wall.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [AnyObject] {

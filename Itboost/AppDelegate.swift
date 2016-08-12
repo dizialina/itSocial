@@ -24,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //ServerManager().getAllCommunitiesFromServer()
         
-        LoadPaginaionManager().loadAllItemsFromServer()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+           LoadPaginaionManager().loadAllItemsFromServer()
+        })
         
         return true
     }

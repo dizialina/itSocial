@@ -40,7 +40,7 @@ class LoadEventsOperation: NSOperation {
     func createOperationForLoadTask(linkToLoad:String, queue:NSOperationQueue) {
         let serverManager = ServerManager()
         
-        serverManager.getOnePageCommunityFromServer(lastID:0, success: { (response) in
+        serverManager.getOnePageCommunityFromServer(linkToLoad, operationQueue: queue, success: { (response) in
             
             let communitiesArray = response as! [AnyObject]
             
@@ -61,6 +61,8 @@ class LoadEventsOperation: NSOperation {
         }) { (error) in
             print("Error loading one page community: " + error!.localizedDescription)
         }
+        
+        
             
 //        requestClient.requestCropioResourcesFromURLAsync(linkToLoad, forObjecType: objectType, inOperationQueue:  queue, successHandlerBlock: { (responce, objType) in
 //                
@@ -108,6 +110,25 @@ class LoadEventsOperation: NSOperation {
 //                    print("Error:" + returnedError.description + " for object:" + objectType.description)
 //            })
         
+        
+    }
+    
+    
+    func getOnePageCommunityFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let request = NSMutableURLRequest(URL: NSURL(string:sourceURL)!)
+        request.HTTPMethod = "GET"
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: operationQueue)
+        session.dataTaskWithRequest(request) { (data, response, error) in
+            if error != nil {
+                do {
+                    let responseDict = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                    print(responseDict)
+                } catch {
+                    print("Error parcing community json")
+                }
+            }
+        }
         
     }
         

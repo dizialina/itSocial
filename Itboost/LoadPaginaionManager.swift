@@ -19,7 +19,6 @@ class LoadPaginaionManager: NSObject {
         let loadEventsOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue)
         operationQueue.addOperation(loadEventsOperation)
         operationQueue.waitUntilAllOperationsAreFinished()
-        
     }
     
     func loadObjectFirstRequest() {
