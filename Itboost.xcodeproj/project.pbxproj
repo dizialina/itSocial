@@ -544,7 +544,7 @@
 			baseConfigurationReference = E80277291D164602F12D96DC /* Pods-Itboost.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alina Yehorova (F34RD363MK)";
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;
@@ -557,7 +557,7 @@
 			baseConfigurationReference = 175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPFORPARKING LLC (67YHSUMF82)";
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;
