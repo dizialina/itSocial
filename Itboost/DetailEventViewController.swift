@@ -223,7 +223,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 self.getEventWallPosts()
             }
             
-            sleep(3)
+            sleep(2)
             
             dispatch_async(dispatch_get_main_queue()) {
                 loadMoreEnd(0)

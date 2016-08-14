@@ -108,6 +108,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03ABF5681D60DF090053FAD9 /* Archive Classes */ = {
+			isa = PBXGroup;
+			children = (
+				84A43DE51D3E767300F09B14 /* EventCollectionViewController.swift */,
+			);
+			name = "Archive Classes";
+			sourceTree = "<group>";
+		};
+		03ABF5691D60DF2C0053FAD9 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */,
+				84A2200A1D5A577F0003E1BA /* DetailEventViewController.swift */,
+				03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */,
+				84023D041D5B2CA1005DD716 /* NewPostViewController.swift */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
 		1C621B95CDF17BD32DF41505 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +221,7 @@
 				84A43DEF1D3E82BC00F09B14 /* Cells */,
 				84A43DF21D3E835B00F09B14 /* Extensions */,
 				84A43DD41D3E735B00F09B14 /* Main.storyboard */,
+				03ABF5681D60DF090053FAD9 /* Archive Classes */,
 				84A220051D57BE700003E1BA /* Hepler Classes */,
 				84A43DDA1D3E735B00F09B14 /* Assets.xcassets */,
 				84A43DDC1D3E735B00F09B14 /* LaunchScreen.storyboard */,
@@ -242,11 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				84A220001D57BB1C0003E1BA /* Login/Registration */,
-				84A43DE51D3E767300F09B14 /* EventCollectionViewController.swift */,
-				84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */,
-				03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */,
-				84023D041D5B2CA1005DD716 /* NewPostViewController.swift */,
-				84A2200A1D5A577F0003E1BA /* DetailEventViewController.swift */,
+				03ABF5691D60DF2C0053FAD9 /* Events */,
 				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
 				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
 				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
