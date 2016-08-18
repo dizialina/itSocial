@@ -36,12 +36,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Make navigation bar translucent
-        
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.translucent = true
-        
         // Set shadow for the top view
         
         topView.layer.shadowOffset = CGSizeMake(0, 1)
@@ -52,15 +46,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         topView.clipsToBounds = false
         topView.layer.shadowPath = UIBezierPath(rect: topView.layer.bounds).CGPath
         
-        // Set navigation bar items
+        // Set navigation bar
         
         self.navigationItem.title = "Профиль"
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.translucent = false
         
         // Temp settings
         
         skillsArray = ["C#", ".NET", "ASPP.NET", "HTML 5", "CSS 3", "Python", "JAVA", "Swift"]
         awardsArray = ["ТОП 5 Спикеров", "150 Событий", "100 Событий", "50 Событий", "ТОП 10 Боссов"]
-        awardColorsArray = [UIColor.blueColor(), UIColor.yellowColor(), UIColor.orangeColor(), UIColor.cyanColor(), UIColor.brownColor()]
+        awardColorsArray = [UIColor.magentaColor(), UIColor.purpleColor(), UIColor.orangeColor(), UIColor.cyanColor(), UIColor.brownColor()]
+        
+        // Make avatar image round
+        
+        avatarImage.layer.cornerRadius = avatarImage.frame.size.width / 2
+        avatarImage.clipsToBounds = true
         
     }
     
@@ -134,7 +136,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             skillsCell.layer.shadowOffset = CGSizeMake(0, 1)
             skillsCell.layer.shadowColor = UIColor.blackColor().CGColor
-            skillsCell.layer.shadowRadius = 6
+            skillsCell.layer.shadowRadius = 5.5
             skillsCell.layer.shadowOpacity = 0.1
             skillsCell.layer.shadowOffset = CGSizeMake(5, 5)
             skillsCell.clipsToBounds = false
@@ -146,6 +148,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             let awardsCell = collectionView.dequeueReusableCellWithReuseIdentifier("AwardsCell", forIndexPath: indexPath) as! AwardsCell
             
+            awardsCell.awardTitleLabel.text = awardsArray[indexPath.row]
+            awardsCell.backgroundColorView.backgroundColor = awardColorsArray[indexPath.row]
+            
             return awardsCell
             
         }
@@ -156,10 +161,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
+        if collectionView == skillsCollectionView {
+            
         let skillTitle:NSString = skillsArray[indexPath.row]
         let width = skillTitle.widthForText(skillTitle, viewHeight: 38.0, offset: 12.0, device: nil)
-        
         return CGSizeMake(width, 38.0)
+            
+        } else {
+            return CGSizeMake(100, 100)
+        }
+    
     }
     
     

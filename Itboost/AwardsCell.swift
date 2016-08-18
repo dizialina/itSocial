@@ -11,5 +11,7 @@ import UIKit
 
 class AwardsCell: UICollectionViewCell {
     
+    @IBOutlet weak var backgroundColorView: UIView!
+    @IBOutlet weak var awardTitleLabel: UILabel!
     
 }

@@ -13,7 +13,7 @@
 		03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */; };
 		03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF52A1D5E28670053FAD9 /* PostComment.swift */; };
 		03ABF57D1D6619D80053FAD9 /* SkillsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */; };
-		03ABF57F1D661A020053FAD9 /* AwardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF57E1D661A020053FAD9 /* AwardsCell.swift */; };
+		03ABF5831D66269C0053FAD9 /* AwardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5821D66269C0053FAD9 /* AwardsCell.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
 		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D041D5B2CA1005DD716 /* NewPostViewController.swift */; };
@@ -58,7 +58,7 @@
 		03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		03ABF52A1D5E28670053FAD9 /* PostComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillsCell.swift; sourceTree = "<group>"; };
-		03ABF57E1D661A020053FAD9 /* AwardsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsCell.swift; sourceTree = "<group>"; };
+		03ABF5821D66269C0053FAD9 /* AwardsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsCell.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
@@ -137,8 +137,8 @@
 		03ABF5801D661A190053FAD9 /* Profile Cells */ = {
 			isa = PBXGroup;
 			children = (
-				03ABF57E1D661A020053FAD9 /* AwardsCell.swift */,
 				03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */,
+				03ABF5821D66269C0053FAD9 /* AwardsCell.swift */,
 			);
 			name = "Profile Cells";
 			sourceTree = "<group>";
@@ -442,7 +442,7 @@
 				03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */,
 				84023D091D5B3EFF005DD716 /* ResponseParses.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
-				03ABF57F1D661A020053FAD9 /* AwardsCell.swift in Sources */,
+				03ABF5831D66269C0053FAD9 /* AwardsCell.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,
 				842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */,
 				842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */,
