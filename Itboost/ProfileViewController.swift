@@ -11,8 +11,30 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    @IBOutlet weak var topView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Make navigation bar translucent
+        
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.translucent = true
+        
+        // Set shadow for the top view
+        
+        topView.layer.shadowOffset = CGSizeMake(0, 1)
+        topView.layer.shadowColor = UIColor.blackColor().CGColor
+        topView.layer.shadowRadius = 7
+        topView.layer.shadowOpacity = 0.1
+        topView.layer.shadowOffset = CGSizeMake(0, 10)
+        topView.clipsToBounds = false
+        topView.layer.shadowPath = UIBezierPath(rect: topView.layer.bounds).CGPath
+        
+        // Set navigation bar items
+        
+        self.navigationItem.title = "Профиль"
         
     }
     

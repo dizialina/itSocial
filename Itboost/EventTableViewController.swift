@@ -69,9 +69,6 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         do {
             let allCommunities = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Community]
             communityList = allCommunities
-//            for community in allCommunities {
-//                communityList.append(community)
-//            }
             tableView.reloadData()
             
         } catch {
