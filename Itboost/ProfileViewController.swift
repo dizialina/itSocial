@@ -12,6 +12,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,12 @@ class ProfileViewController: UIViewController {
             let viewController = storyboard.instantiateViewControllerWithIdentifier("NavigationEnterScreen") as! UINavigationController
             self.presentViewController(viewController, animated: true, completion: nil)
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print(scrollView.contentSize)
     }
     
     override func didReceiveMemoryWarning() {
