@@ -26,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            LoadPaginaionManager().loadAllItemsFromServer()
         })
         
+        ServerManager().getUserPhotoAlbums(otherUserID: nil, success: { (response) in
+            //
+        }) { (error) in
+                //
+        }
+        
         return true
     }
 

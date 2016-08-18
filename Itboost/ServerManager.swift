@@ -151,6 +151,52 @@ class ServerManager: NSObject {
         
     }
     
+    func getUserProfile(otherUserProfileID profileID: Int?, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        var params = [String:Int]()
+        if profileID == nil {
+            if let userID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserID) {
+                params["profile_id"] = userID as? Int
+            }
+        } else {
+            params["profile_id"] = profileID
+        }
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.GET("profile.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            //print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    success(response: results)
+                    
+//                    response =     {
+//                        about = "<null>";
+//                        "avatar_album_id" = 13;
+//                        "default_album_id" = 14;
+//                        email = "qwerty@mail.ru";
+//                        firstname = "<null>";
+//                        id = 8;
+//                        lastname = "<null>";
+//                        site = "<null>";
+//                        "speaker_id" = "<null>";
+//                        "thread_id" = 10;
+//                        username = koteyka;
+//                    };
+                }
+            } else {
+                print("Response profile info is empty")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error receiving profile info: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
     // MARK: Wall methods
     
     func postNewMessageOnWall(threadIDDict:[String:Int], title:String, body:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
@@ -249,14 +295,6 @@ class ServerManager: NSObject {
         sessionManager.POST("wall.addComment", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             //print(responseObject)
             success(response: responseObject)
-//            if let response = responseObject as? [String:AnyObject] {
-//                if let results = response["response"] as? [String:AnyObject] {
-//                    success(response: results)
-//                }
-//            } else {
-//                print("Response sending comment is empty")
-//            }
-            
         })
         { (task:NSURLSessionDataTask?, error:NSError) in
             print("Error sending comment to post: " + error.localizedDescription)
@@ -265,6 +303,52 @@ class ServerManager: NSObject {
             failure(error: error)
         }
     }
+    
+    // MARK: Photos
+    
+    func getUserPhotoAlbums(otherUserID userID: Int?, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        var params = [String:Int]()
+        if userID == nil {
+            if let userID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserID) {
+                params["user_id"] = userID as? Int
+            }
+        } else {
+            params["user_id"] = userID
+        }
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.GET("photos.getAlbums", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    success(response: results)
+                    
+//                    response =     {
+//                        "album_name" = "name";
+//                        cover = "<null>";
+//                        "created_at" = "2016-08-12T12:43:32+0000";
+//                        id = 14;
+//                        images =         (
+//                        );
+//                        owner =         {
+//                        }
+//                    }
+                }
+            } else {
+                print("Response profile info is empty")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error receiving profile info: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
 
 }
 

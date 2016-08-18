@@ -69,21 +69,27 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Call log in screen if user is not authorized
+        
         if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) == nil) {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewControllerWithIdentifier("NavigationEnterScreen") as! UINavigationController
             self.presentViewController(viewController, animated: true, completion: nil)
+            
+        } else {
+            getSpeakerProfileInfoFromServer()
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    func getSpeakerProfileInfoFromServer() {
+        // use speaker.get
     }
     
     // MARK: Actions
