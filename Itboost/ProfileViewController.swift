@@ -79,8 +79,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        print(scrollView.contentSize)
     }
     
     override func didReceiveMemoryWarning() {
@@ -138,7 +136,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             skillsCell.layer.shadowColor = UIColor.blackColor().CGColor
             skillsCell.layer.shadowRadius = 5.5
             skillsCell.layer.shadowOpacity = 0.1
-            skillsCell.layer.shadowOffset = CGSizeMake(5, 5)
+            skillsCell.layer.shadowOffset = CGSizeMake(3, 3)
             skillsCell.clipsToBounds = false
             skillsCell.layer.shadowPath = UIBezierPath(rect: skillsCell.layer.bounds).CGPath
         

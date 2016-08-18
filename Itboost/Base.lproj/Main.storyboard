@@ -90,10 +90,10 @@
                                                             <constraint firstAttribute="width" constant="104" id="hG9-oh-Mb0"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сергей Бережнов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bl-yW-lf4">
-                                                        <rect key="frame" x="138" y="25" width="454" height="25"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сергей Бережнов" textAlignment="natural" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3bl-yW-lf4">
+                                                        <rect key="frame" x="138" y="15" width="454" height="35"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="bQC-3V-H5q"/>
+                                                            <constraint firstAttribute="height" constant="35" id="bQC-3V-H5q"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -159,7 +159,7 @@
                                                     <constraint firstItem="yQj-ZQ-txf" firstAttribute="height" secondItem="7xy-Ul-8l2" secondAttribute="height" id="dfT-QO-a9L"/>
                                                     <constraint firstItem="XCY-R8-adI" firstAttribute="centerY" secondItem="7xy-Ul-8l2" secondAttribute="centerY" id="dxY-fh-ymz"/>
                                                     <constraint firstItem="7xy-Ul-8l2" firstAttribute="leading" secondItem="mkc-BZ-B2t" secondAttribute="trailing" constant="8" id="ff3-Eo-ufR"/>
-                                                    <constraint firstItem="3bl-yW-lf4" firstAttribute="top" secondItem="Ik6-69-GTG" secondAttribute="top" constant="25" id="gmQ-hK-3X0"/>
+                                                    <constraint firstItem="3bl-yW-lf4" firstAttribute="top" secondItem="Ik6-69-GTG" secondAttribute="top" constant="15" id="gmQ-hK-3X0"/>
                                                     <constraint firstItem="wb9-tw-FyW" firstAttribute="leading" secondItem="yQj-ZQ-txf" secondAttribute="trailing" id="iH0-oo-LOh"/>
                                                     <constraint firstItem="SjR-ee-hGQ" firstAttribute="width" secondItem="7xy-Ul-8l2" secondAttribute="width" id="mnV-97-0qu"/>
                                                     <constraint firstItem="FC3-mY-9ZG" firstAttribute="leading" secondItem="Ik6-69-GTG" secondAttribute="leading" constant="14" id="oZw-ro-efo"/>
@@ -349,7 +349,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="berezhnovs@mail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiN-xD-O3Z">
-                                                <rect key="frame" x="60" y="493.5" width="532" height="21"/>
+                                                <rect key="frame" x="60" y="493" width="532" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                                 <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
