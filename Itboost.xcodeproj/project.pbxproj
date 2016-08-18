@@ -12,6 +12,8 @@
 		03ABF5271D5E22130053FAD9 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5261D5E22130053FAD9 /* CommentCell.swift */; };
 		03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */; };
 		03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF52A1D5E28670053FAD9 /* PostComment.swift */; };
+		03ABF57D1D6619D80053FAD9 /* SkillsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */; };
+		03ABF57F1D661A020053FAD9 /* AwardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF57E1D661A020053FAD9 /* AwardsCell.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
 		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D041D5B2CA1005DD716 /* NewPostViewController.swift */; };
@@ -46,7 +48,7 @@
 		84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DED1D3E828A00F09B14 /* EventCollectionCell.swift */; };
 		84A43DF41D3E897600F09B14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DF31D3E897600F09B14 /* Constants.swift */; };
 		84A43DF61D3E937000F09B14 /* EventCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DF51D3E937000F09B14 /* EventCellLayout.swift */; };
-		84A43DF81D3E98A700F09B14 /* ViewTextHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DF71D3E98A700F09B14 /* ViewTextHeight.swift */; };
+		84A43DF81D3E98A700F09B14 /* NSStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43DF71D3E98A700F09B14 /* NSStringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		03ABF5261D5E22130053FAD9 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		03ABF52A1D5E28670053FAD9 /* PostComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
+		03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillsCell.swift; sourceTree = "<group>"; };
+		03ABF57E1D661A020053FAD9 /* AwardsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsCell.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
@@ -92,7 +96,7 @@
 		84A43DED1D3E828A00F09B14 /* EventCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCollectionCell.swift; sourceTree = "<group>"; };
 		84A43DF31D3E897600F09B14 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		84A43DF51D3E937000F09B14 /* EventCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCellLayout.swift; sourceTree = "<group>"; };
-		84A43DF71D3E98A700F09B14 /* ViewTextHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTextHeight.swift; sourceTree = "<group>"; };
+		84A43DF71D3E98A700F09B14 /* NSStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringExtension.swift; sourceTree = "<group>"; };
 		E80277291D164602F12D96DC /* Pods-Itboost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				84A43DE51D3E767300F09B14 /* EventCollectionViewController.swift */,
+				84A43DED1D3E828A00F09B14 /* EventCollectionCell.swift */,
+				842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */,
+				84A43DF51D3E937000F09B14 /* EventCellLayout.swift */,
 			);
 			name = "Archive Classes";
 			sourceTree = "<group>";
@@ -125,6 +132,27 @@
 				84023D041D5B2CA1005DD716 /* NewPostViewController.swift */,
 			);
 			name = Events;
+			sourceTree = "<group>";
+		};
+		03ABF5801D661A190053FAD9 /* Profile Cells */ = {
+			isa = PBXGroup;
+			children = (
+				03ABF57E1D661A020053FAD9 /* AwardsCell.swift */,
+				03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */,
+			);
+			name = "Profile Cells";
+			sourceTree = "<group>";
+		};
+		03ABF5811D661A630053FAD9 /* Event Cells */ = {
+			isa = PBXGroup;
+			children = (
+				84A21FF81D57A6500003E1BA /* EventTableCell.swift */,
+				84023D021D5A835D005DD716 /* AddPostToEventCell.swift */,
+				84A220081D5A52B30003E1BA /* DetailEventCell.swift */,
+				84023D061D5B3B4E005DD716 /* WallPostCell.swift */,
+				03ABF5261D5E22130053FAD9 /* CommentCell.swift */,
+			);
+			name = "Event Cells";
 			sourceTree = "<group>";
 		};
 		1C621B95CDF17BD32DF41505 /* Pods */ = {
@@ -236,14 +264,8 @@
 		84A43DEF1D3E82BC00F09B14 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				84A43DF51D3E937000F09B14 /* EventCellLayout.swift */,
-				84A21FF81D57A6500003E1BA /* EventTableCell.swift */,
-				84023D021D5A835D005DD716 /* AddPostToEventCell.swift */,
-				84A220081D5A52B30003E1BA /* DetailEventCell.swift */,
-				84023D061D5B3B4E005DD716 /* WallPostCell.swift */,
-				842A12E11D4F405800AD2673 /* EventOneColumnCellLayout.swift */,
-				03ABF5261D5E22130053FAD9 /* CommentCell.swift */,
-				84A43DED1D3E828A00F09B14 /* EventCollectionCell.swift */,
+				03ABF5801D661A190053FAD9 /* Profile Cells */,
+				03ABF5811D661A630053FAD9 /* Event Cells */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -253,7 +275,7 @@
 			children = (
 				03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */,
 				84A220061D5A3D3D0003E1BA /* ViewExtension.swift */,
-				84A43DF71D3E98A700F09B14 /* ViewTextHeight.swift */,
+				84A43DF71D3E98A700F09B14 /* NSStringExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -395,7 +417,7 @@
 			files = (
 				03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */,
 				84A43DD91D3E735B00F09B14 /* Itboost.xcdatamodeld in Sources */,
-				84A43DF81D3E98A700F09B14 /* ViewTextHeight.swift in Sources */,
+				84A43DF81D3E98A700F09B14 /* NSStringExtension.swift in Sources */,
 				84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */,
 				84A220071D5A3D3D0003E1BA /* ViewExtension.swift in Sources */,
 				84A21FFF1D57BB0E0003E1BA /* RegistrationViewController.swift in Sources */,
@@ -420,6 +442,7 @@
 				03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */,
 				84023D091D5B3EFF005DD716 /* ResponseParses.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
+				03ABF57F1D661A020053FAD9 /* AwardsCell.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,
 				842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */,
 				842A12E41D4F46B000AD2673 /* ServerManager.swift in Sources */,
@@ -428,6 +451,7 @@
 				84A43DE61D3E767300F09B14 /* EventCollectionViewController.swift in Sources */,
 				84A220091D5A52B30003E1BA /* DetailEventCell.swift in Sources */,
 				84A43DF41D3E897600F09B14 /* Constants.swift in Sources */,
+				03ABF57D1D6619D80053FAD9 /* SkillsCell.swift in Sources */,
 				84A220041D57BE6B0003E1BA /* ReusableMethods.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

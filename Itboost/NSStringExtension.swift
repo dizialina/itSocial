@@ -35,5 +35,29 @@ extension NSString {
         
     }
     
+    func widthForText(text:NSString, viewHeight:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
+        
+        var font = UIFont.systemFontOfSize(14.0)
+        
+        if device == "iPad" {
+            font = UIFont.systemFontOfSize(23.0)
+        }
+        
+        let fontColor = UIColor.blackColor()
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = NSTextAlignment.Justified
+        paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        
+        let attributes:NSDictionary = [NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraph, NSForegroundColorAttributeName:fontColor]
+        
+        let options: NSStringDrawingOptions = [.UsesLineFragmentOrigin, .UsesFontLeading]
+        
+        let rect = text.boundingRectWithSize(CGSizeMake(CGFloat.max, viewHeight - 2 * offset), options: options, attributes: attributes as? [String : AnyObject], context: nil)
+        
+        return CGRectGetWidth(rect) + 2 * offset
+        
+    }
+    
     
 }
