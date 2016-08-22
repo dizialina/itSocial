@@ -79,6 +79,46 @@ class ServerManager: NSObject {
         }
     }
     
+    func joinCommunity(communityID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["community_id": communityID]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.POST("community.join", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            success(response: nil)
+        })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while joining community: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    func leaveCommunity(communityID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["community_id": communityID]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        
+        sessionManager.DELETE("community.leave", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            success(response: nil)
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while leaving community: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
     // MARK: Feed methods
     
     func getFeeds(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {

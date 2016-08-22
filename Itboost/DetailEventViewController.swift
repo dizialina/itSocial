@@ -93,6 +93,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             eventCell.creatorLabel.text = "Организатор: \(community.createdBy.userName)"
             
             eventCell.detailButton.addTarget(self, action: #selector(DetailEventViewController.openDetailDescription), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            eventCell.acceptButton.addTarget(self, action: #selector(DetailEventViewController.joinCommunity(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
             if isDescriptionOpen {
             
@@ -306,6 +308,18 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     func sendPostToEvent() {
         self.performSegueWithIdentifier("addPostToWall", sender: nil)
+    }
+    
+    func joinCommunity(sender: UIButton) {
+        
+        let community = communityObject as! Community
+        let communityID = Int(community.communityID.intValue)
+        
+        ServerManager().joinCommunity(communityID, success: { (response) in
+            //
+        }) { (error) in
+            print("Error while joining community: " + error!.localizedDescription)
+        }
     }
     
     // MARK: Helping methods

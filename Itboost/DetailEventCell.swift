@@ -20,6 +20,7 @@ class DetailEventCell: UITableViewCell {
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var acceptLabel: UILabel!
     
     @IBOutlet weak var heightViewDescription: NSLayoutConstraint!
 }

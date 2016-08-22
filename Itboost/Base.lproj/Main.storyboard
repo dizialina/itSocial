@@ -1287,6 +1287,7 @@
                                         <color key="backgroundColor" red="0.45098039220000002" green="0.58039215690000001" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="acceptButton" destination="yyu-Ra-yuH" id="jVs-x1-rty"/>
+                                            <outlet property="acceptLabel" destination="HCz-mk-zLE" id="GAE-1X-peZ"/>
                                             <outlet property="creatorLabel" destination="hya-k2-76y" id="7vO-dM-ZyC"/>
                                             <outlet property="dateLabel" destination="Djd-Jc-x7d" id="w2U-M8-7hW"/>
                                             <outlet property="descriptionLabel" destination="MsX-ik-5Kj" id="Kfn-qn-M3Q"/>

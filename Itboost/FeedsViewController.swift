@@ -86,7 +86,7 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         feedCell.postDateLabel.text = convertDateToText(wallPost.postedAt)
         feedCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
-        feedCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        feedCell.commentsButton.addTarget(self, action: #selector(FeedsViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         feedCell.commentsButton.tag = wallPost.postID
             
         let postBodyText:NSString = wallPost.postBody
