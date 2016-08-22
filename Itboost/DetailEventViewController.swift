@@ -96,7 +96,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
             if isDescriptionOpen {
             
-                let detailDescription:NSString = community.detailDescription!
+                var detailDescription:NSString = ""
+                if community.detailDescription != nil {
+                    detailDescription = community.detailDescription!
+                }
                 let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
             
                 eventCell.heightViewDescription.constant = detailHeight

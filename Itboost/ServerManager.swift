@@ -77,8 +77,36 @@ class ServerManager: NSObject {
         }) { (operation, error) in
             print("Error loading one page community with url \(sourceURL): " + error.localizedDescription)
         }
-
+    }
+    
+    // MARK: Feed methods
+    
+    func getFeeds(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
+        let params:NSDictionary = ["page": currentPage]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.GET("feed.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            //print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    if let postsArray = results["items"] as? [AnyObject] {
+                        success(response: postsArray)
+                    }
+                }
+            } else {
+                print("Response with feeds is empty")
+                success(response: [])
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error receiving feeds: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
     }
     
     // MARK: Profile methods
