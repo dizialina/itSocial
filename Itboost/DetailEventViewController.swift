@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import Crashlytics
 
 class DetailEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     

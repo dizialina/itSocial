@@ -8,6 +8,8 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,11 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            LoadPaginaionManager().loadAllItemsFromServer()
         })
         
-        ServerManager().getUserPhotoAlbums(otherUserID: nil, success: { (response) in
-            //
-        }) { (error) in
-                //
-        }
+        Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self])
         
         return true
     }

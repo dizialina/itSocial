@@ -5,6 +5,8 @@ target ’Itboost’ do
 
 pod 'AFNetworking', '~> 2.6.2'
 pod 'IQKeyboardManagerSwift'
+pod 'Fabric'
+pod 'Crashlytics'
 
 end
 
