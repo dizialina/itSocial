@@ -136,11 +136,44 @@ class DataBaseManager: NSObject {
                 
                 currentOrganization.name = (organizationDictionary["name"] as? String)!
                 currentOrganization.specialization = "some specialization"
+                currentOrganization.detailDescription = organizationDictionary["description"] as? String
+                
+                let createdAtString = organizationDictionary["created_at"] as? String
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                currentOrganization.createdAt = dateFormatter.dateFromString(createdAtString!)
                 
                 let organizationIDInt = organizationDictionary["id"] as? Int
                 currentOrganization.organizationID = NSDecimalNumber(integer: organizationIDInt!)
                 organizations[organizationIDInt!] = currentOrganization
                 newID.append(organizationIDInt!)
+                
+                let threadIDInt = organizationDictionary["thread_id"] as? Int
+                currentOrganization.threadID = NSDecimalNumber(integer: threadIDInt!)
+                
+                let subscribersInt = organizationDictionary["subscribers_count"] as? Int
+                currentOrganization.subscribersCount = NSDecimalNumber(integer: subscribersInt!)
+                
+                let creator = organizationDictionary["created_by"] as? [String:AnyObject]
+                let currentCreator = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: self.managedObjectContext) as! User
+                
+                currentCreator.userName = "user name"
+                currentCreator.email = creator!["email"] as? String
+                currentCreator.firstName = creator!["firstname"] as? String
+                currentCreator.lastName = creator!["lastName"] as? String
+                currentCreator.site = creator!["site"] as? String
+                currentCreator.about = creator!["about"] as? String
+                
+                let userIDInt = (creator!["id"] as? Int)!
+                currentCreator.userID = NSDecimalNumber(integer: userIDInt)
+                
+                let roles = creator!["roles"] as? [String]
+                if roles?.count > 0 {
+                    let rolesData = NSKeyedArchiver.archivedDataWithRootObject(roles!)
+                    currentCreator.roles = rolesData
+                }
+                
+                currentOrganization.createdBy = currentCreator
                 
             }
             
@@ -157,6 +190,11 @@ class DataBaseManager: NSObject {
                     
                     requestOrganization.name = (newOrganization?.name)!
                     requestOrganization.specialization = newOrganization?.specialization
+                    requestOrganization.detailDescription = newOrganization?.detailDescription
+                    requestOrganization.createdAt = newOrganization?.createdAt
+                    requestOrganization.createdBy = newOrganization?.createdBy
+                    requestOrganization.subscribersCount = newOrganization?.subscribersCount
+                    requestOrganization.threadID = (newOrganization?.threadID)!
                     
                     managedObjectContext.deleteObject(newOrganization!)
                 }

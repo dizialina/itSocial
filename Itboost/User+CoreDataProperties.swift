@@ -23,5 +23,6 @@ extension User {
     @NSManaged var site: String?
     @NSManaged var about: String?
     @NSManaged var createdCommunity: Community?
+    @NSManaged var createdOrganization: Organization?
 
 }

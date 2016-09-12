@@ -14,8 +14,13 @@ import CoreData
 
 extension Organization {
 
-    @NSManaged var name: String?
+    @NSManaged var name: String
     @NSManaged var specialization: String?
     @NSManaged var organizationID: NSDecimalNumber
+    @NSManaged var detailDescription: String?
+    @NSManaged var subscribersCount: NSDecimalNumber?
+    @NSManaged var threadID: NSDecimalNumber
+    @NSManaged var createdAt: NSDate?
+    @NSManaged var createdBy: User?
 
 }

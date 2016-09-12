@@ -10,9 +10,14 @@
         <relationship name="createdBy" maxCount="1" deletionRule="Cascade" destinationEntity="User" inverseName="createdCommunity" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Organization" representedClassName=".Organization" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="detailDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="organizationID" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="specialization" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subscribersCount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="threadID" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="createdBy" maxCount="1" deletionRule="Cascade" destinationEntity="User" inverseName="createdOrganization" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName=".User" syncable="YES">
         <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,10 +29,11 @@
         <attribute name="userID" attributeType="Decimal" minValueString="0" defaultValueString="0.0" syncable="YES"/>
         <attribute name="userName" attributeType="String" syncable="YES"/>
         <relationship name="createdCommunity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Community" inverseName="createdBy" inverseEntity="Community" syncable="YES"/>
+        <relationship name="createdOrganization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="createdBy" inverseEntity="Organization" syncable="YES"/>
     </entity>
     <elements>
         <element name="Community" positionX="-3935" positionY="-447" width="128" height="148"/>
-        <element name="User" positionX="-3708" positionY="-477" width="128" height="178"/>
-        <element name="Organization" positionX="-3933" positionY="-277" width="128" height="88"/>
+        <element name="User" positionX="-3708" positionY="-477" width="128" height="193"/>
+        <element name="Organization" positionX="-3933" positionY="-277" width="128" height="163"/>
     </elements>
 </model>
