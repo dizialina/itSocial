@@ -1609,7 +1609,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZIR-vT-tEb">
                                                     <rect key="frame" x="4" y="4" width="592" height="272"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppleLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Yf6-XR-QSE">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WtfCat" translatesAutoresizingMaskIntoConstraints="NO" id="Yf6-XR-QSE">
                                                             <rect key="frame" x="16" y="16" width="85" height="85"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="85" id="APX-6a-sT8"/>
@@ -2628,7 +2628,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppleLogo" width="1024" height="1024"/>
         <image name="Calendar" width="64" height="64"/>
         <image name="CheckRound" width="64" height="64"/>
         <image name="CommentLeave" width="64" height="64"/>
@@ -2642,5 +2641,6 @@
         <image name="PhotoExample3" width="300" height="300"/>
         <image name="StarYellow" width="32" height="32"/>
         <image name="World" width="64" height="64"/>
+        <image name="WtfCat" width="512" height="512"/>
     </resources>
 </document>

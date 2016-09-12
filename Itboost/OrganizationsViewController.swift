@@ -27,7 +27,7 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
         
         self.navigationItem.title = "Организации"
         
-        pictureList = [UIImage(named:"AppleLogo")!]
+        pictureList = [UIImage(named:"SadCat")!]
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             LoadPaginaionManager().loadAllOrganizationsFromServer()
