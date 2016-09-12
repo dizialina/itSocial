@@ -17,6 +17,7 @@ class Constants {
     // MARK: Notification Keys
     
     static let kLoadCommunitiesNotification = "LoadCommunitiesNotification"
+    static let kLoadOrganizationsNotification = "LoadOrganizationsNotification"
     static let kAlreadyRun = "AlreadyRun"
     
     // MARK: NSUserDefaults Keys

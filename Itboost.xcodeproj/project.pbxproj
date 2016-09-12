@@ -16,6 +16,8 @@
 		03ABF5831D66269C0053FAD9 /* AwardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5821D66269C0053FAD9 /* AwardsCell.swift */; };
 		03ABF58B1D6B36FA0053FAD9 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */; };
 		03FC365C1D86E61000C530FF /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */; };
+		03FC365F1D86EB6C00C530FF /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC365D1D86EB6C00C530FF /* Organization+CoreDataProperties.swift */; };
+		03FC36601D86EB6C00C530FF /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC365E1D86EB6C00C530FF /* Organization.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
 		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D041D5B2CA1005DD716 /* NewPostViewController.swift */; };
@@ -63,6 +65,8 @@
 		03ABF5821D66269C0053FAD9 /* AwardsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsCell.swift; sourceTree = "<group>"; };
 		03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
 		03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
+		03FC365D1D86EB6C00C530FF /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		03FC365E1D86EB6C00C530FF /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
@@ -203,6 +207,8 @@
 				842A13271D50D37400AD2673 /* User.swift */,
 				842A13281D50D37400AD2673 /* Community+CoreDataProperties.swift */,
 				842A13291D50D37400AD2673 /* Community.swift */,
+				03FC365D1D86EB6C00C530FF /* Organization+CoreDataProperties.swift */,
+				03FC365E1D86EB6C00C530FF /* Organization.swift */,
 			);
 			name = "CoreData Models";
 			sourceTree = "<group>";
@@ -438,6 +444,8 @@
 				03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */,
 				84A43DD91D3E735B00F09B14 /* Itboost.xcdatamodeld in Sources */,
 				84A43DF81D3E98A700F09B14 /* NSStringExtension.swift in Sources */,
+				03FC365F1D86EB6C00C530FF /* Organization+CoreDataProperties.swift in Sources */,
+				03FC36601D86EB6C00C530FF /* Organization.swift in Sources */,
 				84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */,
 				84A220071D5A3D3D0003E1BA /* ViewExtension.swift in Sources */,
 				84A21FFF1D57BB0E0003E1BA /* RegistrationViewController.swift in Sources */,

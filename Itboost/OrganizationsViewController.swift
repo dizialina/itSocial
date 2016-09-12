@@ -13,54 +13,66 @@ import CoreData
 class OrganizationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var viewMore: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var refreshControl:UIRefreshControl!
+    var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
     
-    var communityObject: NSManagedObject!
-    var isDescriptionOpen = false
-    var newPostText = String()
-    var organizationsArray = [WallPost]()
-    var loadMoreStatus = false
-    var currentPostsPage = 1
+    var organizationList = [Organization]()
+    var pictureList = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Мои новости"
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrganizationsViewController.getOrganizationsFromDatabase), name: Constants.kLoadOrganizationsNotification, object: nil)
         
-        refreshControl = UIRefreshControl()
-        refreshControl.tintColor = UIColor.clearColor()
-        tableView.addSubview(refreshControl)
-        self.tableView.tableFooterView = viewMore
-        self.tableView.tableFooterView!.hidden = true
+        self.navigationItem.title = "Организации"
         
+        pictureList = [UIImage(named:"AppleLogo")!]
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            LoadPaginaionManager().loadAllOrganizationsFromServer()
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        currentPostsPage = 1
-        feedsArray.removeAll()
-        tableView.reloadData()
-        getFeeds()
+        if organizationList.count == 0 {
+            activityIndicator.startAnimating()
+        }
+        getOrganizationsFromDatabase()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
-    // MARK: Get data methods
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
-    func getFeeds() {
+    // MARK: Loading data for table view
+    
+    func getOrganizationsFromDatabase() {
         
-        ServerManager().getFeeds(currentPostsPage, success: { (response) in
-            self.feedsArray += ResponseParser().parseWallPost(response as! [AnyObject])
-            self.currentPostsPage += 1
-            self.tableView.reloadData()
-        }) { (error) in
-            print("Error receiving feeds: " + error!.localizedDescription)
+        let dataBaseManager = DataBaseManager()
+        managedObjectContext = dataBaseManager.managedObjectContext
+        organizationList.removeAll()
+        
+        let fetchRequest = NSFetchRequest(entityName: "Organization")
+        fetchRequest.fetchBatchSize = 15
+        let sortDescriptor = NSSortDescriptor(key: "organizationID", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        do {
+            let allOrganizations = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Organization]
+            organizationList = allOrganizations
+            activityIndicator.stopAnimating()
+            tableView.reloadData()
+            
+        } catch {
+            print("Collection can't get all organizations from database")
         }
         
     }
@@ -68,104 +80,35 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: TableView DataSource and Delegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feedsArray.count
+        return organizationList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let feedCell = tableView.dequeueReusableCellWithIdentifier("FeedCell", forIndexPath: indexPath) as! WallPostCell
+        let organizationCell = tableView.dequeueReusableCellWithIdentifier("OrganizationTableCell", forIndexPath: indexPath) as! EventTableCell
         
-        let wallPost = feedsArray[indexPath.row]
+        let organization = organizationList[indexPath.item]
         
-        if wallPost.postTitle.characters.count > 0 {
-            feedCell.postTitleLabel.text = wallPost.postTitle
-        } else {
-            feedCell.postTitleLabel.text = "Без названия"
-        }
+        organizationCell.descriptionLabel.text = organization.name
+        organizationCell.logoImage.image = pictureList[0]
         
-        feedCell.postDateLabel.text = convertDateToText(wallPost.postedAt)
-        feedCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
+        return organizationCell
         
-        feedCell.commentsButton.addTarget(self, action: #selector(FeedsViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        feedCell.commentsButton.tag = wallPost.postID
-        
-        let postBodyText:NSString = wallPost.postBody
-        feedCell.postBodyLabel.text = postBodyText as String
-        
-        let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
-        feedCell.heightBodyView.constant = bodyHeight
-        
-        return feedCell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //self.performSegueWithIdentifier("openMail", sender: nil)
+        //self.performSegueWithIdentifier("openEvent", sender: nil)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        let wallPost = feedsArray[indexPath.row]
-        
-        let postBodyText:NSString = wallPost.postBody
-        let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
-        
-        guard bodyHeight > 30 else { return 125.0 }
-        
-        let deltaHeight =  bodyHeight - 30
-        return 125.0 + deltaHeight
+        return 91.0
     }
     
-    // MARK: Refreshing Table
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let deltaOffset = maximumOffset - currentOffset
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if deltaOffset <= 0 {
-            loadMore()
-        }
-    }
-    
-    func loadMore() {
-        if !loadMoreStatus {
-            self.loadMoreStatus = true
-            self.activityIndicator.startAnimating()
-            self.tableView.tableFooterView!.hidden = false
-            loadMoreBegin("Load more",
-                          loadMoreEnd: {(x:Int) -> () in
-                            self.tableView.reloadData()
-                            self.loadMoreStatus = false
-                            self.activityIndicator.stopAnimating()
-                            self.tableView.tableFooterView!.hidden = true
-            })
-        }
-    }
-    
-    func loadMoreBegin(newtext:String, loadMoreEnd:(Int) -> ()) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            print("loadmore")
+        if (segue.identifier == "openEvent") {
             
-            if self.currentPostsPage != 1 {
-                self.getFeeds()
-            }
-            
-            sleep(2)
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                loadMoreEnd(0)
-            }
         }
-    }
-    
-    // MARK: Actions
-    
-    func openPostComments(sender: UIButton) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("CommentsViewController") as! CommentsViewController
-        viewController.postID = sender.tag
-        self.navigationController?.pushViewController(viewController, animated: true)
         
     }
     
@@ -178,17 +121,4 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
         return dateFormatter.stringFromDate(date)
     }
     
-    // MARK: Seque
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if (segue.identifier == "showPostComments") {
-            let viewController = segue.destinationViewController as! CommentsViewController
-            viewController.postID = sender as! Int
-        }
-        
-    }
-    
 }
-
-

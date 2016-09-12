@@ -88,7 +88,7 @@ class DataBaseManager: NSObject {
                 }
                 
             } catch {
-                print("Can't execute fetch request by groups need to write/update")
+                print("Can't execute fetch request by event groups need to write/update")
             }
             
             do {
@@ -118,6 +118,62 @@ class DataBaseManager: NSObject {
             
         } catch {
             print("Can't get all communities from database")
+        }
+        
+    }
+    
+    func writeAllOrganizations(organizationsArray:[AnyObject], isLastPage:Bool) {
+        
+        if organizationsArray.count > 0 {
+            
+            var organizations = [Int:Organization]()
+            var newID = [Int]()
+            
+            for organization in organizationsArray {
+                
+                let organizationDictionary = organization as! [String:AnyObject]
+                let currentOrganization = NSEntityDescription.insertNewObjectForEntityForName("Organization", inManagedObjectContext: self.managedObjectContext) as! Organization
+                
+                currentOrganization.name = (organizationDictionary["name"] as? String)!
+                currentOrganization.specialization = "some specialization"
+                
+                let organizationIDInt = organizationDictionary["id"] as? Int
+                currentOrganization.organizationID = NSDecimalNumber(integer: organizationIDInt!)
+                organizations[organizationIDInt!] = currentOrganization
+                newID.append(organizationIDInt!)
+                
+            }
+            
+            let fetchRequest = NSFetchRequest(entityName: "Organization")
+            fetchRequest.includesPendingChanges = false
+            fetchRequest.predicate = NSPredicate(format: "organizationID IN %@", newID)
+            
+            do {
+                let existingOrganizations = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Organization]
+                
+                for requestOrganization in existingOrganizations {
+                    let organizationID = Int(requestOrganization.organizationID.intValue)
+                    let newOrganization = organizations[organizationID]
+                    
+                    requestOrganization.name = (newOrganization?.name)!
+                    requestOrganization.specialization = newOrganization?.specialization
+                    
+                    managedObjectContext.deleteObject(newOrganization!)
+                }
+                
+            } catch {
+                print("Can't execute fetch request by organization groups need to write/update")
+            }
+            
+            do {
+                try managedObjectContext.save()
+                if isLastPage {
+                    NSNotificationCenter.defaultCenter().postNotificationName(Constants.kLoadOrganizationsNotification, object: nil)
+                }
+            } catch let error as NSError {
+                print("Can't save to coredata new organizations. Error: \(error.localizedDescription)")
+            }
+            
         }
         
     }

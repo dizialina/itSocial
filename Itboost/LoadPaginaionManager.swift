@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum LoadingDataType {
+    case Events
+    case Organizations
+}
+
 class LoadPaginaionManager: NSObject {
     
     func loadAllEventsFromServer() {
@@ -16,8 +21,19 @@ class LoadPaginaionManager: NSObject {
         
         let urlString = Constants.linkToServerAPI + "event.getAll"
         
-        let loadEventsOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue)
+        let loadEventsOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue, dataType: .Events)
         operationQueue.addOperation(loadEventsOperation)
+        operationQueue.waitUntilAllOperationsAreFinished()
+    }
+    
+    func loadAllOrganizationsFromServer() {
+        
+        let operationQueue = NSOperationQueue()
+        
+        let urlString = Constants.linkToServerAPI + "organization.getAll"
+        
+        let loadOrganizationOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue, dataType: .Organizations)
+        operationQueue.addOperation(loadOrganizationOperation)
         operationQueue.waitUntilAllOperationsAreFinished()
     }
     

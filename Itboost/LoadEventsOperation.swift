@@ -17,11 +17,13 @@ class LoadEventsOperation: NSOperation {
     //Property's of class
     let linkToRequestData:String
     let dispatchQueue:NSOperationQueue
+    let dataType:LoadingDataType
     
     // Designed initializer
-    init(linkToData:String, queue:NSOperationQueue) {
+    init(linkToData:String, queue:NSOperationQueue, dataType:LoadingDataType) {
         self.linkToRequestData = linkToData
         self.dispatchQueue = queue
+        self.dataType = dataType
     }
         
     // Method start override
@@ -40,27 +42,57 @@ class LoadEventsOperation: NSOperation {
     func createOperationForLoadTask(linkToLoad:String, queue:NSOperationQueue) {
         let serverManager = ServerManager()
         
-        serverManager.getOnePageCommunityFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
+        switch self.dataType {
+        case .Events:
             
-            let communitiesArray = response as! [AnyObject]
-            
-            let countOfCommunitiesPerOnePage = communitiesArray.count
-            if countOfCommunitiesPerOnePage == 10 {
+            serverManager.getOnePageCommunityFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
                 
-                DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:false)
-                let nextPage = currentPage + 1
-                let newLinkToData = self.linkToRequestData + "?page=\(nextPage)"
-                let newLoadEventsOperataion = LoadEventsOperation(linkToData: newLinkToData, queue: self.dispatchQueue)
-                self.dispatchQueue.addOperation(newLoadEventsOperataion)
+                let communitiesArray = response as! [AnyObject]
                 
-            } else {
-                print("Load done for all community pages")
-                DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:true)
+                let countOfCommunitiesPerOnePage = communitiesArray.count
+                if countOfCommunitiesPerOnePage == 10 {
+                    
+                    DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:false)
+                    let nextPage = currentPage + 1
+                    let newLinkToData = self.linkToRequestData + "?page=\(nextPage)"
+                    let newLoadEventsOperataion = LoadEventsOperation(linkToData: newLinkToData, queue: self.dispatchQueue, dataType: self.dataType)
+                    self.dispatchQueue.addOperation(newLoadEventsOperataion)
+                    
+                } else {
+                    print("Load done for all events pages")
+                    DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:true)
+                }
+                
+            }) { (error) in
+                print("Error loading one page events: " + error!.localizedDescription)
             }
-        
-        }) { (error) in
-            print("Error loading one page community: " + error!.localizedDescription)
+            
+        case .Organizations:
+            
+            serverManager.getOnePageOrganizationsFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
+                
+                let organizationsArray = response as! [AnyObject]
+                
+                let countOfCommunitiesPerOnePage = organizationsArray.count
+                if countOfCommunitiesPerOnePage == 10 {
+                    
+                    DataBaseManager().writeAllOrganizations(organizationsArray, isLastPage:false)
+                    let nextPage = currentPage + 1
+                    let newLinkToData = self.linkToRequestData + "?page=\(nextPage)"
+                    let newLoadEventsOperataion = LoadEventsOperation(linkToData: newLinkToData, queue: self.dispatchQueue, dataType: self.dataType)
+                    self.dispatchQueue.addOperation(newLoadEventsOperataion)
+                    
+                } else {
+                    print("Load done for all organizations pages")
+                    DataBaseManager().writeAllOrganizations(organizationsArray, isLastPage:true)
+                }
+                
+            }) { (error) in
+                print("Error loading one page organizations: " + error!.localizedDescription)
+            }
+            
         }
+        
         
     }
     

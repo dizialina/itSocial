@@ -121,32 +121,47 @@ class ServerManager: NSObject {
     
     // MARK: Organization methods
     
-    func getOrganizations(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getOnePageOrganizationsFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!, currentPage:Int) -> Void, failure: (error: NSError?) -> Void) {
         
-        let params:NSDictionary = ["page": currentPage]
+        let manager = AFHTTPRequestOperationManager()
+        manager.operationQueue = operationQueue
+        
+        manager.GET(sourceURL, parameters: nil, success: { (operation, responce) in
+            if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
+                //print(response)
+                if let results = response["response"] {
+                    if let communitiesArray = results["items"] as? [AnyObject] {
+                        let currentPage = results["current_page_number"] as! Int
+                        success(response: communitiesArray, currentPage: currentPage)
+                    } else {
+                        print("Response of organizations page has 0 items")
+                    }
+                }
+            }
+        }) { (operation, error) in
+            print("Error loading one page organizations with url \(sourceURL): " + error.localizedDescription)
+        }
+    }
+    
+    func createOrganization(organizationName:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["name": organizationName]
+        print(params)
         
         if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("organizations.getAll", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.POST("organization.create", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)
-            if let response = responseObject as? [String:AnyObject] {
-                if let results = response["response"] as? [String:AnyObject] {
-                    if let postsArray = results["items"] as? [AnyObject] {
-                        success(response: postsArray)
-                    }
-                }
-            } else {
-                print("Response with feeds is empty")
-                success(response: [])
-            }
+            success(response: nil)
             })
         { (task:NSURLSessionDataTask?, error:NSError) in
-            print("Error receiving feeds: " + error.localizedDescription)
+            print("Error while creating organization: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }
+    
     }
     
     // MARK: Feed methods
@@ -160,7 +175,7 @@ class ServerManager: NSObject {
         }
         
         sessionManager.GET("feed.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            print(responseObject)
+            //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let postsArray = results["items"] as? [AnyObject] {
