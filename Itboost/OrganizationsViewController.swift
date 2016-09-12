@@ -89,7 +89,17 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
         
         let organization = organizationList[indexPath.item]
         
-        organizationCell.descriptionLabel.text = organization.name
+        let textToShow = "\(organization.name) \n\nОрганизатор: \(organization.createdBy!.userName)"
+        
+        // Make event title bold
+        
+        let stringToBold = organization.name
+        let range = (textToShow as NSString).rangeOfString(stringToBold)
+        let attributedString = NSMutableAttributedString(string: textToShow)
+        let font = UIFont.boldSystemFontOfSize(15)
+        attributedString.addAttribute(NSFontAttributeName, value: font, range: range)
+        
+        organizationCell.descriptionLabel.attributedText = attributedString
         organizationCell.logoImage.image = pictureList[0]
         
         return organizationCell

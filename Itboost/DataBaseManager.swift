@@ -157,7 +157,7 @@ class DataBaseManager: NSObject {
                 let creator = organizationDictionary["created_by"] as? [String:AnyObject]
                 let currentCreator = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: self.managedObjectContext) as! User
                 
-                currentCreator.userName = "user name"
+                currentCreator.userName = (creator!["username"] as? String)!
                 currentCreator.email = creator!["email"] as? String
                 currentCreator.firstName = creator!["firstname"] as? String
                 currentCreator.lastName = creator!["lastName"] as? String
