@@ -39,7 +39,7 @@ class ServerManager: NSObject {
     
     func getAllCommunitiesFromServer() {
         
-        sessionManager.GET("community.getAll", parameters:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.GET("event.getAll", parameters:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     print(results)
@@ -119,6 +119,36 @@ class ServerManager: NSObject {
         }
     }
     
+    // MARK: Organization methods
+    
+    func getOrganizations(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["page": currentPage]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.GET("organizations.getAll", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    if let postsArray = results["items"] as? [AnyObject] {
+                        success(response: postsArray)
+                    }
+                }
+            } else {
+                print("Response with feeds is empty")
+                success(response: [])
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error receiving feeds: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
     // MARK: Feed methods
     
     func getFeeds(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
@@ -130,7 +160,7 @@ class ServerManager: NSObject {
         }
         
         sessionManager.GET("feed.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            //print(responseObject)
+            print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let postsArray = results["items"] as? [AnyObject] {
@@ -235,24 +265,32 @@ class ServerManager: NSObject {
         }
         
         sessionManager.GET("profile.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            //print(responseObject)
+            print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     success(response: results)
                     
 //                    response =     {
 //                        about = "<null>";
-//                        "avatar_album_id" = 13;
-//                        "default_album_id" = 14;
+//                        "avatar_album_id" = 5;
+//                        birthday = "<null>";
+//                        certificates =         (
+//                        );
+//                        city = "<null>";
+//                        country = "<null>";
+//                        "default_album_id" = 6;
+//                        description = "<null>";
 //                        email = "qwerty@mail.ru";
 //                        firstname = "<null>";
-//                        id = 8;
+//                        id = 3;
 //                        lastname = "<null>";
-//                        site = "<null>";
+//                        skills =         (
+//                        );
 //                        "speaker_id" = "<null>";
-//                        "thread_id" = 10;
-//                        username = koteyka;
+//                        "thread_id" = 5;
+//                        username = qwerty;
 //                    };
+                    
                 }
             } else {
                 print("Response profile info is empty")

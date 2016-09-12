@@ -20,15 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         
-        NSUserDefaults.standardUserDefaults().setBool(true,forKey:Constants.kAlreadyRun)
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey:Constants.kAlreadyRun)
         
         IQKeyboardManager.sharedManager().enable = true
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-           LoadPaginaionManager().loadAllItemsFromServer()
+           LoadPaginaionManager().loadAllEventsFromServer()
         })
         
-        Fabric.sharedSDK().debug = true
+        //Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics.self])
         
         return true

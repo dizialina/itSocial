@@ -29,7 +29,7 @@ class LoadEventsOperation: NSOperation {
             
         if self.cancelled {
             self._finished = true
-            return;
+            return
         }
     
         createOperationForLoadTask(linkToRequestData, queue: dispatchQueue)

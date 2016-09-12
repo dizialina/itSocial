@@ -32,7 +32,7 @@ class DataBaseManager: NSObject {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                 currentCommunity.createdAt = dateFormatter.dateFromString(createdAtString!)
-                if let eventDateString = communityDictionary["event_date"] as? String {
+                if let eventDateString = communityDictionary["event_start_date"] as? String {
                     currentCommunity.eventDate = dateFormatter.dateFromString(eventDateString)
                 }
                 
@@ -47,15 +47,16 @@ class DataBaseManager: NSObject {
                 let creator = communityDictionary["created_by"] as? [String:AnyObject]
                 let currentCreator = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: self.managedObjectContext) as! User
                 
-                currentCreator.userName = (creator!["username"] as? String)!
+                //currentCreator.userName = (creator!["username"] as? String)!
+                currentCreator.userName = "user name"
                 currentCreator.email = creator!["email"] as? String
                 currentCreator.firstName = creator!["firstname"] as? String
                 currentCreator.lastName = creator!["lastName"] as? String
                 currentCreator.site = creator!["site"] as? String
                 currentCreator.about = creator!["about"] as? String
                 
-                let userIDInt = creator!["id"] as? Int
-                currentCreator.userID = NSDecimalNumber(integer: userIDInt!)
+                let userIDInt = (creator!["id"] as? Int)!
+                currentCreator.userID = NSDecimalNumber(integer: userIDInt)
                 
                 let roles = creator!["roles"] as? [String]
                 if roles?.count > 0 {
@@ -95,8 +96,8 @@ class DataBaseManager: NSObject {
                 if isLastPage {
                     NSNotificationCenter.defaultCenter().postNotificationName(Constants.kLoadCommunitiesNotification, object: nil)
                 }
-            } catch {
-                print("Can't save to coredata new communities")
+            } catch let error as NSError {
+                print("Can't save to coredata new communities. Error: \(error.localizedDescription)")
             }
             
         }

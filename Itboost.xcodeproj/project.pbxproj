@@ -15,6 +15,7 @@
 		03ABF57D1D6619D80053FAD9 /* SkillsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */; };
 		03ABF5831D66269C0053FAD9 /* AwardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5821D66269C0053FAD9 /* AwardsCell.swift */; };
 		03ABF58B1D6B36FA0053FAD9 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */; };
+		03FC365C1D86E61000C530FF /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
 		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D041D5B2CA1005DD716 /* NewPostViewController.swift */; };
@@ -61,6 +62,7 @@
 		03ABF57C1D6619D70053FAD9 /* SkillsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillsCell.swift; sourceTree = "<group>"; };
 		03ABF5821D66269C0053FAD9 /* AwardsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsCell.swift; sourceTree = "<group>"; };
 		03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
+		03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
 				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
 				03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */,
+				03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */,
 				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
 			);
 			name = "View Controllers";
@@ -457,6 +460,7 @@
 				84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */,
 				84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */,
 				03ABF58B1D6B36FA0053FAD9 /* FeedsViewController.swift in Sources */,
+				03FC365C1D86E61000C530FF /* OrganizationsViewController.swift in Sources */,
 				03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */,
 				84023D091D5B3EFF005DD716 /* ResponseParses.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,

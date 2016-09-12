@@ -10,11 +10,11 @@ import Foundation
 
 class LoadPaginaionManager: NSObject {
     
-    func loadAllItemsFromServer() {
+    func loadAllEventsFromServer() {
         
         let operationQueue = NSOperationQueue()
         
-        let urlString = Constants.linkToServerAPI + "community.getAll"
+        let urlString = Constants.linkToServerAPI + "event.getAll"
         
         let loadEventsOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue)
         operationQueue.addOperation(loadEventsOperation)
