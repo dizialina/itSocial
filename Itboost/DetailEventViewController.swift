@@ -95,7 +95,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             eventCell.detailButton.addTarget(self, action: #selector(DetailEventViewController.openDetailDescription), forControlEvents: UIControlEvents.TouchUpInside)
             
-            eventCell.acceptButton.addTarget(self, action: #selector(DetailEventViewController.joinCommunity(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            eventCell.acceptButton.addTarget(self, action: #selector(DetailEventViewController.joinEvent(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
             if isDescriptionOpen {
             
@@ -311,15 +311,15 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         self.performSegueWithIdentifier("addPostToWall", sender: nil)
     }
     
-    func joinCommunity(sender: UIButton) {
+    func joinEvent(sender: UIButton) {
         
-        let community = communityObject as! Community
-        let communityID = Int(community.communityID.intValue)
+        let event = communityObject as! Community
+        let eventID = Int(event.communityID.intValue)
         
-        ServerManager().joinCommunity(communityID, success: { (response) in
+        ServerManager().joinEvent(eventID, notSure:0, success: { (response) in
             //
         }) { (error) in
-            print("Error while joining community: " + error!.localizedDescription)
+            print("Error while joining event: " + error!.localizedDescription)
         }
     }
     

@@ -18,6 +18,7 @@
 		03FC365C1D86E61000C530FF /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */; };
 		03FC36631D86FC1500C530FF /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC36611D86FC1500C530FF /* Organization+CoreDataProperties.swift */; };
 		03FC36641D86FC1500C530FF /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC36621D86FC1500C530FF /* Organization.swift */; };
+		03FC36661D88044500C530FF /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC36651D88044500C530FF /* News.swift */; };
 		6470BBB4419BEED12BB56AF6 /* Pods_Itboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */; };
 		84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D021D5A835D005DD716 /* AddPostToEventCell.swift */; };
 		84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84023D041D5B2CA1005DD716 /* NewPostViewController.swift */; };
@@ -67,6 +68,7 @@
 		03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
 		03FC36611D86FC1500C530FF /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		03FC36621D86FC1500C530FF /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		03FC36651D88044500C530FF /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Itboost.release.xcconfig"; path = "Pods/Target Support Files/Pods-Itboost/Pods-Itboost.release.xcconfig"; sourceTree = "<group>"; };
 		553409A2BDB0AFAC2F7B2B52 /* Pods_Itboost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Itboost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84023D021D5A835D005DD716 /* AddPostToEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostToEventCell.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			children = (
 				84023D0A1D5B3F86005DD716 /* WallPost.swift */,
 				03ABF52A1D5E28670053FAD9 /* PostComment.swift */,
+				03FC36651D88044500C530FF /* News.swift */,
 			);
 			name = "Simple Models";
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
 				84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */,
 				84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */,
+				03FC36661D88044500C530FF /* News.swift in Sources */,
 				03ABF58B1D6B36FA0053FAD9 /* FeedsViewController.swift in Sources */,
 				03FC365C1D86E61000C530FF /* OrganizationsViewController.swift in Sources */,
 				03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */,

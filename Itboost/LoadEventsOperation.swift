@@ -45,7 +45,7 @@ class LoadEventsOperation: NSOperation {
         switch self.dataType {
         case .Events:
             
-            serverManager.getOnePageCommunityFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
+            serverManager.getOnePageEventsFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
                 
                 let communitiesArray = response as! [AnyObject]
                 

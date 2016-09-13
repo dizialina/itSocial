@@ -35,9 +35,9 @@ class ServerManager: NSObject {
         
     }
     
-    // MARK: Communities methods
+    // MARK: Events methods
     
-    func getAllCommunitiesFromServer() {
+    func getAllEventsFromServer() {
         
         sessionManager.GET("event.getAll", parameters:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
@@ -45,17 +45,17 @@ class ServerManager: NSObject {
                     print(results)
                     DataBaseManager().writeAllCommunities(results as! [AnyObject], isLastPage:true)
                 } else {
-                    print("Reques tasks from server = nil")
+                    print("Reques all events from server is nil")
                 }
             }
         })
         { (task:NSURLSessionDataTask?, error:NSError) in
-            print("Error loading all communities: " + error.localizedDescription)
+            print("Error loading all events: " + error.localizedDescription)
         }
         
     }
     
-    func getOnePageCommunityFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!, currentPage:Int) -> Void, failure: (error: NSError?) -> Void) {
+    func getOnePageEventsFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!, currentPage:Int) -> Void, failure: (error: NSError?) -> Void) {
         
         let manager = AFHTTPRequestOperationManager()
         //manager.requestSerializer.setValue("application/json; charset=UTF-8", forHTTPHeaderField:"Content-Type")
@@ -70,37 +70,38 @@ class ServerManager: NSObject {
                         let currentPage = results["current_page_number"] as! Int
                         success(response: communitiesArray, currentPage: currentPage)
                     } else {
-                        print("Response of community page has 0 items")
+                        print("Response of events page has 0 items")
                     }
                 }
             }
         }) { (operation, error) in
-            print("Error loading one page community with url \(sourceURL): " + error.localizedDescription)
+            print("Error loading one page events with url \(sourceURL): " + error.localizedDescription)
         }
     }
     
-    func joinCommunity(communityID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func joinEvent(eventID:Int, notSure:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
-        let params:NSDictionary = ["community_id": communityID]
+        let params:NSDictionary = ["id": eventID,
+                             "not_sure": notSure]
         
         if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("community.join", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.POST("event.join", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)
             success(response: nil)
         })
         { (task:NSURLSessionDataTask?, error:NSError) in
-            print("Error while joining community: " + error.localizedDescription)
+            print("Error while joining event: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }
     }
     
-    func leaveCommunity(communityID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func leaveEvent(eventID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
-        let params:NSDictionary = ["community_id": communityID]
+        let params:NSDictionary = ["id": eventID]
         
         if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -108,12 +109,46 @@ class ServerManager: NSObject {
         
         sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
-        sessionManager.DELETE("community.leave", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.DELETE("event.leave", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             print(responseObject)
             success(response: nil)
             })
         { (task:NSURLSessionDataTask?, error:NSError) in
-            print("Error while leaving community: " + error.localizedDescription)
+            print("Error while leaving event: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    func editEvent(eventInfo:[String:AnyObject], success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        // Pay attention not to pass empty keys in eventInfo dictionary! Put there empty strings or arrays when calling this methood
+        
+        let params:NSDictionary = ["id": eventInfo["id"]!,
+                                 "name": eventInfo["name"]!,
+                     "event_start_date": eventInfo["eventStartDate"]!,
+                       "event_end_date": eventInfo["eventEndDate"]!,
+                           "event_site": eventInfo["eventSite"]!,
+                          "event_price": eventInfo["eventPrice"]!,
+                          "description": eventInfo["description"]!,
+                            "locations": eventInfo["locations"]!]      // array
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.PUT("event.update", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
+                if let results = response["response"] {
+                    success(response: results)
+                }
+            } else {
+                print("Editing event response is empty")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while editing event info: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }
@@ -162,6 +197,46 @@ class ServerManager: NSObject {
             failure(error: error)
         }
     
+    }
+    
+    func joinOrganization(organizationID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["id": organizationID]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.POST("organization.join", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            success(response: nil)
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while joining organization: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    func leaveOrganization(organizationID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["id": organizationID]
+        
+        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.DELETE("organization.leave", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            success(response: nil)
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while leaving organization: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
     }
     
     // MARK: Feed methods
@@ -313,6 +388,41 @@ class ServerManager: NSObject {
             })
         { (task:NSURLSessionDataTask?, error:NSError) in
             print("Error receiving profile info: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    func editUserProfile(userInfo:[String:AnyObject], success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        // Pay attention not to pass empty keys in userInfo dictionary! Put there empty strings or arrays when calling this methood
+        
+        let params:NSDictionary = ["birthday": userInfo["birthday"]!,
+                                      "about": userInfo["about"]!,
+                                  "firstname": userInfo["firstname"]!,
+                                   "lastname": userInfo["lastname"]!,
+                                    "country": userInfo["country"]!,       // array
+                                       "city": userInfo["city"]!,          // array
+                                "description": userInfo["description"]!,
+                                     "skills": userInfo["skills"]!,        // array
+                               "sertificates": userInfo["sertificates"]!]  // array
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.PUT("profile.edit", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
+                if let results = response["response"] {
+                    success(response: results)
+                }
+            } else {
+                print("Editing profile response is empty")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while editing profile info: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }
@@ -573,7 +683,91 @@ class ServerManager: NSObject {
         }
     }
     
-    // MARK: Photos
+    // MARK: News methods
+    
+    // JSON example posting news
+    
+//    {
+//    "news_form" : {
+//    "title": "1asd23",
+//    "content": "qwe"
+//    },
+//    "type": "org",
+//    "org_id": 123
+//    }
+//    
+//    {
+//    "news_form" : {
+//    "title": "1asd23",
+//    "content": "qwe"
+//    },
+//    "type": "user"
+//    }
+    
+    func getNews(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["page": currentPage]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.GET("news", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    if let newsArray = results["items"] as? [AnyObject] {
+                        success(response: newsArray)
+                        
+//                        {
+//                            content = "fake content";
+//                            "created_at" = "2016-09-12T08:38:36+0000";
+//                            id = 1;
+//                            image = "<null>";
+//                            owner =                 {
+//                                about = "<null>";
+//                                "avatar_album_id" = 7;
+//                                birthday = "<null>";
+//                                certificates =                     (
+//                                );
+//                                city = "<null>";
+//                                country = "<null>";
+//                                "default_album_id" = 8;
+//                                description = "<null>";
+//                                email = test1;
+//                                firstname = "<null>";
+//                                id = 4;
+//                                lastname = "<null>";
+//                                roles =                     (
+//                                    "ROLE_USER"
+//                                );
+//                                skills =                     (
+//                                );
+//                                "speaker_id" = "<null>";
+//                                "thread_id" = 7;
+//                                username = test1;
+//                            };
+//                            tags =                 (
+//                            );
+//                            title = "hello world";
+//                            type = "news_user";
+//                            "views_count" = 0;
+//                        }
+                    }
+                }
+            } else {
+                print("Response with news is empty")
+                success(response: [])
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error receiving news: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    // MARK: Photos methods
     
     func getUserPhotoAlbums(otherUserID userID: Int?, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
