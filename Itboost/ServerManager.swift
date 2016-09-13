@@ -344,7 +344,7 @@ class ServerManager: NSObject {
         
     }
     
-    func getEventWallPosts(threadID: Int, currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getWallPosts(threadID: Int, currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
         let params:NSDictionary = ["thread_id": threadID,
                                    "page": currentPage]
@@ -367,7 +367,32 @@ class ServerManager: NSObject {
             }
         })
         { (task:NSURLSessionDataTask?, error:NSError) in
-            print("Error receiving wall posts from event: " + error.localizedDescription)
+            print("Error receiving wall posts: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    func getOneWallPost(postID: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["post_id": postID]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.GET("wall.getPost", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            //print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    success(response: results)
+                }
+            } else {
+                print("Response with one post is empty")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error receiving one wall post: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }
@@ -401,7 +426,7 @@ class ServerManager: NSObject {
     func postComment(postID: Int, commentText: String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
         let params:NSDictionary = ["post_id": postID,
-                                   "body": commentText]
+                                      "body": commentText]
         print(params)
         
         sessionManager.responseSerializer = AFHTTPResponseSerializer()
@@ -420,6 +445,129 @@ class ServerManager: NSObject {
         { (task:NSURLSessionDataTask?, error:NSError) in
             print("Error sending comment to post: " + error.localizedDescription)
             print(task?.response)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    // Editing
+    
+    func editWallPost(postID:Int, postTitle:String, postBody:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["post_id": postID,
+                                     "title": postTitle,
+                                      "body": postBody]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.PUT("wall.edit", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                success(response: response)
+            } else {
+                print("Editing wall post return empty message")
+            }
+            success(response: nil)
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while editing wall post: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    func editWallComment(commentID:Int, commentBody:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["comment_id": commentID,
+                                         "body": commentBody]
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.PUT("wall.editComment", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                success(response: response)
+            } else {
+                print("Editing wall comment return empty message")
+            }
+            success(response: nil)
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while editing wall comment: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    // Deleting
+    
+    func deleteWallPost(postID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["post_id": postID]
+        print(params)
+        
+        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.DELETE("wall.delete", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] {
+                    print(results)
+                    success(response: nil)
+                }
+            } else {
+                print("Delete wall post return empty message")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while deleting wall post: " + error.localizedDescription)
+            
+            // Example of parsing error for backend
+            
+            do {
+                let responseDict = try NSJSONSerialization.JSONObjectWithData((error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as! NSData), options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                print(responseDict)
+            } catch {
+                print("Error parsing error")
+            }
+            
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+    }
+    
+    func deleteWallComment(commentID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        let params:NSDictionary = ["comment_id": commentID]
+        print(params)
+        
+        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.DELETE("wall.deleteComment", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] {
+                    print(results)
+                    success(response: nil)
+                }
+            } else {
+                print("Delete wall comment return empty message")
+            }
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while deleting wall comment: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }

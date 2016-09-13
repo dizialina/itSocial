@@ -59,7 +59,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         let community = communityObject as! Community
         let wallThreadID = Int(community.threadID.intValue)
         
-        ServerManager().getEventWallPosts(wallThreadID, currentPage: currentPostsPage, success: { (response) in
+        ServerManager().getWallPosts(wallThreadID, currentPage: currentPostsPage, success: { (response) in
             self.wallPostsArray += ResponseParser().parseWallPost(response as! [AnyObject])
             self.currentPostsPage += 1
             self.tableView.reloadData()
