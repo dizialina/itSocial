@@ -685,25 +685,6 @@ class ServerManager: NSObject {
     
     // MARK: News methods
     
-    // JSON example posting news
-    
-//    {
-//    "news_form" : {
-//    "title": "1asd23",
-//    "content": "qwe"
-//    },
-//    "type": "org",
-//    "org_id": 123
-//    }
-//    
-//    {
-//    "news_form" : {
-//    "title": "1asd23",
-//    "content": "qwe"
-//    },
-//    "type": "user"
-//    }
-    
     func getNews(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
         
         let params:NSDictionary = ["page": currentPage]
@@ -718,41 +699,6 @@ class ServerManager: NSObject {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let newsArray = results["items"] as? [AnyObject] {
                         success(response: newsArray)
-                        
-//                        {
-//                            content = "fake content";
-//                            "created_at" = "2016-09-12T08:38:36+0000";
-//                            id = 1;
-//                            image = "<null>";
-//                            owner =                 {
-//                                about = "<null>";
-//                                "avatar_album_id" = 7;
-//                                birthday = "<null>";
-//                                certificates =                     (
-//                                );
-//                                city = "<null>";
-//                                country = "<null>";
-//                                "default_album_id" = 8;
-//                                description = "<null>";
-//                                email = test1;
-//                                firstname = "<null>";
-//                                id = 4;
-//                                lastname = "<null>";
-//                                roles =                     (
-//                                    "ROLE_USER"
-//                                );
-//                                skills =                     (
-//                                );
-//                                "speaker_id" = "<null>";
-//                                "thread_id" = 7;
-//                                username = test1;
-//                            };
-//                            tags =                 (
-//                            );
-//                            title = "hello world";
-//                            type = "news_user";
-//                            "views_count" = 0;
-//                        }
                     }
                 }
             } else {
@@ -765,6 +711,38 @@ class ServerManager: NSObject {
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error: error)
         }
+    }
+    
+    func postNews(newsBody:[String:String], type:String, organizationID:Int?, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+        
+        // NewsForm should be with such keys:
+        //    "news_form" : {
+        //    "title": "123qqq",
+        //    "content": "qwe"
+        //    }
+        
+        let params:NSMutableDictionary = ["news_form": newsBody,
+                                               "type": type]      // user|org
+        if organizationID != nil {
+            params.setObject(organizationID!, forKey: "org_id")
+        }
+        
+        print(params)
+        
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.POST("news", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            print(responseObject)
+            success(response: nil)
+            })
+        { (task:NSURLSessionDataTask?, error:NSError) in
+            print("Error while adding news: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error: error)
+        }
+        
     }
     
     // MARK: Photos methods

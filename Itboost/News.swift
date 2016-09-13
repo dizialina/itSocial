@@ -10,7 +10,7 @@ import Foundation
 
 enum NewsType: String {
     case NewsUser = "news_user"
-    case NewsOrganization = "news_org"
+    case NewsOrganization = "news_organization"
 }
 
 class News: NSObject {
