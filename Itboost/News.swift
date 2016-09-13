@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum NewsType: String {
+    case NewsUser = "news_user"
+    case NewsOrganization = "news_org"
+}
+
 class News: NSObject {
     
     var newsID = Int()
@@ -19,6 +24,6 @@ class News: NSObject {
     var tagsArray = [String]()
     var viewsCount = 0
     var createdAt = NSDate()
-    var type = ""
+    var type: NewsType?
     
 }
