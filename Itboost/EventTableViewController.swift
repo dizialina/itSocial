@@ -10,17 +10,29 @@ import Foundation
 import UIKit
 import CoreData
 
-class EventTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EventTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var timeSegmantedControl: UISegmentedControl!
+    
+    var searchBar = UISearchBar()
+    
     var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
     
-    var communityList = [Community]()
+    var eventList = [Community]()
     var pictureList = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Create search bar and filter navigation button
+        
+        createSearchBar()
+        
+        let filterButton = UIBarButtonItem(image: UIImage(named: "FilterLevers")!, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(EventTableViewController.filterButtonDidTouch))
+        navigationItem.rightBarButtonItem = filterButton
+        
+        // Open login/registration window if user is not authorized
         
         if NSUserDefaults.standardUserDefaults().boolForKey(Constants.kAlreadyRun) {
             if (NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) == nil) {
@@ -33,9 +45,15 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.kLoadCommunitiesNotification, object: nil)
         
-        self.navigationItem.title = "События"
+        //self.navigationItem.title = "Мероприятия"
         
-        pictureList = [UIImage(named:"WtfCat")!]
+        // Make navigation bar translucent
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.translucent = true
+        
+        pictureList = [UIImage(named:"Doge")!]
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,7 +77,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let dataBaseManager = DataBaseManager()
         managedObjectContext = dataBaseManager.managedObjectContext
-        communityList.removeAll()
+        eventList.removeAll()
         
         let fetchRequest = NSFetchRequest(entityName: "Community")
         fetchRequest.fetchBatchSize = 15
@@ -68,7 +86,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         do {
             let allCommunities = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Community]
-            communityList = allCommunities
+            eventList = allCommunities
             tableView.reloadData()
             
         } catch {
@@ -77,41 +95,64 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    func createSearchBar() {
+        
+        searchBar.showsCancelButton = false
+        searchBar.delegate = self
+        searchBar.enablesReturnKeyAutomatically = false
+        
+        // Customize view of search bar
+        
+        //searchBar.setImage(UIImage(named:"MagnifyingGlass")!, forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
+        //searchBar.setImage(UIImage(named:"ClearButton")!, forSearchBarIcon: UISearchBarIcon.Clear, state: UIControlState.Normal)
+        
+        searchBar.tintColor = UIColor.whiteColor()
+        searchBar.barTintColor = Constants.backgroundBlue
+        
+        for view in searchBar.subviews {
+            for subview in view.subviews {
+                if subview .isKindOfClass(UITextField) {
+                    let searchBarTextField: UITextField = subview as! UITextField
+                    searchBarTextField.backgroundColor = Constants.backgroundBlue
+                    searchBarTextField.textColor = UIColor.whiteColor()
+                    searchBarTextField.attributedPlaceholder = NSAttributedString(string: "Введите ключ поиска...", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+                    searchBarTextField.layer.cornerRadius = 15
+                }
+            }
+        }
+        
+        navigationItem.titleView = searchBar
+    }
+    
+    // MARK: Actions
+    
+    @IBAction func changeEventTimeControl(sender: AnyObject) {
+    }
+    
+    func filterButtonDidTouch(sender: AnyObject) {
+        // Call profile view controller
+    }
+    
+    // MARK: SearchBarDelegate
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(false)
+    }
+    
     // MARK: TableView DataSource and Delegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return communityList.count
+        //return eventList.count
+        return 3
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let eventCell = tableView.dequeueReusableCellWithIdentifier("EventTableCell", forIndexPath: indexPath) as! EventTableCell
+        let eventCell = tableView.dequeueReusableCellWithIdentifier("EventsTableCell", forIndexPath: indexPath) as! EventsTableCell
         
-        let community = communityList[indexPath.item]
-        
-        var eventDate = "no date"
-        if community.eventDate != nil {
-            eventDate = convertDateToText(community.eventDate!)
-        }
-        let textToShow = "\(community.name) \n\nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
-        
-        // Make event title bold
-        
-        let stringToBold = community.name
-        let range = (textToShow as NSString).rangeOfString(stringToBold)
-        let attributedString = NSMutableAttributedString(string: textToShow)
-        let font = UIFont.boldSystemFontOfSize(15)
-        attributedString.addAttribute(NSFontAttributeName, value: font, range: range)
-        eventCell.descriptionLabel.attributedText = attributedString
-        
-        // Calculate height of description lable
-        
-        let title:NSString = textToShow
-        let commentHeight = title.heightForText(title, viewWidth: (self.view.frame.width - 125), offset:5.0, device: nil)
-        let height = commentHeight + 8 * 2
+        //let event = eventList[indexPath.item]
         
         eventCell.logoImage.image = pictureList[0]
-        eventCell.heightDescriptionLabel.constant = height
         
         return eventCell
         
@@ -122,24 +163,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        let community = communityList[indexPath.item]
-        
-        var eventDate = "no date"
-        if community.eventDate != nil {
-            eventDate = convertDateToText(community.eventDate!)
-        }
-        let textToShow = "\(community.name) \n\nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
-        
-        let title:NSString = textToShow
-        
-        let commentHeight = title.heightForText(title, viewWidth: (self.view.frame.width - 125), offset:5.0, device: nil)
-        let height = commentHeight + 8 * 2
-        
-        guard height > 91.0 else { return 91.0 }
-        
-        return height
-        
+        return 151.0
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -147,7 +171,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         if (segue.identifier == "openEvent") {
             let viewController = segue.destinationViewController as! DetailEventViewController
             let indexPath = tableView.indexPathForSelectedRow
-            viewController.communityObject = communityList[(indexPath?.row)!]
+            viewController.communityObject = eventList[(indexPath?.row)!]
         }
         
     }
