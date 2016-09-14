@@ -91,8 +91,9 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
         let postBodyText:NSString = wallPost.postBody
         feedCell.postBodyLabel.text = postBodyText as String
-            
-        let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+        
+        let font = UIFont.systemFontOfSize(15.0)
+        let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
         feedCell.heightBodyView.constant = bodyHeight
             
         return feedCell
@@ -107,7 +108,8 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let wallPost = feedsArray[indexPath.row]
             
         let postBodyText:NSString = wallPost.postBody
-        let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+        let font = UIFont.systemFontOfSize(15.0)
+        let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
         guard bodyHeight > 30 else { return 125.0 }
             

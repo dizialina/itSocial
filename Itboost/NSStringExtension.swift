@@ -11,9 +11,10 @@ import UIKit
 
 extension NSString {
     
-    func heightForText(text:NSString, viewWidth:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
+    func heightForText(text:NSString, neededFont:UIFont, viewWidth:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
         
-        var font = UIFont.systemFontOfSize(15.0)
+        //var font = UIFont.systemFontOfSize(fontSize)
+        var font = neededFont
         
         if device == "iPad" {
             font = UIFont.systemFontOfSize(23.0)

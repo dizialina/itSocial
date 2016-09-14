@@ -29,7 +29,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         createSearchBar()
         
-        let filterButton = UIBarButtonItem(image: UIImage(named: "FilterLevers")!, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(EventTableViewController.filterButtonDidTouch))
+        let filterButton = UIBarButtonItem(image: UIImage(named: "FilterLevers")!.imageWithRenderingMode(.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(EventTableViewController.filterButtonDidTouch))
         navigationItem.rightBarButtonItem = filterButton
         
         // Open login/registration window if user is not authorized
@@ -45,19 +45,19 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.kLoadCommunitiesNotification, object: nil)
         
-        //self.navigationItem.title = "Мероприятия"
-        
         // Make navigation bar translucent
         
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.translucent = true
+        //navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        //navigationController?.navigationBar.shadowImage = UIImage()
+        //navigationController?.navigationBar.translucent = true
         
         pictureList = [UIImage(named:"Doge")!]
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.barTintColor = Constants.mintBlue
         
         getCommunitiesFromDatabase()
     }

@@ -32,4 +32,7 @@ class EventDetailTableCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var heightDescriptionLabel: NSLayoutConstraint!
     
+    @IBOutlet weak var addToCalendarButton: UIButton!
+    @IBOutlet weak var joinEventButton: UIButton!
+    
 }

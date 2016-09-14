@@ -85,7 +85,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             let postBodyText:NSString = currentPost.postBody
             wallPostCell.postBodyLabel.text = postBodyText as String
             
-            let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let font = UIFont.systemFontOfSize(15.0)
+            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             wallPostCell.heightBodyView.constant = bodyHeight
             
             return wallPostCell
@@ -102,7 +103,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             let commentBodyText:NSString = postComment.commentBody
             commentCell.commentBodyLabel.text = commentBodyText as String
             
-            let bodyHeight = commentBodyText.heightForText(commentBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let font = UIFont.systemFontOfSize(15.0)
+            let bodyHeight = commentBodyText.heightForText(commentBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             commentCell.heightBodyView.constant = bodyHeight
             
             return commentCell
@@ -115,7 +117,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         if indexPath.row == 0 {
             
             let postBodyText:NSString = currentPost.postBody
-            let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let font = UIFont.systemFontOfSize(15.0)
+            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
             guard bodyHeight > 30 else { return 125.0 }
             
@@ -127,7 +130,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             let postComment = commentsArray[indexPath.row - 1]
             
             let commentBodyText:NSString = postComment.commentBody
-            let bodyHeight = commentBodyText.heightForText(commentBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let font = UIFont.systemFontOfSize(15.0)
+            let bodyHeight = commentBodyText.heightForText(commentBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
             guard bodyHeight > 30 else { return 98.0 }
             

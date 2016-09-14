@@ -20,16 +20,26 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     var refreshControl:UIRefreshControl!
     
     var communityObject: NSManagedObject!
-    var isDescriptionOpen = false
-    var newPostText = String()
     var wallPostsArray = [WallPost]()
     var loadMoreStatus = false
     var currentPostsPage = 1
     
+    let tempDescription = "Ciklum Харьков приглашает всех любителей .NET посетить \"Kharkiv .NET Saturday\", который состоится 16 июля 2016 года в офисе Ciklum. Приглашаем .NET разработчиков провести субботнее утро в компании вкусного кофе, а также юнит-тестирования, Windows Azure и кросс-платформенной разработки."
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Событие"
+        let community = communityObject as! Community
+        self.navigationItem.title = community.name
+        self.navigationItem.title = "Workshop «Ретроспектива проекта»"
+        
+        // Make navigation bar translucent
+        
+        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
+        navigationBackgroundView?.alpha = 0.3
+        
+        // Set footer for pull to refresh
         
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.clearColor()
@@ -72,56 +82,52 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: TableView DataSource and Delegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2 + wallPostsArray.count
+        //return 2 + wallPostsArray.count
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
         
-            let eventCell = tableView.dequeueReusableCellWithIdentifier("DetailEventCell", forIndexPath: indexPath) as! DetailEventCell
+            let eventCell = tableView.dequeueReusableCellWithIdentifier("EventDetailTableCell", forIndexPath: indexPath) as! EventDetailTableCell
             
-            let community = communityObject as! Community
-        
-            eventCell.eventTitle.text = community.name
+            eventCell.selectionStyle = UITableViewCellSelectionStyle.None
             
-            var eventDate = "no date"
-            if community.eventDate != nil {
-                eventDate = convertDateToText(community.eventDate!)
+            //let community = communityObject as! Community
+            
+            eventCell.addToCalendarButton.addTarget(self, action: #selector(DetailEventViewController.addToCalendar(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            eventCell.joinEventButton.addTarget(self, action: #selector(DetailEventViewController.joinEvent(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            let font = UIFont.systemFontOfSize(12.0, weight: UIFontWeightMedium)
+            let descriptionHeight = tempDescription.heightForText(tempDescription, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+            
+            eventCell.heightDescriptionLabel.constant = descriptionHeight
+            eventCell.descriptionLabel.text = tempDescription
+            
+            // Make avatar images round
+            
+            let avatarsArray = [eventCell.firstAvatar, eventCell.secondAvatar, eventCell.thirdAvatar, eventCell.fourthAvatar, eventCell.fifthAvatar]
+            for avatar in avatarsArray {
+                avatar.layer.cornerRadius = avatar.frame.size.width / 2
+                avatar.clipsToBounds = true
             }
-            eventCell.dateLabel.text = "Состоится: \(eventDate)"
             
-            eventCell.creatorLabel.text = "Организатор: \(community.createdBy.userName)"
+            // Add screenshot of the map
             
-            eventCell.detailButton.addTarget(self, action: #selector(DetailEventViewController.openDetailDescription), forControlEvents: UIControlEvents.TouchUpInside)
+            let latitude = 55.675861
+            let longitude = 12.584574
+            let width = Int(self.view.frame.width - 16)
+            let height = 190
+            let googleMapData = NSData(contentsOfURL: NSURL(string: "http://maps.googleapis.com/maps/api/staticmap?center=\(latitude)+\(longitude)&zoom=15&size=\(width)x\(height)&sensor=false&markers=color:red%7Clabel:%7C55.675861+12.584574")!)
             
-            eventCell.acceptButton.addTarget(self, action: #selector(DetailEventViewController.joinEvent(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        
-            if isDescriptionOpen {
-            
-                var detailDescription:NSString = ""
-                if community.detailDescription != nil {
-                    detailDescription = community.detailDescription!
-                }
-                let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
-            
-                eventCell.heightViewDescription.constant = detailHeight
-                eventCell.descriptionLabel.text = detailDescription as String
-            
-            } else {
-                eventCell.heightViewDescription.constant = 1.0
-                eventCell.descriptionLabel.text = ""
+            if googleMapData != nil {
+                let mapScreenshot = UIImage(data: googleMapData!)
+                eventCell.mapImage.image = mapScreenshot
             }
         
             return eventCell
-            
-        } else if indexPath.row == 1 {
-            
-            let addPostCell = tableView.dequeueReusableCellWithIdentifier("AddPostToEventCell", forIndexPath: indexPath) as! AddPostToEventCell
-            
-            addPostCell.sendButton.addTarget(self, action: #selector(DetailEventViewController.sendPostToEvent), forControlEvents: UIControlEvents.TouchUpInside)
-            
-            return addPostCell
             
         } else {
             
@@ -138,17 +144,17 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             wallPostCell.postDateLabel.text = convertDateToText(wallPost.postedAt)
             wallPostCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
-            wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            //wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             wallPostCell.commentsButton.tag = wallPost.postID
             
             let postBodyText:NSString = wallPost.postBody
             wallPostCell.postBodyLabel.text = postBodyText as String
             
-            let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let font = UIFont.systemFontOfSize(15.0)
+            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             wallPostCell.heightBodyView.constant = bodyHeight
             
             return wallPostCell
-            
         }
         
     }
@@ -158,33 +164,26 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+        // 836
         if indexPath.row == 0 {
             
-            let community = communityObject as! Community
-        
-            if isDescriptionOpen {
+            //let community = communityObject as! Community
             
-                var detailDescription:NSString = ""
-                if community.detailDescription != nil {
-                    detailDescription = community.detailDescription!
-                }
-                
-                let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
-                return 280.0 + detailHeight
+            let font = UIFont.systemFontOfSize(12.0, weight: UIFontWeightMedium)
+            let descriptionHeight = tempDescription.heightForText(tempDescription, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
             
-            } else {
-                return 280.0
-            }
+            guard descriptionHeight > 10 else { return 825.0 }
+            
+            let deltaHeight =  descriptionHeight - 10
+            return 825.0 + deltaHeight
         
-        } else if indexPath.row == 1 {
-            return 60.0
         } else {
             
             let wallPost = wallPostsArray[indexPath.row - 2]
             
             let postBodyText:NSString = wallPost.postBody
-            let bodyHeight = postBodyText.heightForText(postBodyText, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let font = UIFont.systemFontOfSize(15.0)
+            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
             guard bodyHeight > 30 else { return 125.0 }
             
@@ -237,90 +236,14 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    // MARK: TextField Delegate
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        tableView.reloadData()
-        return true
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        newPostText = textField.text!
-    }
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        newPostText = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
-        return true
-    }
-    
-    func textFieldShouldClear(textField: UITextField) -> Bool {
-        newPostText = ""
-        return true
-    }
-    
     // MARK: Actions
     
-    func openDetailDescription() {
+    func addToCalendar(sender: UIButton) {
         
-        let eventCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! DetailEventCell
-        let community = communityObject as! Community
-        var animationDuration = 0.0
-        
-        if !isDescriptionOpen {
-            isDescriptionOpen = true
-            
-            var detailDescription:NSString = ""
-            if community.detailDescription != nil {
-                detailDescription = community.detailDescription!
-            }
-            let detailHeight = detailDescription.heightForText(detailDescription, viewWidth: (self.view.frame.width - 32), offset:0.0, device: nil)
-            
-            eventCell.heightViewDescription.constant = detailHeight
-            eventCell.descriptionLabel.text = community.detailDescription
-            animationDuration = 0.4
-            
-        } else {
-            isDescriptionOpen = false
-            eventCell.heightViewDescription.constant = 1.0
-            animationDuration = 0.3
-        }
-        
-        UIView.animateWithDuration(animationDuration) {
-            self.view.layoutIfNeeded()
-        }
-        
-        CATransaction.begin()
-        
-        tableView.beginUpdates()
-        CATransaction.setCompletionBlock {
-            if !self.isDescriptionOpen {
-                eventCell.descriptionLabel.text = ""
-            }
-        }
-        tableView.endUpdates()
-        
-        CATransaction.commit()
-    }
-    
-    func openPostComments(sender: UIButton) {
-        self.performSegueWithIdentifier("showPostComments", sender: sender.tag)
-    }
-    
-    func sendPostToEvent() {
-        self.performSegueWithIdentifier("addPostToWall", sender: nil)
     }
     
     func joinEvent(sender: UIButton) {
         
-        let event = communityObject as! Community
-        let eventID = Int(event.communityID.intValue)
-        
-        ServerManager().joinEvent(eventID, notSure:0, success: { (response) in
-            //
-        }) { (error) in
-            print("Error while joining event: " + error!.localizedDescription)
-        }
     }
     
     // MARK: Helping methods
@@ -348,7 +271,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    //Ciklum Харьков приглашает всех любителей .NET посетить "Kharkiv .NET Saturday", который состоится 16 июля 2016 года в офисе Ciklum. Приглашаем .NET разработчиков провести субботнее утро в компании вкусного кофе, а также юнит-тестирования, Windows Azure и кросс-платформенной разработки.
     
 }
 
