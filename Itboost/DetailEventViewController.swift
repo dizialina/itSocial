@@ -348,5 +348,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    //Ciklum Харьков приглашает всех любителей .NET посетить "Kharkiv .NET Saturday", который состоится 16 июля 2016 года в офисе Ciklum. Приглашаем .NET разработчиков провести субботнее утро в компании вкусного кофе, а также юнит-тестирования, Windows Azure и кросс-платформенной разработки.
+    
 }
 

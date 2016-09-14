@@ -103,11 +103,12 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // Customize view of search bar
         
-        //searchBar.setImage(UIImage(named:"MagnifyingGlass")!, forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
-        //searchBar.setImage(UIImage(named:"ClearButton")!, forSearchBarIcon: UISearchBarIcon.Clear, state: UIControlState.Normal)
+        searchBar.setImage(UIImage(named:"MagnifyingGlass")!, forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
+        searchBar.setImage(UIImage(named:"ClearButton")!, forSearchBarIcon: UISearchBarIcon.Clear, state: UIControlState.Normal)
         
         searchBar.tintColor = UIColor.whiteColor()
         searchBar.barTintColor = Constants.backgroundBlue
+        searchBar.searchBarStyle = UISearchBarStyle.Minimal
         
         for view in searchBar.subviews {
             for subview in view.subviews {
@@ -116,7 +117,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
                     searchBarTextField.backgroundColor = Constants.backgroundBlue
                     searchBarTextField.textColor = UIColor.whiteColor()
                     searchBarTextField.attributedPlaceholder = NSAttributedString(string: "Введите ключ поиска...", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
-                    searchBarTextField.layer.cornerRadius = 15
+                    //searchBarTextField.layer.cornerRadius = 15
                 }
             }
         }
