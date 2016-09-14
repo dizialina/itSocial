@@ -988,7 +988,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="1100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="836" id="GNF-2Z-h80">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventDetailTableCell" rowHeight="836" id="GNF-2Z-h80" customClass="EventDetailTableCell" customModule="Itboost" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="836"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GNF-2Z-h80" id="pZ4-zV-fpM">
@@ -1073,7 +1073,7 @@
                                                                 <constraint firstAttribute="height" constant="28" id="la2-xp-DXP"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workshop «Ретроспектива проэкта»" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CrD-Hg-JZq">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workshop «Ретроспектива проекта»" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CrD-Hg-JZq">
                                                             <rect key="frame" x="19" y="72" width="280" height="141"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="141" id="Cc4-My-nC6"/>
@@ -1362,6 +1362,25 @@
                                                 <constraint firstItem="HnU-KW-yqH" firstAttribute="leading" secondItem="pZ4-zV-fpM" secondAttribute="leading" id="t1C-zF-bjM"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="adressLabel" destination="R1Y-gV-Efu" id="X3I-QQ-7Qx"/>
+                                            <outlet property="authorLabel" destination="geR-fz-vZv" id="yaf-Gr-Wkf"/>
+                                            <outlet property="dateLabel" destination="BjW-VQ-GwB" id="WPZ-ef-9SI"/>
+                                            <outlet property="descriptionLabel" destination="Pca-tv-21H" id="LC4-9O-EeK"/>
+                                            <outlet property="fifthAvatar" destination="Tnk-hQ-CAY" id="C6N-tj-P7b"/>
+                                            <outlet property="firstAvatar" destination="tZw-tZ-pkc" id="PDg-oF-7k7"/>
+                                            <outlet property="fourthAvatar" destination="mlx-gb-ia1" id="xIU-kd-928"/>
+                                            <outlet property="heightDescriptionLabel" destination="GKq-Kd-zxB" id="PlB-3R-NpF"/>
+                                            <outlet property="logoImage" destination="gpU-j8-gUd" id="Xjo-Km-YJb"/>
+                                            <outlet property="mapImage" destination="Qgq-gh-rIm" id="Btj-V1-R3f"/>
+                                            <outlet property="membersCountLabel" destination="2Ay-kd-N8e" id="Nre-0L-CAI"/>
+                                            <outlet property="priceLabel" destination="Unx-aV-hM0" id="pQ5-c7-e9V"/>
+                                            <outlet property="secondAvatar" destination="hVd-by-PPJ" id="H10-om-acU"/>
+                                            <outlet property="speakersCountLabel" destination="Tiv-SI-CLN" id="5Fj-YM-c99"/>
+                                            <outlet property="thirdAvatar" destination="615-qm-1jd" id="r1Q-07-R04"/>
+                                            <outlet property="timeLabel" destination="EMm-xF-Ns7" id="IEV-BO-6dF"/>
+                                            <outlet property="titleLabel" destination="CrD-Hg-JZq" id="1aO-a9-DbU"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

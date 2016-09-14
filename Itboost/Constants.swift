@@ -11,6 +11,7 @@ import UIKit
 
 class Constants {
     
+    static let APIKey = "AIzaSyCNIEsn4pLSTTwHzTEa3Nz7RdiwYuercao"
     static let linkToServerAPI = "http://api.itboost.org:88/app_dev.php/api/"
     //prod version http://api.itboost.org/
     

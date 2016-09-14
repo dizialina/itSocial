@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import Fabric
 import Crashlytics
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics.self])
+        
+        GMSServices.provideAPIKey(Constants.APIKey)
         
         return true
     }
