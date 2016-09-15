@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
-import Crashlytics
+import GoogleMaps
 
 class DetailEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
@@ -20,6 +20,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     var refreshControl:UIRefreshControl!
     
     var communityObject: NSManagedObject!
+    var eventLocation: CLLocationCoordinate2D?
     var wallPostsArray = [WallPost]()
     var loadMoreStatus = false
     var currentPostsPage = 1
@@ -48,6 +49,18 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.tableFooterView = viewMore
         self.tableView.tableFooterView!.isHidden = true
         
+        // Set event location
+        let event = communityObject as! Community
+        if event.locations != nil {
+            let locationDictionary = NSKeyedUnarchiver.unarchiveObject(with: event.locations!) as! [String:AnyObject]
+            if let latitude = locationDictionary["latitude"] as? Double {
+                if let longitude = locationDictionary["longitude"] as? Double {
+                    if latitude != 0 || longitude != 0 {
+                        eventLocation = CLLocationCoordinate2DMake(latitude, longitude)
+                    }
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,17 +137,46 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             eventCell.selectionStyle = UITableViewCellSelectionStyle.none
             
-            //let community = communityObject as! Community
+            let event = communityObject as! Community
+            
+            eventCell.titleLabel.text = event.name
+            
+            if let price = event.eventPrice {
+                if price != 0 {
+                    eventCell.priceLabel.text = "\(event.eventPrice!) грн."
+                }
+            }
+            
+            if event.locations != nil {
+                let locationDictionary = NSKeyedUnarchiver.unarchiveObject(with: event.locations!) as! [String:AnyObject]
+                eventCell.adressLabel.text = ReusableMethods().convertLocationDictionaryToAdressString(locationDictionary)
+            }
+            
+            if event.eventDate != nil {
+                eventCell.timeLabel.text = convertDateToTimeText(event.eventDate!)
+                eventCell.dateLabel.text = convertDateToDateText(event.eventDate!)
+            }
+            
+            if event.subscribersCount != nil {
+                eventCell.membersCountLabel.text = "\(event.subscribersCount!)"
+            }
+            
+            // Set actions for cell buttons
             
             eventCell.addToCalendarButton.addTarget(self, action: #selector(DetailEventViewController.addToCalendar(_:)), for: UIControlEvents.touchUpInside)
             
             eventCell.joinEventButton.addTarget(self, action: #selector(DetailEventViewController.joinEvent(_:)), for: UIControlEvents.touchUpInside)
             
-            let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
-            let descriptionHeight = tempDescription.heightForText(tempDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+            // Set height of description label
             
-            eventCell.heightDescriptionLabel.constant = descriptionHeight
-            eventCell.descriptionLabel.text = tempDescription
+            if let detailDescription = event.detailDescription {
+                
+                let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+                let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+            
+                eventCell.heightDescriptionLabel.constant = descriptionHeight
+                eventCell.descriptionLabel.text = detailDescription
+            }
             
             // Set join button title
             
@@ -154,11 +196,15 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             // Add screenshot of the map
             
-            let latitude = 55.675861
-            let longitude = 12.584574
+            var latitude = 50.4501
+            var longitude = 30.5234
+            if eventLocation != nil {
+                latitude = eventLocation!.latitude
+                longitude = eventLocation!.longitude
+            }
             let width = Int(self.view.frame.width - 16)
             let height = 190
-            let googleMapData = try? Data(contentsOf: URL(string: "http://maps.googleapis.com/maps/api/staticmap?center=\(latitude)+\(longitude)&zoom=15&size=\(width)x\(height)&sensor=false&markers=color:red%7Clabel:%7C55.675861+12.584574")!)
+            let googleMapData = try? Data(contentsOf: URL(string: "http://maps.googleapis.com/maps/api/staticmap?center=\(latitude)+\(longitude)&zoom=17&size=\(width)x\(height)&sensor=false&markers=color:red%7Clabel:%7C\(latitude)+\(longitude)")!)
             
             if googleMapData != nil {
                 let mapScreenshot = UIImage(data: googleMapData!)
@@ -179,7 +225,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 wallPostCell.postTitleLabel.text = "Без названия"
             }
             
-            wallPostCell.postDateLabel.text = convertDateToText(wallPost.postedAt as Date)
+            wallPostCell.postDateLabel.text = convertDateToDateText(wallPost.postedAt as Date)
             wallPostCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
             //wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -205,10 +251,12 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
         if (indexPath as NSIndexPath).row == 0 {
             
-            //let community = communityObject as! Community
+            let community = communityObject as! Community
+            guard community.detailDescription != nil else { return 825.0 }
+            let detailDescription = community.detailDescription!
             
             let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
-            let descriptionHeight = tempDescription.heightForText(tempDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+            let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
             
             guard descriptionHeight > 10 else { return 825.0 }
             
@@ -282,6 +330,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     func joinEvent(_ sender: UIButton) {
         
+        let eventCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? EventDetailTableCell
+        eventCell?.joinActivityIndicator.startAnimating()
+        
         let community = communityObject as! Community
         let eventID = community.communityID.intValue
         
@@ -292,12 +343,12 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 self.isJoin = true
                
                 DispatchQueue.main.async {
-                    if let eventCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) {
-                        (eventCell as! EventDetailTableCell).joinEventButton.setTitle("Я не пойду", for: UIControlState.normal)
-                    }
+                    eventCell?.joinEventButton.setTitle("Я не пойду", for: UIControlState.normal)
+                    eventCell?.joinActivityIndicator.stopAnimating()
                 }
             }) { (error) in
                 print("Error while joining event: " + error!.localizedDescription)
+                eventCell?.joinActivityIndicator.stopAnimating()
             }
             
         } else {
@@ -307,22 +358,29 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 self.isJoin = false
                 
                 DispatchQueue.main.async {
-                    if let eventCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) {
-                        (eventCell as! EventDetailTableCell).joinEventButton.setTitle("Я пойду", for: UIControlState.normal)
-                    }
+                    eventCell?.joinEventButton.setTitle("Я пойду", for: UIControlState.normal)
+                    eventCell?.joinActivityIndicator.stopAnimating()
                 }
             }) { (error) in
                 print("Error while leaving event: " + error!.localizedDescription)
+                eventCell?.joinActivityIndicator.stopAnimating()
             }
         }
     }
     
     // MARK: Helping methods
     
-    func convertDateToText(_ date:Date) -> String {
+    func convertDateToTimeText(_ date:Date) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: date)
+    }
+    
+    func convertDateToDateText(_ date:Date) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         return dateFormatter.string(from: date)
     }
     

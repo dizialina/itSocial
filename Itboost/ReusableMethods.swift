@@ -20,4 +20,30 @@ class ReusableMethods: NSObject {
         
     }
     
+    func convertLocationDictionaryToAdressString(_ locationDictionary:[String:AnyObject]) -> String {
+        
+        var fullAdress = [String]()
+        
+        if let country = locationDictionary["country"] as? String {
+            fullAdress.append(country)
+        }
+        if let city = locationDictionary["city"] as? String {
+            fullAdress.append(city)
+        }
+        if let state = locationDictionary["state"] as? String {
+            fullAdress.append(state)
+        }
+        if let region = locationDictionary["region"] as? String {
+            fullAdress.append(region)
+        }
+        if let street = locationDictionary["street"] as? String {
+            fullAdress.append(street)
+        }
+        if let place = locationDictionary["place"] as? String {
+            fullAdress.append(place)
+        }
+        
+        return fullAdress.joined(separator: ", ")
+    }
+    
 }

@@ -139,10 +139,10 @@ class DataBaseManager: NSObject {
                                 if let place = location["place"] as? String {
                                     locationsDictionary["place"] = place as AnyObject?
                                 }
-                                if let latitude = location["latitude"] as? Int {
+                                if let latitude = location["latitude"] as? Float {
                                     locationsDictionary["latitude"] = latitude as AnyObject?
                                 }
-                                if let longitude = location["longitude"] as? Int {
+                                if let longitude = location["longitude"] as? Float {
                                     locationsDictionary["longitude"] = longitude as AnyObject?
                                 }
                             }

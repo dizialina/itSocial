@@ -177,26 +177,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if event.locations != nil {
             let locationDictionary = NSKeyedUnarchiver.unarchiveObject(with: event.locations!) as! [String:AnyObject]
-            var fullAdress = [String]()
-            if let country = locationDictionary["country"] as? String {
-                fullAdress.append(country)
-            }
-            if let city = locationDictionary["city"] as? String {
-                fullAdress.append(city)
-            }
-            if let state = locationDictionary["state"] as? String {
-                fullAdress.append(state)
-            }
-            if let region = locationDictionary["region"] as? String {
-                fullAdress.append(region)
-            }
-            if let street = locationDictionary["street"] as? String {
-                fullAdress.append(street)
-            }
-            if let place = locationDictionary["place"] as? String {
-                fullAdress.append(place)
-            }
-            eventCell.adressLabel.text = fullAdress.joined(separator: ", ")
+            eventCell.adressLabel.text = ReusableMethods().convertLocationDictionaryToAdressString(locationDictionary)
         }
         
         return eventCell

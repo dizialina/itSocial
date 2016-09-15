@@ -34,5 +34,6 @@ class EventDetailTableCell: UITableViewCell {
     
     @IBOutlet weak var addToCalendarButton: UIButton!
     @IBOutlet weak var joinEventButton: UIButton!
+    @IBOutlet weak var joinActivityIndicator: UIActivityIndicatorView!
     
 }
