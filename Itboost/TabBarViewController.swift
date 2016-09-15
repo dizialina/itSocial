@@ -32,7 +32,7 @@ class TabBarViewController: UITabBarController {
         
     }
     
-    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         let itemsArray = tabBar.items
         if item == itemsArray![0] {
@@ -41,7 +41,7 @@ class TabBarViewController: UITabBarController {
         
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         
     }
     

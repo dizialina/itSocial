@@ -16,7 +16,7 @@ extension User {
 
     @NSManaged var userName: String
     @NSManaged var email: String?
-    @NSManaged var roles: NSData?
+    @NSManaged var roles: Data?
     @NSManaged var userID: NSDecimalNumber
     @NSManaged var firstName: String?
     @NSManaged var lastName: String?

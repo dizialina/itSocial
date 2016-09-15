@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		038284971D8AC6A8000E3B82 /* Community+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */; };
+		038284981D8AC6A8000E3B82 /* Community+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */; };
 		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
 		03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */; };
 		03ABF5271D5E22130053FAD9 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5261D5E22130053FAD9 /* CommentCell.swift */; };
@@ -32,8 +34,6 @@
 		842A12E71D4F47DA00AD2673 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */; };
 		842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13261D50D37400AD2673 /* User+CoreDataProperties.swift */; };
 		842A132B1D50D37400AD2673 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13271D50D37400AD2673 /* User.swift */; };
-		842A132C1D50D37400AD2673 /* Community+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13281D50D37400AD2673 /* Community+CoreDataProperties.swift */; };
-		842A132D1D50D37400AD2673 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A13291D50D37400AD2673 /* Community.swift */; };
 		84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */; };
 		84A21FF91D57A6500003E1BA /* EventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FF81D57A6500003E1BA /* EventTableCell.swift */; };
 		84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A21FFA1D57BAD30003E1BA /* EnterScreenViewController.swift */; };
@@ -59,6 +59,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0382848E1D8AC565000E3B82 /* Itboost-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Itboost-Bridging-Header.h"; sourceTree = "<group>"; };
+		038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataClass.swift"; sourceTree = "<group>"; };
+		038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadEventsOperation.swift; sourceTree = "<group>"; };
 		03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPaginaionManager.swift; sourceTree = "<group>"; };
 		03ABF5261D5E22130053FAD9 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -85,8 +88,6 @@
 		842A12E61D4F47DA00AD2673 /* DataBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		842A13261D50D37400AD2673 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		842A13271D50D37400AD2673 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		842A13281D50D37400AD2673 /* Community+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		842A13291D50D37400AD2673 /* Community.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
 		84A21FF61D57A2E50003E1BA /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		84A21FF81D57A6500003E1BA /* EventTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableCell.swift; sourceTree = "<group>"; };
 		84A21FFA1D57BAD30003E1BA /* EnterScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterScreenViewController.swift; sourceTree = "<group>"; };
@@ -212,10 +213,10 @@
 		842A13151D50C7C700AD2673 /* CoreData Models */ = {
 			isa = PBXGroup;
 			children = (
+				038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */,
+				038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */,
 				842A13261D50D37400AD2673 /* User+CoreDataProperties.swift */,
 				842A13271D50D37400AD2673 /* User.swift */,
-				842A13281D50D37400AD2673 /* Community+CoreDataProperties.swift */,
-				842A13291D50D37400AD2673 /* Community.swift */,
 				03FC36611D86FC1500C530FF /* Organization+CoreDataProperties.swift */,
 				03FC36621D86FC1500C530FF /* Organization.swift */,
 			);
@@ -274,6 +275,7 @@
 				84A43DDC1D3E735B00F09B14 /* LaunchScreen.storyboard */,
 				84A43DDF1D3E735B00F09B14 /* Info.plist */,
 				84A43DD71D3E735B00F09B14 /* Itboost.xcdatamodeld */,
+				0382848E1D8AC565000E3B82 /* Itboost-Bridging-Header.h */,
 				84023D0C1D5B3FA8005DD716 /* Simple Models */,
 				842A13151D50C7C700AD2673 /* CoreData Models */,
 			);
@@ -344,12 +346,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Alina Egorova";
 				TargetAttributes = {
 					84A43DCC1D3E735B00F09B14 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 67YHSUMF82;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -456,14 +459,13 @@
 				03FC36631D86FC1500C530FF /* Organization+CoreDataProperties.swift in Sources */,
 				03FC36641D86FC1500C530FF /* Organization.swift in Sources */,
 				84A21FF71D57A2E50003E1BA /* EventTableViewController.swift in Sources */,
+				038284971D8AC6A8000E3B82 /* Community+CoreDataClass.swift in Sources */,
 				84A220071D5A3D3D0003E1BA /* ViewExtension.swift in Sources */,
 				84A21FFF1D57BB0E0003E1BA /* RegistrationViewController.swift in Sources */,
-				842A132D1D50D37400AD2673 /* Community.swift in Sources */,
 				84023D0B1D5B3F86005DD716 /* WallPost.swift in Sources */,
 				84A43DF61D3E937000F09B14 /* EventCellLayout.swift in Sources */,
 				03ABF5271D5E22130053FAD9 /* CommentCell.swift in Sources */,
 				03FC366A1D89CA4400C530FF /* EventDetailTableCell.swift in Sources */,
-				842A132C1D50D37400AD2673 /* Community+CoreDataProperties.swift in Sources */,
 				84023D071D5B3B4E005DD716 /* WallPostCell.swift in Sources */,
 				842A132B1D50D37400AD2673 /* User.swift in Sources */,
 				842A12E71D4F47DA00AD2673 /* DataBaseManager.swift in Sources */,
@@ -491,6 +493,7 @@
 				03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */,
 				84A21FF91D57A6500003E1BA /* EventTableCell.swift in Sources */,
 				84A43DE61D3E767300F09B14 /* EventCollectionViewController.swift in Sources */,
+				038284981D8AC6A8000E3B82 /* Community+CoreDataProperties.swift in Sources */,
 				84A220091D5A52B30003E1BA /* DetailEventCell.swift in Sources */,
 				84A43DF41D3E897600F09B14 /* Constants.swift in Sources */,
 				03ABF57D1D6619D80053FAD9 /* SkillsCell.swift in Sources */,
@@ -534,8 +537,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -580,8 +585,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -600,6 +607,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -609,12 +617,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E80277291D164602F12D96DC /* Pods-Itboost.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alina Yehorova (F34RD363MK)";
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Itboost/Itboost-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -623,12 +636,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 175B626B9D3AD5381E631884 /* Pods-Itboost.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPFORPARKING LLC (67YHSUMF82)";
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Itboost/Itboost-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

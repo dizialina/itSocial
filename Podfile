@@ -4,10 +4,10 @@ use_frameworks!
 target ’Itboost’ do
 
 pod 'AFNetworking', '~> 2.6.2'
-pod 'IQKeyboardManagerSwift'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'GoogleMaps', '~> 2.0'
+# pod 'IQKeyboardManagerSwift', '~> 4.0.5'
 
 end
 

@@ -16,6 +16,6 @@ class WallPost: NSObject {
     var commentsArray = [AnyObject]()
     var commentsCount = 0
     var postID = Int()
-    var postedAt = NSDate()
+    var postedAt = Date()
     
 }

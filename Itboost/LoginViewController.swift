@@ -24,43 +24,43 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func acceptLogin(sender: AnyObject) {
+    @IBAction func acceptLogin(_ sender: AnyObject) {
         
         var userInfo = [String:String]()
         
         userInfo["username"] = emailField.text
         userInfo["password"] = passwordField.text
         
-        ServerManager().postAuthorization(userInfo, success: { (response) -> Void in
+        ServerManager().postAuthorization(userInfo as NSDictionary, success: { (response) -> Void in
             self.showAlertWithHandler()
             
         }) { (error) -> Void in
             let alertController = ReusableMethods().showAlertWithTitle("Ошибка", message: "Неправильный e-mail или пароль")
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
         
     }
     
-    @IBAction func cancelLogin(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func cancelLogin(_ sender: AnyObject) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func showAlertWithHandler() {
         
-        let alertController = UIAlertController(title: "Готово", message: "Вы успешно вошли в систему", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (alertAction) in
+        let alertController = UIAlertController(title: "Готово", message: "Вы успешно вошли в систему", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alertAction) in
             
             //ServerManager.sharedInstance.getTaskListFromServer(true)
 
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: TextField Delegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == emailField {
             passwordField.becomeFirstResponder()

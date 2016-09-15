@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15D21" minimumToolsVersion="Automatic">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G31" minimumToolsVersion="Xcode 7.3" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Community" representedClassName=".Community" syncable="YES">
         <attribute name="communityID" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="detailDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eventAvatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="eventEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="eventPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="eventSite" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventSpecializations" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="eventType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locations" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subscribersCount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="threadID" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="createdBy" maxCount="1" deletionRule="Cascade" destinationEntity="User" inverseName="createdCommunity" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Organization" representedClassName=".Organization" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="detailDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="organizationID" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
@@ -32,8 +40,8 @@
         <relationship name="createdOrganization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="createdBy" inverseEntity="Organization" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Community" positionX="-3935" positionY="-447" width="128" height="148"/>
-        <element name="User" positionX="-3708" positionY="-477" width="128" height="193"/>
+        <element name="Community" positionX="-3935" positionY="-447" width="128" height="270"/>
         <element name="Organization" positionX="-3933" positionY="-277" width="128" height="163"/>
+        <element name="User" positionX="-3708" positionY="-477" width="128" height="193"/>
     </elements>
 </model>

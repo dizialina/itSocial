@@ -26,7 +26,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         getPostComments()
@@ -43,7 +43,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         ServerManager().getPostComments(postID, success: { (response) in
             
             let postDictionary = response as! [String:AnyObject]
-            let postObjectsArray = ResponseParser().parseWallPost([postDictionary])
+            let postObjectsArray = ResponseParser().parseWallPost([postDictionary as AnyObject])
             if postObjectsArray.count > 0 {
                 self.currentPost = postObjectsArray.first!
             }
@@ -51,7 +51,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             let commentsObjectsArray = postDictionary["comments"] as! [AnyObject]
             self.commentsArray = ResponseParser().parsePostComments(commentsObjectsArray)
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             
@@ -63,15 +63,15 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: TableView DataSource and Delegate
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1 + commentsArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).row == 0 {
             
-            let wallPostCell = tableView.dequeueReusableCellWithIdentifier("WallPostCell", forIndexPath: indexPath) as! WallPostCell
+            let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCell", for: indexPath) as! WallPostCell
             
             if currentPost.postTitle.characters.count > 0 {
                 wallPostCell.postTitleLabel.text = currentPost.postTitle
@@ -79,13 +79,13 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
                 wallPostCell.postTitleLabel.text = "Без названия"
             }
             
-            wallPostCell.postDateLabel.text = convertDateToText(currentPost.postedAt)
+            wallPostCell.postDateLabel.text = convertDateToText(currentPost.postedAt as Date)
             wallPostCell.commentsCountLabel.text = "Комментарии (\(currentPost.commentsCount))"
             
-            let postBodyText:NSString = currentPost.postBody
+            let postBodyText:NSString = currentPost.postBody as NSString
             wallPostCell.postBodyLabel.text = postBodyText as String
             
-            let font = UIFont.systemFontOfSize(15.0)
+            let font = UIFont.systemFont(ofSize: 15.0)
             let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             wallPostCell.heightBodyView.constant = bodyHeight
             
@@ -93,17 +93,17 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             
         } else {
             
-            let commentCell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentCell
+            let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
             
-            let postComment = commentsArray[indexPath.row - 1]
+            let postComment = commentsArray[(indexPath as NSIndexPath).row - 1]
             
             commentCell.commentAuthorLabel.text = "От: \(postComment.authorUsername)"
-            commentCell.commentDateLabel.text = convertDateToText(postComment.postedAt)
+            commentCell.commentDateLabel.text = convertDateToText(postComment.postedAt as Date)
             
-            let commentBodyText:NSString = postComment.commentBody
+            let commentBodyText:NSString = postComment.commentBody as NSString
             commentCell.commentBodyLabel.text = commentBodyText as String
             
-            let font = UIFont.systemFontOfSize(15.0)
+            let font = UIFont.systemFont(ofSize: 15.0)
             let bodyHeight = commentBodyText.heightForText(commentBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             commentCell.heightBodyView.constant = bodyHeight
             
@@ -112,12 +112,12 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).row == 0 {
             
-            let postBodyText:NSString = currentPost.postBody
-            let font = UIFont.systemFontOfSize(15.0)
+            let postBodyText:NSString = currentPost.postBody as NSString
+            let font = UIFont.systemFont(ofSize: 15.0)
             let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
             guard bodyHeight > 30 else { return 125.0 }
@@ -127,10 +127,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             
         } else {
             
-            let postComment = commentsArray[indexPath.row - 1]
+            let postComment = commentsArray[(indexPath as NSIndexPath).row - 1]
             
-            let commentBodyText:NSString = postComment.commentBody
-            let font = UIFont.systemFontOfSize(15.0)
+            let commentBodyText:NSString = postComment.commentBody as NSString
+            let font = UIFont.systemFont(ofSize: 15.0)
             let bodyHeight = commentBodyText.heightForText(commentBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
             guard bodyHeight > 30 else { return 98.0 }
@@ -143,14 +143,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: TextField Delegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     // MARK: Actions
     
-    @IBAction func sendComment(sender: AnyObject) {
+    @IBAction func sendComment(_ sender: AnyObject) {
         
         if newCommentField.text!.characters.count > 0 {
             
@@ -167,16 +167,16 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: Helping methods
     
-    func convertDateToText(date:NSDate) -> String {
+    func convertDateToText(_ date:Date) -> String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
     
     // MARK: Seque
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
     
 }

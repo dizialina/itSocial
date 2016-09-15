@@ -23,6 +23,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     var wallPostsArray = [WallPost]()
     var loadMoreStatus = false
     var currentPostsPage = 1
+    var isJoin = false
     
     let tempDescription = "Ciklum Харьков приглашает всех любителей .NET посетить \"Kharkiv .NET Saturday\", который состоится 16 июля 2016 года в офисе Ciklum. Приглашаем .NET разработчиков провести субботнее утро в компании вкусного кофе, а также юнит-тестирования, Windows Azure и кросс-платформенной разработки."
     
@@ -35,27 +36,28 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
         // Make navigation bar translucent
         
-        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.barTintColor = UIColor.white
         let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
         navigationBackgroundView?.alpha = 0.3
         
         // Set footer for pull to refresh
         
         refreshControl = UIRefreshControl()
-        refreshControl.tintColor = UIColor.clearColor()
+        refreshControl.tintColor = UIColor.clear
         tableView.addSubview(refreshControl)
         self.tableView.tableFooterView = viewMore
-        self.tableView.tableFooterView!.hidden = true
+        self.tableView.tableFooterView!.isHidden = true
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         currentPostsPage = 1
         wallPostsArray.removeAll()
         tableView.reloadData()
         getEventWallPosts()
+        getJoiningStatus()
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,10 +69,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     func getEventWallPosts() {
         
         let community = communityObject as! Community
-        let wallThreadID = Int(community.threadID.intValue)
+        let wallThreadID = community.threadID.intValue
         
         ServerManager().getWallPosts(wallThreadID, currentPage: currentPostsPage, success: { (response) in
-            self.wallPostsArray += ResponseParser().parseWallPost(response as! [AnyObject])
+            self.wallPostsArray += ResponseParser().parseWallPost(response!)
             self.currentPostsPage += 1
             self.tableView.reloadData()
         }) { (error) in
@@ -79,39 +81,75 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    func getJoiningStatus() {
+        
+        let community = communityObject as! Community
+        let eventID = community.communityID.intValue
+        
+        ServerManager().getEvent(eventID, success: { (response) in
+            
+            if let joiningStatus = response!["status"] as? String {
+                
+                switch joiningStatus {
+                case "WILL_GO":
+                    self.isJoin = true
+                case "NO_DATA":
+                    self.isJoin = false
+                default:
+                    break
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }) { (error) in
+            print("Error receiving wall posts from event: " + error!.localizedDescription)
+        }
+        
+    }
+    
     // MARK: TableView DataSource and Delegate
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return 2 + wallPostsArray.count
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).row == 0 {
         
-            let eventCell = tableView.dequeueReusableCellWithIdentifier("EventDetailTableCell", forIndexPath: indexPath) as! EventDetailTableCell
+            let eventCell = tableView.dequeueReusableCell(withIdentifier: "EventDetailTableCell", for: indexPath) as! EventDetailTableCell
             
-            eventCell.selectionStyle = UITableViewCellSelectionStyle.None
+            eventCell.selectionStyle = UITableViewCellSelectionStyle.none
             
             //let community = communityObject as! Community
             
-            eventCell.addToCalendarButton.addTarget(self, action: #selector(DetailEventViewController.addToCalendar(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            eventCell.addToCalendarButton.addTarget(self, action: #selector(DetailEventViewController.addToCalendar(_:)), for: UIControlEvents.touchUpInside)
             
-            eventCell.joinEventButton.addTarget(self, action: #selector(DetailEventViewController.joinEvent(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            eventCell.joinEventButton.addTarget(self, action: #selector(DetailEventViewController.joinEvent(_:)), for: UIControlEvents.touchUpInside)
             
-            let font = UIFont.systemFontOfSize(12.0, weight: UIFontWeightMedium)
-            let descriptionHeight = tempDescription.heightForText(tempDescription, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+            let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            let descriptionHeight = tempDescription.heightForText(tempDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
             
             eventCell.heightDescriptionLabel.constant = descriptionHeight
             eventCell.descriptionLabel.text = tempDescription
+            
+            // Set join button title
+            
+            if !isJoin {
+                eventCell.joinEventButton.setTitle("Я пойду", for: UIControlState.normal)
+            } else {
+                eventCell.joinEventButton.setTitle("Я не пойду", for: UIControlState.normal)
+            }
             
             // Make avatar images round
             
             let avatarsArray = [eventCell.firstAvatar, eventCell.secondAvatar, eventCell.thirdAvatar, eventCell.fourthAvatar, eventCell.fifthAvatar]
             for avatar in avatarsArray {
-                avatar.layer.cornerRadius = avatar.frame.size.width / 2
-                avatar.clipsToBounds = true
+                avatar?.layer.cornerRadius = (avatar?.frame.size.width)! / 2
+                avatar?.clipsToBounds = true
             }
             
             // Add screenshot of the map
@@ -120,7 +158,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             let longitude = 12.584574
             let width = Int(self.view.frame.width - 16)
             let height = 190
-            let googleMapData = NSData(contentsOfURL: NSURL(string: "http://maps.googleapis.com/maps/api/staticmap?center=\(latitude)+\(longitude)&zoom=15&size=\(width)x\(height)&sensor=false&markers=color:red%7Clabel:%7C55.675861+12.584574")!)
+            let googleMapData = try? Data(contentsOf: URL(string: "http://maps.googleapis.com/maps/api/staticmap?center=\(latitude)+\(longitude)&zoom=15&size=\(width)x\(height)&sensor=false&markers=color:red%7Clabel:%7C55.675861+12.584574")!)
             
             if googleMapData != nil {
                 let mapScreenshot = UIImage(data: googleMapData!)
@@ -131,9 +169,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
         } else {
             
-            let wallPostCell = tableView.dequeueReusableCellWithIdentifier("WallPostCell", forIndexPath: indexPath) as! WallPostCell
+            let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCell", for: indexPath) as! WallPostCell
             
-            let wallPost = wallPostsArray[indexPath.row - 2]
+            let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 2]
             
             if wallPost.postTitle.characters.count > 0 {
                 wallPostCell.postTitleLabel.text = wallPost.postTitle
@@ -141,16 +179,16 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 wallPostCell.postTitleLabel.text = "Без названия"
             }
             
-            wallPostCell.postDateLabel.text = convertDateToText(wallPost.postedAt)
+            wallPostCell.postDateLabel.text = convertDateToText(wallPost.postedAt as Date)
             wallPostCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
             //wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             wallPostCell.commentsButton.tag = wallPost.postID
             
-            let postBodyText:NSString = wallPost.postBody
+            let postBodyText:NSString = wallPost.postBody as NSString
             wallPostCell.postBodyLabel.text = postBodyText as String
             
-            let font = UIFont.systemFontOfSize(15.0)
+            let font = UIFont.systemFont(ofSize: 15.0)
             let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             wallPostCell.heightBodyView.constant = bodyHeight
             
@@ -159,18 +197,18 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //self.performSegueWithIdentifier("openMail", sender: nil)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        // 836
-        if indexPath.row == 0 {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if (indexPath as NSIndexPath).row == 0 {
             
             //let community = communityObject as! Community
             
-            let font = UIFont.systemFontOfSize(12.0, weight: UIFontWeightMedium)
-            let descriptionHeight = tempDescription.heightForText(tempDescription, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+            let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            let descriptionHeight = tempDescription.heightForText(tempDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
             
             guard descriptionHeight > 10 else { return 825.0 }
             
@@ -179,10 +217,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
         } else {
             
-            let wallPost = wallPostsArray[indexPath.row - 2]
+            let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 2]
             
-            let postBodyText:NSString = wallPost.postBody
-            let font = UIFont.systemFontOfSize(15.0)
+            let postBodyText:NSString = wallPost.postBody as NSString
+            let font = UIFont.systemFont(ofSize: 15.0)
             let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
             guard bodyHeight > 30 else { return 125.0 }
@@ -195,7 +233,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Refreshing Table
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
@@ -209,19 +247,19 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         if !loadMoreStatus {
             self.loadMoreStatus = true
             self.activityIndicator.startAnimating()
-            self.tableView.tableFooterView!.hidden = false
+            self.tableView.tableFooterView!.isHidden = false
             loadMoreBegin("Load more",
                           loadMoreEnd: {(x:Int) -> () in
                             self.tableView.reloadData()
                             self.loadMoreStatus = false
                             self.activityIndicator.stopAnimating()
-                            self.tableView.tableFooterView!.hidden = true
+                            self.tableView.tableFooterView!.isHidden = true
             })
         }
     }
     
-    func loadMoreBegin(newtext:String, loadMoreEnd:(Int) -> ()) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    func loadMoreBegin(_ newtext:String, loadMoreEnd:@escaping (Int) -> ()) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             print("loadmore")
             
             if self.currentPostsPage != 1 {
@@ -230,7 +268,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             sleep(2)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 loadMoreEnd(0)
             }
         }
@@ -238,34 +276,67 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Actions
     
-    func addToCalendar(sender: UIButton) {
+    func addToCalendar(_ sender: UIButton) {
         
     }
     
-    func joinEvent(sender: UIButton) {
+    func joinEvent(_ sender: UIButton) {
         
+        let community = communityObject as! Community
+        let eventID = community.communityID.intValue
+        
+        if !isJoin {
+        
+            ServerManager().joinEvent(eventID, notSure: 0, success: { (response) in
+                print("You successfully joined event \(eventID)!")
+                self.isJoin = true
+               
+                DispatchQueue.main.async {
+                    if let eventCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) {
+                        (eventCell as! EventDetailTableCell).joinEventButton.setTitle("Я не пойду", for: UIControlState.normal)
+                    }
+                }
+            }) { (error) in
+                print("Error while joining event: " + error!.localizedDescription)
+            }
+            
+        } else {
+            
+            ServerManager().leaveEvent(eventID, success: { (response) in
+                print("You successfully leaved event \(eventID)!")
+                self.isJoin = false
+                
+                DispatchQueue.main.async {
+                    if let eventCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) {
+                        (eventCell as! EventDetailTableCell).joinEventButton.setTitle("Я пойду", for: UIControlState.normal)
+                    }
+                }
+            }) { (error) in
+                print("Error while leaving event: " + error!.localizedDescription)
+            }
+        }
     }
     
     // MARK: Helping methods
     
-    func convertDateToText(date:NSDate) -> String {
+    func convertDateToText(_ date:Date) -> String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
     
     // MARK: Seque
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "addPostToWall") {
-            let viewController = segue.destinationViewController as! NewPostViewController
+            let viewController = segue.destination as! NewPostViewController
             let community = communityObject as! Community
-            viewController.wallThreadID = Int(community.threadID.intValue)
+            viewController.wallThreadID = community.threadID.intValue
             
         } else if (segue.identifier == "showPostComments") {
-            let viewController = segue.destinationViewController as! CommentsViewController
+            let viewController = segue.destination as! CommentsViewController
             viewController.postID = sender as! Int
         }
         

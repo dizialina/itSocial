@@ -11,52 +11,52 @@ import UIKit
 
 extension NSString {
     
-    func heightForText(text:NSString, neededFont:UIFont, viewWidth:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
+    func heightForText(_ text:NSString, neededFont:UIFont, viewWidth:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
         
         //var font = UIFont.systemFontOfSize(fontSize)
         var font = neededFont
         
         if device == "iPad" {
-            font = UIFont.systemFontOfSize(23.0)
+            font = UIFont.systemFont(ofSize: 23.0)
         }
         
-        let fontColor = UIColor.whiteColor()
+        let fontColor = UIColor.white
         
         let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = NSTextAlignment.Justified
-        paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragraph.alignment = NSTextAlignment.justified
+        paragraph.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         let attributes:NSDictionary = [NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraph, NSForegroundColorAttributeName:fontColor]
         
-        let options: NSStringDrawingOptions = [.UsesLineFragmentOrigin, .UsesFontLeading]
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
         
-        let rect = text.boundingRectWithSize(CGSizeMake(viewWidth - 2 * offset, CGFloat.max), options: options, attributes: attributes as? [String : AnyObject], context: nil)
+        let rect = text.boundingRect(with: CGSize(width: viewWidth - 2 * offset, height: CGFloat.greatestFiniteMagnitude), options: options, attributes: attributes as? [String : AnyObject], context: nil)
         
-        return CGRectGetHeight(rect) + 2 * offset
+        return rect.height + 2 * offset
         
     }
     
-    func widthForText(text:NSString, viewHeight:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
+    func widthForText(_ text:NSString, viewHeight:CGFloat, offset:CGFloat, device:String?) -> CGFloat {
         
-        var font = UIFont.systemFontOfSize(14.0)
+        var font = UIFont.systemFont(ofSize: 14.0)
         
         if device == "iPad" {
-            font = UIFont.systemFontOfSize(23.0)
+            font = UIFont.systemFont(ofSize: 23.0)
         }
         
-        let fontColor = UIColor.blackColor()
+        let fontColor = UIColor.black
         
         let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = NSTextAlignment.Justified
-        paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragraph.alignment = NSTextAlignment.justified
+        paragraph.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         let attributes:NSDictionary = [NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraph, NSForegroundColorAttributeName:fontColor]
         
-        let options: NSStringDrawingOptions = [.UsesLineFragmentOrigin, .UsesFontLeading]
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
         
-        let rect = text.boundingRectWithSize(CGSizeMake(CGFloat.max, viewHeight - 2 * offset), options: options, attributes: attributes as? [String : AnyObject], context: nil)
+        let rect = text.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: viewHeight - 2 * offset), options: options, attributes: attributes as? [String : AnyObject], context: nil)
         
-        return CGRectGetWidth(rect) + 2 * offset
+        return rect.width + 2 * offset
         
     }
     

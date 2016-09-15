@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LoadEventsOperation: NSOperation {
+class LoadEventsOperation: Operation {
         
     // NSOperation override
     var _executing:Bool = false
@@ -16,11 +16,11 @@ class LoadEventsOperation: NSOperation {
     
     //Property's of class
     let linkToRequestData:String
-    let dispatchQueue:NSOperationQueue
+    let dispatchQueue:OperationQueue
     let dataType:LoadingDataType
     
     // Designed initializer
-    init(linkToData:String, queue:NSOperationQueue, dataType:LoadingDataType) {
+    init(linkToData:String, queue:OperationQueue, dataType:LoadingDataType) {
         self.linkToRequestData = linkToData
         self.dispatchQueue = queue
         self.dataType = dataType
@@ -29,7 +29,7 @@ class LoadEventsOperation: NSOperation {
     // Method start override
     override func start() {
             
-        if self.cancelled {
+        if self.isCancelled {
             self._finished = true
             return
         }
@@ -39,11 +39,11 @@ class LoadEventsOperation: NSOperation {
     }
     
     /// Function to request data from server async with block to handle responce from server
-    func createOperationForLoadTask(linkToLoad:String, queue:NSOperationQueue) {
+    func createOperationForLoadTask(_ linkToLoad:String, queue:OperationQueue) {
         let serverManager = ServerManager()
         
         switch self.dataType {
-        case .Events:
+        case .events:
             
             serverManager.getOnePageEventsFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
                 
@@ -67,7 +67,7 @@ class LoadEventsOperation: NSOperation {
                 print("Error loading one page events: " + error!.localizedDescription)
             }
             
-        case .Organizations:
+        case .organizations:
             
             serverManager.getOnePageOrganizationsFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
                 
@@ -96,26 +96,26 @@ class LoadEventsOperation: NSOperation {
         
     }
     
-    override var asynchronous: Bool {
+    override var isAsynchronous: Bool {
         return true
     }
         
-    override var executing: Bool {
+    override var isExecuting: Bool {
         get { return _executing }
         set {
-            willChangeValueForKey("isExecuting")
+            willChangeValue(forKey: "isExecuting")
             _executing = newValue
-            didChangeValueForKey("isExecuting")
+            didChangeValue(forKey: "isExecuting")
         }
     }
         
     /// Override read-only superclass property as read-write.
-    override var finished: Bool {
+    override var isFinished: Bool {
         get { return _finished }
         set {
-            willChangeValueForKey("isFinished")
+            willChangeValue(forKey: "isFinished")
             _finished = newValue
-            didChangeValueForKey("isFinished")
+            didChangeValue(forKey: "isFinished")
         }
     }
     

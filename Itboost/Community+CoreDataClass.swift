@@ -1,8 +1,8 @@
 //
-//  Community.swift
+//  Community+CoreDataClass.swift
 //  Itboost
 //
-//  Created by Admin on 02.08.16.
+//  Created by Alina Yehorova on 15.09.16.
 //  Copyright © 2016 Alina Egorova. All rights reserved.
 //
 
@@ -10,11 +10,9 @@ import Foundation
 import CoreData
 
 
-class Community: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
+public class Community: NSManagedObject {
     
-    override var description: String {
+    override public var description: String {
         get {
             return "ID:\(self.communityID), \(self.name): \n\(self.detailDescription) \n\(self.createdAt) \n\(self.eventDate) \n\(self.createdBy) \n"
         }

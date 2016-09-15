@@ -31,14 +31,14 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationItem.title = "Мои новости"
         
         refreshControl = UIRefreshControl()
-        refreshControl.tintColor = UIColor.clearColor()
+        refreshControl.tintColor = UIColor.clear
         tableView.addSubview(refreshControl)
         self.tableView.tableFooterView = viewMore
-        self.tableView.tableFooterView!.hidden = true
+        self.tableView.tableFooterView!.isHidden = true
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         currentPostsPage = 1
@@ -56,7 +56,7 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func getFeeds() {
         
         ServerManager().getFeeds(currentPostsPage, success: { (response) in
-            self.feedsArray += ResponseParser().parseWallPost(response as! [AnyObject])
+            self.feedsArray += ResponseParser().parseWallPost(response!)
             self.currentPostsPage += 1
             self.tableView.reloadData()
         }) { (error) in
@@ -67,15 +67,15 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // MARK: TableView DataSource and Delegate
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedsArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let feedCell = tableView.dequeueReusableCellWithIdentifier("FeedCell", forIndexPath: indexPath) as! WallPostCell
+        let feedCell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! WallPostCell
             
-        let wallPost = feedsArray[indexPath.row]
+        let wallPost = feedsArray[(indexPath as NSIndexPath).row]
             
         if wallPost.postTitle.characters.count > 0 {
             feedCell.postTitleLabel.text = wallPost.postTitle
@@ -83,32 +83,32 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             feedCell.postTitleLabel.text = "Без названия"
         }
             
-        feedCell.postDateLabel.text = convertDateToText(wallPost.postedAt)
+        feedCell.postDateLabel.text = convertDateToText(wallPost.postedAt as Date)
         feedCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
-        feedCell.commentsButton.addTarget(self, action: #selector(FeedsViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        feedCell.commentsButton.addTarget(self, action: #selector(FeedsViewController.openPostComments(_:)), for: UIControlEvents.touchUpInside)
         feedCell.commentsButton.tag = wallPost.postID
             
-        let postBodyText:NSString = wallPost.postBody
+        let postBodyText:NSString = wallPost.postBody as NSString
         feedCell.postBodyLabel.text = postBodyText as String
         
-        let font = UIFont.systemFontOfSize(15.0)
+        let font = UIFont.systemFont(ofSize: 15.0)
         let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
         feedCell.heightBodyView.constant = bodyHeight
             
         return feedCell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //self.performSegueWithIdentifier("openMail", sender: nil)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             
-        let wallPost = feedsArray[indexPath.row]
+        let wallPost = feedsArray[(indexPath as NSIndexPath).row]
             
-        let postBodyText:NSString = wallPost.postBody
-        let font = UIFont.systemFontOfSize(15.0)
+        let postBodyText:NSString = wallPost.postBody as NSString
+        let font = UIFont.systemFont(ofSize: 15.0)
         let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
             
         guard bodyHeight > 30 else { return 125.0 }
@@ -119,7 +119,7 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // MARK: Refreshing Table
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
@@ -133,19 +133,19 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if !loadMoreStatus {
             self.loadMoreStatus = true
             self.activityIndicator.startAnimating()
-            self.tableView.tableFooterView!.hidden = false
+            self.tableView.tableFooterView!.isHidden = false
             loadMoreBegin("Load more",
                           loadMoreEnd: {(x:Int) -> () in
                             self.tableView.reloadData()
                             self.loadMoreStatus = false
                             self.activityIndicator.stopAnimating()
-                            self.tableView.tableFooterView!.hidden = true
+                            self.tableView.tableFooterView!.isHidden = true
             })
         }
     }
     
-    func loadMoreBegin(newtext:String, loadMoreEnd:(Int) -> ()) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    func loadMoreBegin(_ newtext:String, loadMoreEnd:@escaping (Int) -> ()) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             print("loadmore")
             
             if self.currentPostsPage != 1 {
@@ -154,7 +154,7 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             sleep(2)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 loadMoreEnd(0)
             }
         }
@@ -162,10 +162,10 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // MARK: Actions
     
-    func openPostComments(sender: UIButton) {
+    func openPostComments(_ sender: UIButton) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("CommentsViewController") as! CommentsViewController
+        let viewController = storyboard.instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
         viewController.postID = sender.tag
         self.navigationController?.pushViewController(viewController, animated: true)
     
@@ -173,19 +173,19 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // MARK: Helping methods
     
-    func convertDateToText(date:NSDate) -> String {
+    func convertDateToText(_ date:Date) -> String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
     
     // MARK: Seque
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "showPostComments") {
-            let viewController = segue.destinationViewController as! CommentsViewController
+            let viewController = segue.destination as! CommentsViewController
             viewController.postID = sender as! Int
         }
         

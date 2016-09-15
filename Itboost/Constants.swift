@@ -34,6 +34,7 @@ class Constants {
     static let darkBlue = UIColor(red: 0.078, green: 0.243, blue: 0.341, alpha: 1)
     static let strongDarkBlue = UIColor(red: 0.016, green: 0.153, blue: 0.22, alpha: 1)
     static let mintBlue = UIColor(red:0.69, green:0.87, blue:0.85, alpha:1)
+    static let darkMintBlue = UIColor(red:0.56, green:0.78, blue:0.82, alpha:1)
     
     // MARK: Flaticon links
     

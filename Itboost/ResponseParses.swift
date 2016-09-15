@@ -10,7 +10,7 @@ import Foundation
 
 class ResponseParser {
     
-    func parseWallPost(response: [AnyObject]) -> [WallPost] {
+    func parseWallPost(_ response: [AnyObject]) -> [WallPost] {
         
         var postsArray = [WallPost]()
         
@@ -38,9 +38,9 @@ class ResponseParser {
                 }
                 
                 let postedAtString = currentWallPost["posted_at"] as! String
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                newPost.postedAt = dateFormatter.dateFromString(postedAtString)!
+                newPost.postedAt = dateFormatter.date(from: postedAtString)!
                 
                 let author = currentWallPost["author"] as! [String:AnyObject]
                 if let authorUsername = author["username"] as? String {
@@ -55,7 +55,7 @@ class ResponseParser {
         return postsArray
     }
     
-    func parsePostComments(response: [AnyObject]) -> [PostComment] {
+    func parsePostComments(_ response: [AnyObject]) -> [PostComment] {
         
         var commentsArray = [PostComment]()
         
@@ -70,9 +70,9 @@ class ResponseParser {
                 newComment.commentID = currentPostComment["id"] as! Int
                 
                 let postedAtString = currentPostComment["posted_at"] as! String
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                newComment.postedAt = dateFormatter.dateFromString(postedAtString)!
+                newComment.postedAt = dateFormatter.date(from: postedAtString)!
                 
                 let author = currentPostComment["author"] as! [String:AnyObject]
                 if let authorUsername = author["username"] as? String {
@@ -87,7 +87,7 @@ class ResponseParser {
         return commentsArray
     }
     
-    func parseNews(response: [AnyObject]) -> [News] {
+    func parseNews(_ response: [AnyObject]) -> [News] {
         
         var newsArray = [News]()
         
@@ -128,9 +128,9 @@ class ResponseParser {
                 }
                 
                 let createdAtString = currentNews["created_at"] as! String
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                newNews.createdAt = dateFormatter.dateFromString(createdAtString)!
+                newNews.createdAt = dateFormatter.date(from: createdAtString)!
                 
                 let author = currentNews["owner"] as! [String:AnyObject]
                 if let authorUsername = author["username"] as? String {

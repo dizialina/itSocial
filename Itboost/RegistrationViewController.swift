@@ -8,6 +8,18 @@
 
 import Foundation
 import UIKit
+/*
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+*/
 
 class RegistrationViewController: UIViewController {
     
@@ -29,7 +41,7 @@ class RegistrationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func registrationAction(sender: AnyObject) {
+    @IBAction func registrationAction(_ sender: AnyObject) {
         
         var userInfo = [String:String]()
         
@@ -39,59 +51,59 @@ class RegistrationViewController: UIViewController {
         
         if emailField.text!.characters.count > 0 {
             
-            let componentsInField = NSCharacterSet.init(charactersInString: emailField.text!)
+            let componentsInField = CharacterSet.init(charactersIn: emailField.text!)
             let keyCharacters:NSString = "@."
-            let dog = keyCharacters.characterAtIndex(0)
-            let dot = keyCharacters.characterAtIndex(1)
-            if componentsInField.characterIsMember(dog) && componentsInField.characterIsMember(dot) {
+            let dog = keyCharacters.character(at: 0)
+            let dot = keyCharacters.character(at: 1)
+            if componentsInField.contains(UnicodeScalar(dog)!) && componentsInField.contains(UnicodeScalar(dot)!) {
                 
-                let textInField:NSString = emailField.text!
-                let componentsByDog = textInField.componentsSeparatedByString("@")
+                let textInField:NSString = emailField.text! as NSString
+                let componentsByDog = textInField.components(separatedBy: "@")
                 if componentsByDog.first!.characters.count < 3 {
-                    emailLabel.textColor = UIColor.redColor()
+                    emailLabel.textColor = UIColor.red
                 } else {
-                    let componentsByDot = (componentsByDog[1] as NSString).componentsSeparatedByString(".")
-                    if componentsByDot.first?.characters.count < 1 || componentsByDot[1].characters.count < 2 {
-                        emailLabel.textColor = UIColor.redColor()
+                    let componentsByDot = (componentsByDog[1] as NSString).components(separatedBy: ".")
+                    if (componentsByDot.first?.characters.count)! < 1 || componentsByDot[1].characters.count < 2 {
+                        emailLabel.textColor = UIColor.red
                     } else {
-                        emailLabel.textColor = UIColor.blackColor()
+                        emailLabel.textColor = UIColor.black
                         userInfo["email"] = emailField.text
                         emailEmpty = false
                     }
                 }
             } else {
-                emailLabel.textColor = UIColor.redColor()
+                emailLabel.textColor = UIColor.red
             }
         } else {
-            emailLabel.textColor = UIColor.redColor()
+            emailLabel.textColor = UIColor.red
         }
         
         if usernameField.text!.characters.count > 0 {
-            usernameLabel.textColor = UIColor.blackColor()
+            usernameLabel.textColor = UIColor.black
             userInfo["username"] = usernameField.text
             usernameEmpty = false
         } else {
-            usernameLabel.textColor = UIColor.redColor()
+            usernameLabel.textColor = UIColor.red
         }
         
         if passwordField.text!.characters.count > 5 {
-            passwordLabel.textColor = UIColor.blackColor()
+            passwordLabel.textColor = UIColor.black
             userInfo["password"] = passwordField.text
             passwordEmpty = false
         } else {
-            passwordLabel.textColor = UIColor.redColor()
+            passwordLabel.textColor = UIColor.red
         }
         
         
         if !emailEmpty && !usernameEmpty && !passwordEmpty {
             
-            ServerManager().postRegistration(userInfo, success: { (response) -> Void in
+            ServerManager().postRegistration(userInfo as NSDictionary, success: { (response) -> Void in
                 self.showAlertWithHandler()
                 
             }) { (error) -> Void in
                 
                 let alertController = ReusableMethods().showAlertWithTitle("Ошибка", message: "Пользователь с таким e-mail или username уже существует")
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
             }
             
         }
@@ -99,67 +111,67 @@ class RegistrationViewController: UIViewController {
         
     }
     
-    @IBAction func cancelAction(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func cancelAction(_ sender: AnyObject) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func showAlertWithHandler() {
         
-        let alertController = UIAlertController(title: "Готово", message: "Вы успешно зарегистрировались", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (alertAction) in
+        let alertController = UIAlertController(title: "Готово", message: "Вы успешно зарегистрировались", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alertAction) in
             
             //ServerManager.sharedInstance.getTaskListFromServer(true)
             
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: TextField Delegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         let fieldsArray = [emailField, usernameField, passwordField]
         for field in fieldsArray {
             if field == textField {
-                let nextFieldIndex = fieldsArray.indexOf{$0 === field}! + 1
+                let nextFieldIndex = fieldsArray.index{$0 === field}! + 1
                 if fieldsArray.count <= nextFieldIndex {
                     textField.resignFirstResponder()
                 } else {
-                    fieldsArray[nextFieldIndex].becomeFirstResponder()
+                    fieldsArray[nextFieldIndex]?.becomeFirstResponder()
                 }
             }
         }
         return true
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         if textField == emailField {
-            let componentsInField = NSCharacterSet.init(charactersInString: textField.text!)
+            let componentsInField = CharacterSet.init(charactersIn: textField.text!)
             let keyCharacters:NSString = "@."
-            let dog = keyCharacters.characterAtIndex(0)
-            let dot = keyCharacters.characterAtIndex(1)
-            if componentsInField.characterIsMember(dog) {
+            let dog = keyCharacters.character(at: 0)
+            let dot = keyCharacters.character(at: 1)
+            if componentsInField.contains(UnicodeScalar(dog)!) {
                 if string == "@" {
                     return false
                 }
-                let validationSet:NSCharacterSet = NSCharacterSet.letterCharacterSet().invertedSet
-                let invertedSet:NSMutableCharacterSet = validationSet.copy() as! NSMutableCharacterSet
-                invertedSet.removeCharactersInString(".")
-                let components = string.componentsSeparatedByCharactersInSet(invertedSet)
+                let validationSet:CharacterSet = CharacterSet.letters.inverted
+                let invertedSet:NSMutableCharacterSet = (validationSet as NSCharacterSet).copy() as! NSMutableCharacterSet
+                invertedSet.removeCharacters(in: ".")
+                let components = string.components(separatedBy: invertedSet as CharacterSet)
                 if components.count > 1 {
                     return false
                 }
             }
             
-            if componentsInField.characterIsMember(dot) {
-                let components = textField.text!.componentsSeparatedByString("@")
+            if componentsInField.contains(UnicodeScalar(dot)!) {
+                let components = textField.text!.components(separatedBy: "@")
                 if components.count > 1 {
                     let afterDogString = components[1]
-                    let componentsInAfterDogString = NSCharacterSet.init(charactersInString: afterDogString)
-                    if componentsInAfterDogString.characterIsMember(dot) {
+                    let componentsInAfterDogString = CharacterSet.init(charactersIn: afterDogString)
+                    if componentsInAfterDogString.contains(UnicodeScalar(dot)!) {
                         if string == "." {
                             return false
                         }
@@ -167,8 +179,8 @@ class RegistrationViewController: UIViewController {
                 }
             }
             
-            let validationSet = NSCharacterSet(charactersInString: "qwertyuiopasdfghjklzcvbnm!#$%&'*+-/=?^_`{}|~1234567890@.").invertedSet
-            let components = string.componentsSeparatedByCharactersInSet(validationSet)
+            let validationSet = CharacterSet(charactersIn: "qwertyuiopasdfghjklzcvbnm!#$%&'*+-/=?^_`{}|~1234567890@.").inverted
+            let components = string.components(separatedBy: validationSet)
             if components.count > 1 {
                 return false
             }
@@ -176,14 +188,14 @@ class RegistrationViewController: UIViewController {
         }
         
         if textField == usernameField {
-            let resultString: NSString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+            let resultString: NSString = (textField.text! as NSString).replacingCharacters(in: range, with: string) as NSString
             let numberOfSymbols = resultString.length
             if numberOfSymbols > 20 {
                 return false
             }
             
-            let validationSet = NSCharacterSet.letterCharacterSet().invertedSet
-            let components = string.componentsSeparatedByCharactersInSet(validationSet)
+            let validationSet = CharacterSet.letters.inverted
+            let components = string.components(separatedBy: validationSet)
             if components.count > 1 {
                 return false
             }

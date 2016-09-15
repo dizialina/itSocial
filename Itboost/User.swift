@@ -18,7 +18,7 @@ class User: NSManagedObject {
         get {
             var rolesArray = [String]()
             if let roles = self.roles {
-                rolesArray = NSKeyedUnarchiver.unarchiveObjectWithData(roles) as! [String]
+                rolesArray = NSKeyedUnarchiver.unarchiveObject(with: roles as Data) as! [String]
             }
             return "userID:\(self.userID), \(self.firstName), \(self.lastName), \(self.userName), \(self.email) \n\(rolesArray)"
         }

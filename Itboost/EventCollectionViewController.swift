@@ -15,7 +15,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+    var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
     var communityList = [Community]()
     var eventsList = [String]()
     var pictureList = [UIImage]()
@@ -24,7 +24,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.kLoadCommunitiesNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: NSNotification.Name(rawValue: Constants.kLoadCommunitiesNotification), object: nil)
         
         self.navigationItem.title = "События"
         
@@ -41,7 +41,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: Loading data for collection view
@@ -52,12 +52,12 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
         managedObjectContext = dataBaseManager.managedObjectContext
         communityList.removeAll()
         
-        let fetchRequest = NSFetchRequest(entityName: "Community")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Community")
         let sortDescriptor = NSSortDescriptor(key: "eventDate", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            let allCommunities = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Community]
+            let allCommunities = try managedObjectContext.fetch(fetchRequest) as! [Community]
             for community in allCommunities {
                 communityList.append(community)
             }
@@ -71,33 +71,33 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     //MARK: UICollectionViewDataSource
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:"AudioHeader", forIndexPath: indexPath)
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:"AudioHeader", for: indexPath)
         
         return headerView
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return communityList.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let eventCell = collectionView.dequeueReusableCellWithReuseIdentifier("EventCell", forIndexPath: indexPath) as! EventCollectionCell
+        let eventCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventCell", for: indexPath) as! EventCollectionCell
         
-        let community = communityList[indexPath.item]
+        let community = communityList[(indexPath as NSIndexPath).item]
         
-        let eventDate = convertDateToText(community.eventDate!)
-        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
+        let eventDate = convertDateToText(community.eventDate! as Date)
+        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy?.userName)"
         
-        let title:NSString = textToShow
+        let title:NSString = textToShow as NSString
         
-        let font = UIFont.systemFontOfSize(15.0)
+        let font = UIFont.systemFont(ofSize: 15.0)
         let commentHeight = title.heightForText(title, neededFont:font, viewWidth: cellWidth,  offset:5.0, device: nil)
         let height = commentHeight + 4 * 2
         
@@ -113,9 +113,9 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     //MARK: UICollectionViewDelegate
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+        collectionView.deselectItem(at: indexPath, animated: true)
         
 //        let cell = collectionView.cellForItemAtIndexPath(indexPath)
         
@@ -123,27 +123,27 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
    
     //MARK: EventCellLayoutDelegate
     
-    func collectionView(collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
+    func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat {
         
         let photo = pictureList[0]
         let boundingRect =  CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
-        let rect  = AVMakeRectWithAspectRatioInsideRect(photo.size, boundingRect)
+        let rect  = AVMakeRect(aspectRatio: photo.size, insideRect: boundingRect)
         return rect.size.height
     }
     
-    func collectionView(collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat {
         
         cellWidth = width
         
         let annotationPadding = CGFloat(4)
         
-        let community = communityList[indexPath.item]
+        let community = communityList[(indexPath as NSIndexPath).item]
         
-        let eventDate = convertDateToText(community.eventDate!)
-        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
+        let eventDate = convertDateToText(community.eventDate! as Date)
+        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy?.userName)"
         
-        let text:NSString = textToShow
-        let font = UIFont.systemFontOfSize(15.0)
+        let text:NSString = textToShow as NSString
+        let font = UIFont.systemFont(ofSize: 15.0)
         let commentHeight = text.heightForText(text, neededFont:font, viewWidth: width, offset:5.0, device: nil)
         let height = commentHeight + annotationPadding * 2
         
@@ -152,10 +152,10 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     //MARK: Helping methods
     
-    func convertDateToText(date:NSDate) -> String {
+    func convertDateToText(_ date:Date) -> String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
 }

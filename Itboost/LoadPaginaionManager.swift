@@ -9,30 +9,30 @@
 import Foundation
 
 enum LoadingDataType {
-    case Events
-    case Organizations
+    case events
+    case organizations
 }
 
 class LoadPaginaionManager: NSObject {
     
     func loadAllEventsFromServer() {
         
-        let operationQueue = NSOperationQueue()
+        let operationQueue = OperationQueue()
         
         let urlString = Constants.linkToServerAPI + "event.getAll"
         
-        let loadEventsOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue, dataType: .Events)
+        let loadEventsOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue, dataType: .events)
         operationQueue.addOperation(loadEventsOperation)
         operationQueue.waitUntilAllOperationsAreFinished()
     }
     
     func loadAllOrganizationsFromServer() {
         
-        let operationQueue = NSOperationQueue()
+        let operationQueue = OperationQueue()
         
         let urlString = Constants.linkToServerAPI + "organization.getAll"
         
-        let loadOrganizationOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue, dataType: .Organizations)
+        let loadOrganizationOperation = LoadEventsOperation(linkToData: urlString, queue: operationQueue, dataType: .organizations)
         operationQueue.addOperation(loadOrganizationOperation)
         operationQueue.waitUntilAllOperationsAreFinished()
     }

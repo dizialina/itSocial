@@ -11,9 +11,9 @@ import UIKit
 
 protocol EventCellLayoutDelegate {
     
-    func collectionView(collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:NSIndexPath, withWidth:CGFloat) -> CGFloat
+    func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath, withWidth:CGFloat) -> CGFloat
     
-    func collectionView(collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView, heightForAnnotationAtIndexPath indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat
 }
 
 class EventCellLayout: UICollectionViewLayout {
@@ -23,15 +23,15 @@ class EventCellLayout: UICollectionViewLayout {
     var numberOfColumns = 2
     var cellPadding: CGFloat = 3.0
     
-    private var cache = [UICollectionViewLayoutAttributes]()
+    fileprivate var cache = [UICollectionViewLayoutAttributes]()
     
-    private var contentHeight: CGFloat  = 0.0
-    private var contentWidth: CGFloat {
+    fileprivate var contentHeight: CGFloat  = 0.0
+    fileprivate var contentWidth: CGFloat {
         let insets = collectionView!.contentInset
-        return CGRectGetWidth(collectionView!.bounds) - (insets.left + insets.right)
+        return collectionView!.bounds.width - (insets.left + insets.right)
     }
     
-    override func prepareLayout() {
+    override func prepare() {
         
         if cache.isEmpty {
             
@@ -41,24 +41,24 @@ class EventCellLayout: UICollectionViewLayout {
                 xOffset.append(CGFloat(column) * columnWidth)
             }
             var column = 0
-            var yOffset = [CGFloat](count: numberOfColumns, repeatedValue: 0)
+            var yOffset = [CGFloat](repeating: 0, count: numberOfColumns)
             
-            for item in 0 ..< collectionView!.numberOfItemsInSection(0) {
+            for item in 0 ..< collectionView!.numberOfItems(inSection: 0) {
                 
-                let indexPath = NSIndexPath(forItem: item, inSection: 0)
+                let indexPath = IndexPath(item: item, section: 0)
                 
                 let width = columnWidth - cellPadding * 2
                 let photoHeight = delegate.collectionView(collectionView!, heightForPhotoAtIndexPath: indexPath, withWidth:width)
                 let annotationHeight = delegate.collectionView(collectionView!, heightForAnnotationAtIndexPath: indexPath, withWidth: width)
                 let height = cellPadding + photoHeight + annotationHeight + cellPadding
                 let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
-                let insetFrame = CGRectInset(frame, cellPadding, cellPadding)
+                let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
                 
-                let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                 attributes.frame = insetFrame
                 cache.append(attributes)
                 
-                contentHeight = max(contentHeight, CGRectGetMaxY(frame))
+                contentHeight = max(contentHeight, frame.maxY)
                 yOffset[column] = yOffset[column] + height
                 
                 if column >= (numberOfColumns - 1) {
@@ -71,16 +71,16 @@ class EventCellLayout: UICollectionViewLayout {
         }
     }
     
-    override func collectionViewContentSize() -> CGSize {
+    override var collectionViewContentSize : CGSize {
         return CGSize(width: contentWidth, height: contentHeight)
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
         for attributes in cache {
-            if CGRectIntersectsRect(attributes.frame, rect) {
+            if attributes.frame.intersects(rect) {
                 layoutAttributes.append(attributes)
             }
         }

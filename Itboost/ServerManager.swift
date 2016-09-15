@@ -14,11 +14,11 @@ class ServerManager: NSObject {
     var sessionManager = AFHTTPSessionManager()
     
     override init() {
-        let serverURL = NSURL(string: Constants.linkToServerAPI)
+        let serverURL = URL(string: Constants.linkToServerAPI)
         sessionManager = AFHTTPSessionManager(baseURL: serverURL)
     }
     
-    func loadData(typeOfDownload:String) {
+    func loadData(_ typeOfDownload:String) {
         
         switch typeOfDownload {
         case "load":
@@ -39,7 +39,7 @@ class ServerManager: NSObject {
     
     func getAllEventsFromServer() {
         
-        sessionManager.GET("event.getAll", parameters:nil, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("event.getAll", parameters:nil, success: { (task: URLSessionDataTask, responseObject: Any?) in
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     print(results)
@@ -49,26 +49,26 @@ class ServerManager: NSObject {
                 }
             }
         })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error loading all events: " + error.localizedDescription)
         }
         
     }
     
-    func getOnePageEventsFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!, currentPage:Int) -> Void, failure: (error: NSError?) -> Void) {
+    func getOnePageEventsFromServer(_ sourceURL:String, operationQueue:OperationQueue, success: @escaping (_ response: AnyObject?, _ currentPage:Int) -> Void, failure: (_ error: Error?) -> Void) {
         
         let manager = AFHTTPRequestOperationManager()
         //manager.requestSerializer.setValue("application/json; charset=UTF-8", forHTTPHeaderField:"Content-Type")
         manager.operationQueue = operationQueue
         //manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        manager.GET(sourceURL, parameters: nil, success: { (operation, responce) in
+        manager.get(sourceURL, parameters: nil, success: { (operation, responce) in
             if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
                 //print(response)
                 if let results = response["response"] {
                     if let communitiesArray = results["items"] as? [AnyObject] {
                         let currentPage = results["current_page_number"] as! Int
-                        success(response: communitiesArray, currentPage: currentPage)
+                        success(communitiesArray as AnyObject?, currentPage)
                     } else {
                         print("Response of events page has 0 items")
                     }
@@ -79,48 +79,73 @@ class ServerManager: NSObject {
         }
     }
     
-    func joinEvent(eventID:Int, notSure:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getEvent(_ eventID: Int, success: @escaping (_ response: [String:AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
+        
+        let params:NSDictionary = ["id": eventID]
+        
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.get("event.get", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
+            //print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    success(results)
+                }
+            } else {
+                print("Response with event is empty")
+            }
+            })
+        { (task:URLSessionDataTask?, error:Error) in
+            print("Error receiving event: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error)
+        }
+    }
+    
+    func joinEvent(_ eventID:Int, notSure:Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["id": eventID,
                              "not_sure": notSure]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("event.join", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("event.join", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
-            success(response: nil)
+            success(nil)
         })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while joining event: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func leaveEvent(eventID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func leaveEvent(_ eventID:Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["id": eventID]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
-        sessionManager.DELETE("event.leave", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.delete("event.leave", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while leaving event: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error as Error?)
         }
     }
     
-    func editEvent(eventInfo:[String:AnyObject], success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func editEvent(_ eventInfo:[String:AnyObject], success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         // Pay attention not to pass empty keys in eventInfo dictionary! Put there empty strings or arrays when calling this methood
         
@@ -133,41 +158,41 @@ class ServerManager: NSObject {
                           "description": eventInfo["description"]!,
                             "locations": eventInfo["locations"]!]      // array
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.PUT("event.update", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.put("event.update", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
-                    success(response: results)
+                    success(results)
                 }
             } else {
                 print("Editing event response is empty")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while editing event info: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error as Error?)
         }
     }
     
     // MARK: Organization methods
     
-    func getOnePageOrganizationsFromServer(sourceURL:String, operationQueue:NSOperationQueue, success: (response: AnyObject!, currentPage:Int) -> Void, failure: (error: NSError?) -> Void) {
+    func getOnePageOrganizationsFromServer(_ sourceURL:String, operationQueue:OperationQueue, success: @escaping (_ response: AnyObject?, _ currentPage:Int) -> Void, failure: (_ error: Error?) -> Void) {
         
         let manager = AFHTTPRequestOperationManager()
         manager.operationQueue = operationQueue
         
-        manager.GET(sourceURL, parameters: nil, success: { (operation, responce) in
+        manager.get(sourceURL, parameters: nil, success: { (operation, responce) in
             if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
                 //print(response)
                 if let results = response["response"] {
                     if let communitiesArray = results["items"] as? [AnyObject] {
                         let currentPage = results["current_page_number"] as! Int
-                        success(response: communitiesArray, currentPage: currentPage)
+                        success(communitiesArray as AnyObject?, currentPage)
                     } else {
                         print("Response of organizations page has 0 items")
                     }
@@ -178,187 +203,187 @@ class ServerManager: NSObject {
         }
     }
     
-    func createOrganization(organizationName:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func createOrganization(_ organizationName:String, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["name": organizationName]
         print(params)
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("organization.create", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("organization.create", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while creating organization: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     
     }
     
-    func joinOrganization(organizationID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func joinOrganization(_ organizationID:Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["id": organizationID]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("organization.join", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("organization.join", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while joining organization: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func leaveOrganization(organizationID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func leaveOrganization(_ organizationID:Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["id": organizationID]
         
-        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.DELETE("organization.leave", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.delete("organization.leave", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while leaving organization: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
     // MARK: Feed methods
     
-    func getFeeds(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getFeeds(_ currentPage: Int, success: @escaping (_ response: [AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["page": currentPage]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("feed.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("feed.get", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let postsArray = results["items"] as? [AnyObject] {
-                        success(response: postsArray)
+                        success(postsArray)
                     }
                 }
             } else {
                 print("Response with feeds is empty")
-                success(response: [])
+                success([])
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error receiving feeds: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
     // MARK: Profile methods
     
-    func postAuthorization(userInfo:NSDictionary, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func postAuthorization(_ userInfo:NSDictionary, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["_username": userInfo["username"]!,
                                    "_password": userInfo["password"]!]
         print(params)
         
-        sessionManager.POST("login_check", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("login_check", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     
-                    let token = results["token"]
-                    let receivedUserInfo = results["user"]
+                    let token = results["token"] as? String
+                    let receivedUserInfo = results["user"] as? [String:AnyObject]
                     if receivedUserInfo != nil {
-                        if let userID = receivedUserInfo!!["id"] {
-                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
+                        if let userID = receivedUserInfo!["id"] {
+                            UserDefaults.standard.setValue(userID, forKey: Constants.kUserID)
                         }
                     }
                     if token != nil {
-                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
+                        UserDefaults.standard.setValue(token, forKey: Constants.kUserToken)
                     }
-                    success(response: nil)
+                    success(nil)
                 }
             } else {
                 print("Post authorization didn't return dictionary responce")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while authorization: " + error.localizedDescription)
-            failure(error: error)
+            failure(error)
         }
         
     }
     
-    func postRegistration(userInfo:NSDictionary, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func postRegistration(_ userInfo:NSDictionary, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["email": userInfo["email"]!,
                                    "username": userInfo["username"]!,
                                    "password": userInfo["password"]!]
         
-        sessionManager.POST("registration", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("registration", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     
-                    let token = results["token"]
-                    let receivedUserInfo = results["user"]
+                    let token = results["token"] as? String
+                    let receivedUserInfo = results["user"] as? [String:AnyObject]
                     if receivedUserInfo != nil {
-                        if let userID = receivedUserInfo!!["id"] {
-                            NSUserDefaults.standardUserDefaults().setValue(userID, forKey: Constants.kUserID)
+                        if let userID = receivedUserInfo!["id"] {
+                            UserDefaults.standard.setValue(userID, forKey: Constants.kUserID)
                         }
                     }
                     if token != nil {
-                        NSUserDefaults.standardUserDefaults().setValue(token, forKey: Constants.kUserToken)
+                        UserDefaults.standard.setValue(token, forKey: Constants.kUserToken)
                     }
-                    success(response: nil)
+                    success(nil)
                 }
             } else {
                 print("Post registration didn't return dictionary responce")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while sending registration info: " + error.localizedDescription)
-            failure(error: error)
+            failure(error)
         }
         
     }
     
-    func getUserProfile(otherUserProfileID profileID: Int?, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getUserProfile(otherUserProfileID profileID: Int?, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         var params = [String:Int]()
         if profileID == nil {
-            if let userID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserID) {
+            if let userID = UserDefaults.standard.value(forKey: Constants.kUserID) {
                 params["profile_id"] = userID as? Int
             }
         } else {
             params["profile_id"] = profileID
         }
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("profile.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("profile.get", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
-                    success(response: results)
+                    success(results as AnyObject?)
                     
 //                    response =     {
 //                        about = "<null>";
@@ -386,14 +411,14 @@ class ServerManager: NSObject {
                 print("Response profile info is empty")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error receiving profile info: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func editUserProfile(userInfo:[String:AnyObject], success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func editUserProfile(_ userInfo:[String:AnyObject], success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         // Pay attention not to pass empty keys in userInfo dictionary! Put there empty strings or arrays when calling this methood
         
@@ -407,133 +432,133 @@ class ServerManager: NSObject {
                                      "skills": userInfo["skills"]!,        // array
                                "sertificates": userInfo["sertificates"]!]  // array
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.PUT("profile.edit", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.put("profile.edit", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
-                    success(response: results)
+                    success(results)
                 }
             } else {
                 print("Editing profile response is empty")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while editing profile info: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
     // MARK: Wall methods
     
-    func postNewMessageOnWall(threadIDDict:[String:Int], title:String, body:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func postNewMessageOnWall(_ threadIDDict:[String:Int], title:String, body:String, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["thread": threadIDDict,
                                    "title": title,
                                    "body": body]
         print(params)
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("wall.post", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("wall.post", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while adding new post on wall: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
         
         
     }
     
-    func getWallPosts(threadID: Int, currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getWallPosts(_ threadID: Int, currentPage: Int, success: @escaping (_ response: [AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["thread_id": threadID,
                                    "page": currentPage]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("wall.get", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("wall.get", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let postsArray = results["items"] as? [AnyObject] {
-                        success(response: postsArray)
+                        success(postsArray)
                     }
                 }
             } else {
                 print("Response with posts is empty")
-                success(response: [])
+                success([])
             }
         })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error receiving wall posts: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func getOneWallPost(postID: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getOneWallPost(_ postID: Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["post_id": postID]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("wall.getPost", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("wall.getPost", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
-                    success(response: results)
+                    success(results as AnyObject?)
                 }
             } else {
                 print("Response with one post is empty")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error receiving one wall post: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func getPostComments(postID: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getPostComments(_ postID: Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["post_id": postID]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("wall.getPost", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("wall.getPost", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
-                    success(response: results)
+                    success(results as AnyObject?)
                 }
             } else {
                 print("Response with current post is empty")
             }
         })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error receiving current post from event: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
 
-    func postComment(postID: Int, commentText: String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func postComment(_ postID: Int, commentText: String, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["post_id": postID,
                                       "body": commentText]
@@ -544,176 +569,176 @@ class ServerManager: NSObject {
         
         sessionManager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("wall.addComment", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("wall.addComment", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             //print(responseObject)
-            success(response: responseObject)
+            success(responseObject as AnyObject?)
         })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error sending comment to post: " + error.localizedDescription)
             print(task?.response)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
     // Editing
     
-    func editWallPost(postID:Int, postTitle:String, postBody:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func editWallPost(_ postID:Int, postTitle:String, postBody:String, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["post_id": postID,
                                      "title": postTitle,
                                       "body": postBody]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.PUT("wall.edit", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.put("wall.edit", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
-                success(response: response)
+                success(response as AnyObject?)
             } else {
                 print("Editing wall post return empty message")
             }
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while editing wall post: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func editWallComment(commentID:Int, commentBody:String, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func editWallComment(_ commentID:Int, commentBody:String, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["comment_id": commentID,
                                          "body": commentBody]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.PUT("wall.editComment", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.put("wall.editComment", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
-                success(response: response)
+                success(response as AnyObject?)
             } else {
                 print("Editing wall comment return empty message")
             }
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while editing wall comment: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
     // Deleting
     
-    func deleteWallPost(postID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func deleteWallPost(_ postID:Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["post_id": postID]
         print(params)
         
-        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.DELETE("wall.delete", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.delete("wall.delete", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] {
                     print(results)
-                    success(response: nil)
+                    success(nil)
                 }
             } else {
                 print("Delete wall post return empty message")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while deleting wall post: " + error.localizedDescription)
             
             // Example of parsing error for backend
             
             do {
-                let responseDict = try NSJSONSerialization.JSONObjectWithData((error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as! NSData), options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                let responseDict = try JSONSerialization.jsonObject(with: ((error as NSError).userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as! Data), options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(responseDict)
             } catch {
                 print("Error parsing error")
             }
             
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func deleteWallComment(commentID:Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func deleteWallComment(_ commentID:Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["comment_id": commentID]
         print(params)
         
-        sessionManager.requestSerializer.HTTPMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.DELETE("wall.deleteComment", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.delete("wall.deleteComment", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] {
                     print(results)
-                    success(response: nil)
+                    success(nil)
                 }
             } else {
                 print("Delete wall comment return empty message")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while deleting wall comment: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
     // MARK: News methods
     
-    func getNews(currentPage: Int, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getNews(_ currentPage: Int, success: @escaping (_ response: [AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["page": currentPage]
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("news", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("news", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let newsArray = results["items"] as? [AnyObject] {
-                        success(response: newsArray)
+                        success(newsArray)
                     }
                 }
             } else {
                 print("Response with news is empty")
-                success(response: [])
+                success([])
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error receiving news: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     
-    func postNews(newsBody:[String:String], type:String, organizationID:Int?, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func postNews(_ newsBody:[String:String], type:String, organizationID:Int?, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         // NewsForm should be with such keys:
         //    "news_form" : {
@@ -724,49 +749,49 @@ class ServerManager: NSObject {
         let params:NSMutableDictionary = ["news_form": newsBody,
                                                "type": type]      // user|org
         if organizationID != nil {
-            params.setObject(organizationID!, forKey: "org_id")
+            params.setObject(organizationID!, forKey: "org_id" as NSCopying)
         }
         
         print(params)
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.POST("news", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.post("news", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
-            success(response: nil)
+            success(nil)
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error while adding news: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
         
     }
     
     // MARK: Photos methods
     
-    func getUserPhotoAlbums(otherUserID userID: Int?, success: (response: AnyObject!) -> Void, failure: (error: NSError?) -> Void) {
+    func getUserPhotoAlbums(otherUserID userID: Int?, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         var params = [String:Int]()
         if userID == nil {
-            if let userID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserID) {
+            if let userID = UserDefaults.standard.value(forKey: Constants.kUserID) {
                 params["user_id"] = userID as? Int
             }
         } else {
             params["user_id"] = userID
         }
         
-        if let token = NSUserDefaults.standardUserDefaults().valueForKey(Constants.kUserToken) {
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.GET("photos.getAlbums", parameters:params, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+        sessionManager.get("photos.getAlbums", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
-                    success(response: results)
+                    success(results as AnyObject?)
                     
 //                    response =     {
 //                        "album_name" = "name";
@@ -783,10 +808,10 @@ class ServerManager: NSObject {
                 print("Response profile info is empty")
             }
             })
-        { (task:NSURLSessionDataTask?, error:NSError) in
+        { (task:URLSessionDataTask?, error:Error) in
             print("Error receiving profile info: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
-            failure(error: error)
+            failure(error)
         }
     }
     

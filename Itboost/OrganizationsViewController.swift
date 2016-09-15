@@ -15,7 +15,7 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+    var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
     
     var organizationList = [Organization]()
     var pictureList = [UIImage]()
@@ -23,18 +23,18 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrganizationsViewController.getOrganizationsFromDatabase), name: Constants.kLoadOrganizationsNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(OrganizationsViewController.getOrganizationsFromDatabase), name: NSNotification.Name(rawValue: Constants.kLoadOrganizationsNotification), object: nil)
         
         self.navigationItem.title = "Организации"
         
         pictureList = [UIImage(named:"SadCat")!]
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
             LoadPaginaionManager().loadAllOrganizationsFromServer()
         })
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if organizationList.count == 0 {
@@ -49,7 +49,7 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Loading data for table view
@@ -60,13 +60,13 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
         managedObjectContext = dataBaseManager.managedObjectContext
         organizationList.removeAll()
         
-        let fetchRequest = NSFetchRequest(entityName: "Organization")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Organization")
         fetchRequest.fetchBatchSize = 15
         let sortDescriptor = NSSortDescriptor(key: "organizationID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            let allOrganizations = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Organization]
+            let allOrganizations = try managedObjectContext.fetch(fetchRequest) as! [Organization]
             organizationList = allOrganizations
             activityIndicator.stopAnimating()
             tableView.reloadData()
@@ -79,24 +79,24 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: TableView DataSource and Delegate
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return organizationList.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let organizationCell = tableView.dequeueReusableCellWithIdentifier("OrganizationTableCell", forIndexPath: indexPath) as! EventTableCell
+        let organizationCell = tableView.dequeueReusableCell(withIdentifier: "OrganizationTableCell", for: indexPath) as! EventTableCell
         
-        let organization = organizationList[indexPath.item]
+        let organization = organizationList[(indexPath as NSIndexPath).item]
         
         let textToShow = "\(organization.name) \n\nОрганизатор: \(organization.createdBy!.userName)"
         
         // Make event title bold
         
         let stringToBold = organization.name
-        let range = (textToShow as NSString).rangeOfString(stringToBold)
+        let range = (textToShow as NSString).range(of: stringToBold)
         let attributedString = NSMutableAttributedString(string: textToShow)
-        let font = UIFont.boldSystemFontOfSize(15)
+        let font = UIFont.boldSystemFont(ofSize: 15)
         attributedString.addAttribute(NSFontAttributeName, value: font, range: range)
         
         organizationCell.descriptionLabel.attributedText = attributedString
@@ -106,15 +106,15 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //self.performSegueWithIdentifier("openEvent", sender: nil)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 91.0
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "openEvent") {
             
@@ -124,11 +124,11 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: Helping methods
     
-    func convertDateToText(date:NSDate) -> String {
+    func convertDateToText(_ date:Date) -> String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
     
 }

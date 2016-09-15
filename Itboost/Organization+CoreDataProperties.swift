@@ -20,7 +20,7 @@ extension Organization {
     @NSManaged var detailDescription: String?
     @NSManaged var subscribersCount: NSDecimalNumber?
     @NSManaged var threadID: NSDecimalNumber
-    @NSManaged var createdAt: NSDate?
+    @NSManaged var createdAt: Date?
     @NSManaged var createdBy: User?
 
 }

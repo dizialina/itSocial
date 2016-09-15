@@ -8,12 +8,33 @@
 
 import Foundation
 import CoreData
+/*
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+*/
 
 class DataBaseManager: NSObject {
     
     // MARK: Custom methods
     
-    func writeAllCommunities(communitiesArray:[AnyObject], isLastPage:Bool) {
+    func writeAllCommunities(_ communitiesArray:[AnyObject], isLastPage:Bool) {
         
         if communitiesArray.count > 0 {
             
@@ -23,59 +44,156 @@ class DataBaseManager: NSObject {
             for community in communitiesArray {
                 
                 let communityDictionary = community as! [String:AnyObject]
-                let currentCommunity = NSEntityDescription.insertNewObjectForEntityForName("Community", inManagedObjectContext: self.managedObjectContext) as! Community
+                let currentCommunity = NSEntityDescription.insertNewObject(forEntityName: "Community", into: self.managedObjectContext) as! Community
                 
                 currentCommunity.name = (communityDictionary["name"] as? String)!
                 currentCommunity.detailDescription = communityDictionary["description"] as? String
+                currentCommunity.eventSite = communityDictionary["event_site"] as? String
+                currentCommunity.eventAvatar = communityDictionary["avatar"] as? String
+                
+                if let eventPrice = communityDictionary["event_price"] as? Int {
+                    currentCommunity.eventPrice = NSDecimalNumber(value: eventPrice)
+                }
+                
+                if let subscribersCount = communityDictionary["subscribers_count"] as? Int {
+                    currentCommunity.subscribersCount = NSDecimalNumber(value: subscribersCount)
+                }
+                
+                if let eventType = communityDictionary["event_type"] as? [String:AnyObject] {
+                    if let typeName = eventType["type_name"] as? String {
+                        currentCommunity.eventType = typeName
+                    }
+                }
                 
                 let createdAtString = communityDictionary["created_at"] as? String
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                currentCommunity.createdAt = dateFormatter.dateFromString(createdAtString!)
+                currentCommunity.createdAt = dateFormatter.date(from: createdAtString!)
+                
                 if let eventDateString = communityDictionary["event_start_date"] as? String {
-                    currentCommunity.eventDate = dateFormatter.dateFromString(eventDateString)
+                    currentCommunity.eventDate = dateFormatter.date(from: eventDateString)
+                }
+                if let eventDateString = communityDictionary["event_end_date"] as? String {
+                    currentCommunity.eventEndDate = dateFormatter.date(from: eventDateString)
                 }
                 
                 let communityIDInt = communityDictionary["id"] as? Int
-                currentCommunity.communityID = NSDecimalNumber(integer: communityIDInt!)
+                currentCommunity.communityID = NSDecimalNumber(value: communityIDInt! as Int)
                 communities[communityIDInt!] = currentCommunity
                 newID.append(communityIDInt!)
                 
                 let threadIDInt = communityDictionary["thread_id"] as? Int
-                currentCommunity.threadID = NSDecimalNumber(integer: threadIDInt!)
+                currentCommunity.threadID = NSDecimalNumber(value: threadIDInt! as Int)
                 
-                let creator = communityDictionary["created_by"] as? [String:AnyObject]
-                let currentCreator = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: self.managedObjectContext) as! User
+                // Parse and write event specializations
                 
-                //currentCreator.userName = (creator!["username"] as? String)!
-                currentCreator.userName = "user name"
-                currentCreator.email = creator!["email"] as? String
-                currentCreator.firstName = creator!["firstname"] as? String
-                currentCreator.lastName = creator!["lastName"] as? String
-                currentCreator.site = creator!["site"] as? String
-                currentCreator.about = creator!["about"] as? String
+                if let eventSpecializations = communityDictionary["event_specializations"] as? [AnyObject] {
+                    if eventSpecializations.count > 0 {
+                        
+                        var specializationsName = [String]()
+                        for specialization in eventSpecializations {
+                            if specialization is [String:AnyObject] {
+                                if let name = specialization["specialization_name"] as? String {
+                                    specializationsName.append(name)
+                                }
+                            }
+                        }
+                        
+                        let specializationsData = NSKeyedArchiver.archivedData(withRootObject: specializationsName)
+                        currentCommunity.eventSpecializations = specializationsData
+                    }
+                }
                 
-                let userIDInt = (creator!["id"] as? Int)!
-                currentCreator.userID = NSDecimalNumber(integer: userIDInt)
+                // Parse and write event locations
                 
-                let roles = creator!["roles"] as? [String]
-                if roles?.count > 0 {
-                    let rolesData = NSKeyedArchiver.archivedDataWithRootObject(roles!)
-                    currentCreator.roles = rolesData
+                if let locations = communityDictionary["locations"] as? [AnyObject] {
+                    if locations.count > 0 {
+                        
+                        var locationsDictionary = [String:AnyObject]()
+                        for location in locations {
+                            if location is [String:AnyObject] {
+                                if let country = location["country"] as? [String:AnyObject] {
+                                    if let countryName = country["country_name"] {
+                                        locationsDictionary["country"] = countryName
+                                    }
+                                }
+                                if let city = location["city"] as? [String:AnyObject] {
+                                    if let cityName = city["city_name"] as? String {
+                                        locationsDictionary["city"] = cityName as AnyObject?
+                                    }
+                                    if let country = city["country"] as? [String:AnyObject]  {
+                                        if let countryName = country["country_name"] as? String {
+                                            locationsDictionary["country"] = countryName as AnyObject?
+                                        }
+                                    }
+                                    if let regionName = city["region_name"] as? String {
+                                        locationsDictionary["region"] = regionName as AnyObject?
+                                    }
+                                    if let stateName = city["state_name"] as? String {
+                                        locationsDictionary["state"] = stateName as AnyObject?
+                                    }
+                                }
+                                if let street = location["street"] as? String {
+                                    locationsDictionary["street"] = street as AnyObject?
+                                }
+                                if let place = location["place"] as? String {
+                                    locationsDictionary["place"] = place as AnyObject?
+                                }
+                                if let latitude = location["latitude"] as? Int {
+                                    locationsDictionary["latitude"] = latitude as AnyObject?
+                                }
+                                if let longitude = location["longitude"] as? Int {
+                                    locationsDictionary["longitude"] = longitude as AnyObject?
+                                }
+                            }
+                        }
+                        
+                        let locationsDate = NSKeyedArchiver.archivedData(withRootObject: locationsDictionary)
+                        currentCommunity.locations = locationsDate
+                    }
+                }
+                
+                // Write creator info
+                
+                let currentCreator = NSEntityDescription.insertNewObject(forEntityName: "User", into: self.managedObjectContext) as! User
+                
+                if let creator = communityDictionary["created_by"] as? [String:AnyObject] {
+                
+                    if let userName = creator["username"] as? String {
+                        currentCreator.userName = userName
+                    } else {
+                        currentCreator.userName = "Speaker"
+                    }
+                    
+                    currentCreator.email = creator["email"] as? String
+                    currentCreator.firstName = creator["firstname"] as? String
+                    currentCreator.lastName = creator["lastName"] as? String
+                    currentCreator.site = creator["site"] as? String
+                    currentCreator.about = creator["about"] as? String
+                
+                    let userIDInt = (creator["id"] as? Int)!
+                    currentCreator.userID = NSDecimalNumber(value: userIDInt as Int)
+                
+                    if let roles = creator["roles"] as? [String] {
+                        if roles.count > 0 {
+                            let rolesData = NSKeyedArchiver.archivedData(withRootObject: roles)
+                            currentCreator.roles = rolesData
+                        }
+                    }
                 }
                 
                 currentCommunity.createdBy = currentCreator
             }
             
-            let fetchRequest = NSFetchRequest(entityName: "Community")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Community")
             fetchRequest.includesPendingChanges = false
             fetchRequest.predicate = NSPredicate(format: "communityID IN %@", newID)
             
             do {
-                let existingCommunities = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Community]
+                let existingCommunities = try managedObjectContext.fetch(fetchRequest) as! [Community]
                 
                 for requestCommunity in existingCommunities {
-                    let communityID = Int(requestCommunity.communityID.intValue)
+                    let communityID = requestCommunity.communityID.intValue
                     let newCommunity = communities[communityID]
                     
                     requestCommunity.name = (newCommunity?.name)!
@@ -84,7 +202,7 @@ class DataBaseManager: NSObject {
                     requestCommunity.eventDate = newCommunity?.eventDate
                     requestCommunity.createdBy = (newCommunity?.createdBy)!
                     
-                    managedObjectContext.deleteObject(newCommunity!)
+                    managedObjectContext.delete(newCommunity!)
                 }
                 
             } catch {
@@ -94,7 +212,7 @@ class DataBaseManager: NSObject {
             do {
                 try managedObjectContext.save()
                 if isLastPage {
-                    NSNotificationCenter.defaultCenter().postNotificationName(Constants.kLoadCommunitiesNotification, object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.kLoadCommunitiesNotification), object: nil)
                 }
             } catch let error as NSError {
                 print("Can't save to coredata new communities. Error: \(error.localizedDescription)")
@@ -106,12 +224,12 @@ class DataBaseManager: NSObject {
     
     func printAllCommunitiesForDebug() {
         
-        let fetchRequest = NSFetchRequest(entityName: "Community")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Community")
         let sortDescriptor = NSSortDescriptor(key: "communityID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            let allCommunities = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Community]
+            let allCommunities = try managedObjectContext.fetch(fetchRequest) as! [Community]
             for community in allCommunities {
                 print(community)
             }
@@ -122,7 +240,7 @@ class DataBaseManager: NSObject {
         
     }
     
-    func writeAllOrganizations(organizationsArray:[AnyObject], isLastPage:Bool) {
+    func writeAllOrganizations(_ organizationsArray:[AnyObject], isLastPage:Bool) {
         
         if organizationsArray.count > 0 {
             
@@ -132,30 +250,30 @@ class DataBaseManager: NSObject {
             for organization in organizationsArray {
                 
                 let organizationDictionary = organization as! [String:AnyObject]
-                let currentOrganization = NSEntityDescription.insertNewObjectForEntityForName("Organization", inManagedObjectContext: self.managedObjectContext) as! Organization
+                let currentOrganization = NSEntityDescription.insertNewObject(forEntityName: "Organization", into: self.managedObjectContext) as! Organization
                 
                 currentOrganization.name = (organizationDictionary["name"] as? String)!
                 currentOrganization.specialization = "some specialization"
                 currentOrganization.detailDescription = organizationDictionary["description"] as? String
                 
                 let createdAtString = organizationDictionary["created_at"] as? String
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                currentOrganization.createdAt = dateFormatter.dateFromString(createdAtString!)
+                currentOrganization.createdAt = dateFormatter.date(from: createdAtString!)
                 
                 let organizationIDInt = organizationDictionary["id"] as? Int
-                currentOrganization.organizationID = NSDecimalNumber(integer: organizationIDInt!)
+                currentOrganization.organizationID = NSDecimalNumber(value: organizationIDInt! as Int)
                 organizations[organizationIDInt!] = currentOrganization
                 newID.append(organizationIDInt!)
                 
                 let threadIDInt = organizationDictionary["thread_id"] as? Int
-                currentOrganization.threadID = NSDecimalNumber(integer: threadIDInt!)
+                currentOrganization.threadID = NSDecimalNumber(value: threadIDInt! as Int)
                 
                 let subscribersInt = organizationDictionary["subscribers_count"] as? Int
-                currentOrganization.subscribersCount = NSDecimalNumber(integer: subscribersInt!)
+                currentOrganization.subscribersCount = NSDecimalNumber(value: subscribersInt! as Int)
                 
                 let creator = organizationDictionary["created_by"] as? [String:AnyObject]
-                let currentCreator = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: self.managedObjectContext) as! User
+                let currentCreator = NSEntityDescription.insertNewObject(forEntityName: "User", into: self.managedObjectContext) as! User
                 
                 currentCreator.userName = (creator!["username"] as? String)!
                 currentCreator.email = creator!["email"] as? String
@@ -165,27 +283,28 @@ class DataBaseManager: NSObject {
                 currentCreator.about = creator!["about"] as? String
                 
                 let userIDInt = (creator!["id"] as? Int)!
-                currentCreator.userID = NSDecimalNumber(integer: userIDInt)
+                currentCreator.userID = NSDecimalNumber(value: userIDInt as Int)
                 
-                let roles = creator!["roles"] as? [String]
-                if roles?.count > 0 {
-                    let rolesData = NSKeyedArchiver.archivedDataWithRootObject(roles!)
-                    currentCreator.roles = rolesData
+                if let roles = creator!["roles"] as? [String] {
+                    if roles.count > 0 {
+                        let rolesData = NSKeyedArchiver.archivedData(withRootObject: roles)
+                        currentCreator.roles = rolesData
+                    }
                 }
                 
                 currentOrganization.createdBy = currentCreator
                 
             }
             
-            let fetchRequest = NSFetchRequest(entityName: "Organization")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Organization")
             fetchRequest.includesPendingChanges = false
             fetchRequest.predicate = NSPredicate(format: "organizationID IN %@", newID)
             
             do {
-                let existingOrganizations = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Organization]
+                let existingOrganizations = try managedObjectContext.fetch(fetchRequest) as! [Organization]
                 
                 for requestOrganization in existingOrganizations {
-                    let organizationID = Int(requestOrganization.organizationID.intValue)
+                    let organizationID = requestOrganization.organizationID.intValue
                     let newOrganization = organizations[organizationID]
                     
                     requestOrganization.name = (newOrganization?.name)!
@@ -196,7 +315,7 @@ class DataBaseManager: NSObject {
                     requestOrganization.subscribersCount = newOrganization?.subscribersCount
                     requestOrganization.threadID = (newOrganization?.threadID)!
                     
-                    managedObjectContext.deleteObject(newOrganization!)
+                    managedObjectContext.delete(newOrganization!)
                 }
                 
             } catch {
@@ -206,7 +325,7 @@ class DataBaseManager: NSObject {
             do {
                 try managedObjectContext.save()
                 if isLastPage {
-                    NSNotificationCenter.defaultCenter().postNotificationName(Constants.kLoadOrganizationsNotification, object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.kLoadOrganizationsNotification), object: nil)
                 }
             } catch let error as NSError {
                 print("Can't save to coredata new organizations. Error: \(error.localizedDescription)")
@@ -219,30 +338,30 @@ class DataBaseManager: NSObject {
     
     // MARK: Core Data stack
     
-    lazy var applicationDocumentsDirectory: NSURL = {
+    lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "AE.Itboost" in the application's documents Application Support directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         
-        let modelURL = NSBundle.mainBundle().URLForResource("Itboost", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle.main.url(forResource: "Itboost", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("SingleViewCoreData.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
             
             //dict[NSUnderlyingErrorKey] = error as! NSError
             //let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
@@ -254,8 +373,8 @@ class DataBaseManager: NSObject {
             //abort()
             
             do {
-                try NSFileManager.defaultManager().removeItemAtURL(url)
-                try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+                try FileManager.default.removeItem(at: url)
+                try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
             } catch {
                 print("Error removing old database file and writing new file")
             }
@@ -267,7 +386,7 @@ class DataBaseManager: NSObject {
     lazy var managedObjectContext: NSManagedObjectContext = {
         
         let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()

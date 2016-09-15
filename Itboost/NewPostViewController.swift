@@ -8,6 +8,27 @@
 
 import Foundation
 import UIKit
+/*
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+*/
 
 class NewPostViewController: UIViewController {
     
@@ -23,7 +44,7 @@ class NewPostViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         
@@ -34,9 +55,9 @@ class NewPostViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func sendPost(sender: AnyObject) {
+    @IBAction func sendPost(_ sender: AnyObject) {
         
-        if titleField.text?.characters.count > 0 && postBodyTextView.text.characters.count > 0 {
+        if (titleField.text?.characters.count)! > 0 && postBodyTextView.text.characters.count > 0 {
             let threadIDsDict = ["id": wallThreadID]
             
             ServerManager().postNewMessageOnWall(threadIDsDict, title: titleField.text!, body: postBodyTextView.text, success: { (response) in
@@ -50,12 +71,12 @@ class NewPostViewController: UIViewController {
     
     // MARK: TextField and TextView Delegates
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n"{
             textView.resignFirstResponder()
             return false
@@ -67,14 +88,14 @@ class NewPostViewController: UIViewController {
     
     func showAlertWithHandler() {
         
-        let alertController = UIAlertController(title: "Готово", message: "Вы успешно опубликовали запись", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "Готово", message: "Вы успешно опубликовали запись", preferredStyle: UIAlertControllerStyle.alert)
         
-        let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (alertAction) in
-            self.navigationController?.popViewControllerAnimated(true)
+        let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alertAction) in
+            _ = self.navigationController?.popViewController(animated: true)
         }
         
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }

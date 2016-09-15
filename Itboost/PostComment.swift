@@ -13,6 +13,6 @@ class PostComment: NSObject {
     var commentBody = ""
     var authorUsername = ""
     var commentID = Int()
-    var postedAt = NSDate()
+    var postedAt = Date()
     
 }
