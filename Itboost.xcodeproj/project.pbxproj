@@ -621,10 +621,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alina Yehorova (F34RD363MK)";
+				DEVELOPMENT_TEAM = 67YHSUMF82;
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "272f481c-bb0a-4303-b29f-de34da0aad7d";
+				PROVISIONING_PROFILE_SPECIFIER = ItboostDevelopment;
 				SWIFT_OBJC_BRIDGING_HEADER = "Itboost/Itboost-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -640,10 +643,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: TAPFORPARKING LLC (67YHSUMF82)";
+				DEVELOPMENT_TEAM = 67YHSUMF82;
 				INFOPLIST_FILE = Itboost/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AE.Itboost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ede03f43-78ff-4e73-b903-6ab2b60d65aa";
+				PROVISIONING_PROFILE_SPECIFIER = ItboostDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "Itboost/Itboost-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

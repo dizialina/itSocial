@@ -172,7 +172,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             if let detailDescription = event.detailDescription {
                 
                 let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
-                let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+                let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset:2.0, device: nil)
             
                 eventCell.heightDescriptionLabel.constant = descriptionHeight
                 eventCell.descriptionLabel.text = detailDescription
@@ -256,7 +256,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             let detailDescription = community.detailDescription!
             
             let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
-            let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 25), offset:0.0, device: nil)
+            let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset:2.0, device: nil)
             
             guard descriptionHeight > 10 else { return 825.0 }
             

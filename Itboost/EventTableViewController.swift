@@ -166,7 +166,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if let price = event.eventPrice {
             if price != 0 {
-                eventCell.priceLabel.text = "\(event.eventPrice!)"
+                eventCell.priceLabel.text = "\(event.eventPrice!) грн."
             }
         }
         
