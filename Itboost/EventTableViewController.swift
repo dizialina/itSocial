@@ -150,9 +150,54 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let eventCell = tableView.dequeueReusableCell(withIdentifier: "EventsTableCell", for: indexPath) as! EventsTableCell
         
-        //let event = eventList[indexPath.item]
+        let event = eventList[indexPath.item]
         
         eventCell.logoImage.image = pictureList[0]
+        
+        eventCell.titleLabel.text = event.name
+        
+        if event.eventType != nil {
+            eventCell.eventTypeLabel.text = event.eventType!
+        } 
+        
+        if event.eventDate != nil {
+            eventCell.dateLabel.text = convertDateToText(event.eventDate!)
+        }
+        
+        if let price = event.eventPrice {
+            if price != 0 {
+                eventCell.priceLabel.text = "\(event.eventPrice!)"
+            }
+        }
+        
+        if event.eventSpecializations != nil {
+            let specializationsArray = NSKeyedUnarchiver.unarchiveObject(with: event.eventSpecializations!) as! [String]
+            eventCell.descriptionLabel.text = specializationsArray.joined(separator: ", ")
+        }
+        
+        if event.locations != nil {
+            let locationDictionary = NSKeyedUnarchiver.unarchiveObject(with: event.locations!) as! [String:AnyObject]
+            var fullAdress = [String]()
+            if let country = locationDictionary["country"] as? String {
+                fullAdress.append(country)
+            }
+            if let city = locationDictionary["city"] as? String {
+                fullAdress.append(city)
+            }
+            if let state = locationDictionary["state"] as? String {
+                fullAdress.append(state)
+            }
+            if let region = locationDictionary["region"] as? String {
+                fullAdress.append(region)
+            }
+            if let street = locationDictionary["street"] as? String {
+                fullAdress.append(street)
+            }
+            if let place = locationDictionary["place"] as? String {
+                fullAdress.append(place)
+            }
+            eventCell.adressLabel.text = fullAdress.joined(separator: ", ")
+        }
         
         return eventCell
         
@@ -181,7 +226,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func convertDateToText(_ date:Date) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        dateFormatter.dateFormat = "HH:mm  dd/MM/yyyy"
         return dateFormatter.string(from: date)
     }
     

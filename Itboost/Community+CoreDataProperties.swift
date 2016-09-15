@@ -29,6 +29,6 @@ extension Community {
     @NSManaged public var locations: Data?
     @NSManaged public var subscribersCount: NSDecimalNumber?
     @NSManaged public var eventAvatar: String?
-    @NSManaged var createdBy: User?
+    @NSManaged var createdBy: User
 
 }

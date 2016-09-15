@@ -93,7 +93,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
         let community = communityList[(indexPath as NSIndexPath).item]
         
         let eventDate = convertDateToText(community.eventDate! as Date)
-        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy?.userName)"
+        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
         
         let title:NSString = textToShow as NSString
         
@@ -140,7 +140,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
         let community = communityList[(indexPath as NSIndexPath).item]
         
         let eventDate = convertDateToText(community.eventDate! as Date)
-        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy?.userName)"
+        let textToShow = "\(community.name) \nСостоится: \(eventDate) \nОрганизатор: \(community.createdBy.userName)"
         
         let text:NSString = textToShow as NSString
         let font = UIFont.systemFont(ofSize: 15.0)

@@ -196,10 +196,19 @@ class DataBaseManager: NSObject {
                     let communityID = requestCommunity.communityID.intValue
                     let newCommunity = communities[communityID]
                     
-                    requestCommunity.name = (newCommunity?.name)!
+                    requestCommunity.createdAt = (newCommunity?.createdAt)!
                     requestCommunity.detailDescription = newCommunity?.detailDescription
-                    requestCommunity.createdAt = newCommunity?.createdAt
                     requestCommunity.eventDate = newCommunity?.eventDate
+                    requestCommunity.name = newCommunity?.name
+                    requestCommunity.threadID = (newCommunity?.threadID)!
+                    requestCommunity.eventEndDate = newCommunity?.eventEndDate
+                    requestCommunity.eventPrice = newCommunity?.eventPrice
+                    requestCommunity.eventSpecializations = newCommunity?.eventSpecializations
+                    requestCommunity.eventSite = newCommunity?.eventSite
+                    requestCommunity.eventType = newCommunity?.eventType
+                    requestCommunity.locations = newCommunity?.locations
+                    requestCommunity.subscribersCount = newCommunity?.subscribersCount
+                    requestCommunity.eventAvatar = newCommunity?.eventAvatar
                     requestCommunity.createdBy = (newCommunity?.createdBy)!
                     
                     managedObjectContext.delete(newCommunity!)

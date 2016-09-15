@@ -1376,7 +1376,7 @@
                                                         <constraint firstAttribute="height" constant="85" id="xej-Gq-zIL"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Эффективные стратегии в рекламе в соцсетях" textAlignment="natural" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="q3x-mH-Kmh">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название не указано" textAlignment="natural" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="q3x-mH-Kmh">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="y0O-1L-SAO"/>
                                                     </constraints>
@@ -1384,7 +1384,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Masterclass, Javascript, Web" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35r-1I-jWb">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет специализации" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35r-1I-jWb">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="Orp-bU-GAk"/>
                                                     </constraints>
@@ -1435,9 +1435,9 @@
                                                         <constraint firstAttribute="height" constant="23" id="KBt-Bq-pEk"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Киев, ул. Жилянская, 75, 4 этаж, Бизнес Центр &quot;Евразия&quot;, офис &quot;Майкрософт&quot;" textAlignment="natural" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="gzx-Xo-FYV">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Адрес не указан" textAlignment="natural" lineBreakMode="clip" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="gzx-Xo-FYV">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="29" id="ASR-rI-OT6"/>
+                                                        <constraint firstAttribute="height" constant="33" id="ASR-rI-OT6"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                                     <color key="textColor" red="0.69803921568627447" green="0.69803921568627447" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1457,7 +1457,7 @@
                                                                 <constraint firstAttribute="width" constant="1" id="gLu-69-NGo"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вебинар" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJQ-1o-r4G">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Общее" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJQ-1o-r4G">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="wTE-bS-GjK"/>
                                                             </constraints>
@@ -1473,15 +1473,7 @@
                                                             <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kea-Wo-J5h">
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="SIB-rG-Sxu"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
-                                                            <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="28/06/2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KL3-m9-pco">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Дата не указана" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KL3-m9-pco">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="pHa-qZ-Yga"/>
                                                             </constraints>
@@ -1493,11 +1485,9 @@
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="Qib-hc-3cs" secondAttribute="trailing" constant="102" id="2aY-yK-yzv"/>
-                                                        <constraint firstItem="KL3-m9-pco" firstAttribute="leading" secondItem="Kea-Wo-J5h" secondAttribute="trailing" id="861-sb-1eM"/>
-                                                        <constraint firstItem="Kea-Wo-J5h" firstAttribute="leading" secondItem="HSA-X8-PFa" secondAttribute="trailing" constant="8" id="BxD-oZ-Whb"/>
+                                                        <constraint firstItem="KL3-m9-pco" firstAttribute="leading" secondItem="HSA-X8-PFa" secondAttribute="trailing" constant="2" id="4fE-yi-jE6"/>
                                                         <constraint firstItem="NJQ-1o-r4G" firstAttribute="leading" secondItem="ZzA-wO-J0J" secondAttribute="leading" id="Eo7-fM-Htp"/>
                                                         <constraint firstItem="7Lu-cd-DMV" firstAttribute="centerY" secondItem="ZzA-wO-J0J" secondAttribute="centerY" id="Kjr-AH-6iG"/>
-                                                        <constraint firstItem="Kea-Wo-J5h" firstAttribute="centerY" secondItem="ZzA-wO-J0J" secondAttribute="centerY" id="Ktz-6p-Ga8"/>
                                                         <constraint firstAttribute="height" constant="34" id="MZM-Ee-h43"/>
                                                         <constraint firstItem="7Lu-cd-DMV" firstAttribute="leading" secondItem="Qib-hc-3cs" secondAttribute="trailing" id="R0i-bD-he3"/>
                                                         <constraint firstItem="HSA-X8-PFa" firstAttribute="leading" secondItem="NJQ-1o-r4G" secondAttribute="trailing" id="RY9-IS-e3J"/>
@@ -1520,7 +1510,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="ZzA-wO-J0J" secondAttribute="trailing" id="BCN-Iu-lbH"/>
                                                 <constraint firstItem="gzx-Xo-FYV" firstAttribute="leading" secondItem="1AG-qu-BGe" secondAttribute="trailing" constant="5" id="CiS-vf-POE"/>
                                                 <constraint firstAttribute="trailing" secondItem="gzx-Xo-FYV" secondAttribute="trailing" constant="8" id="Ewd-tY-ead"/>
-                                                <constraint firstItem="ZzA-wO-J0J" firstAttribute="top" secondItem="gzx-Xo-FYV" secondAttribute="bottom" constant="8" id="FBR-UM-tRx"/>
+                                                <constraint firstItem="ZzA-wO-J0J" firstAttribute="top" secondItem="gzx-Xo-FYV" secondAttribute="bottom" constant="7" id="FBR-UM-tRx"/>
                                                 <constraint firstItem="hlJ-jf-5om" firstAttribute="top" secondItem="rAl-VY-bpp" secondAttribute="topMargin" constant="2" id="G43-JA-7L3"/>
                                                 <constraint firstItem="35r-1I-jWb" firstAttribute="top" secondItem="q3x-mH-Kmh" secondAttribute="bottom" constant="1" id="IDf-iH-y2c"/>
                                                 <constraint firstItem="ZzA-wO-J0J" firstAttribute="leading" secondItem="rAl-VY-bpp" secondAttribute="leading" id="Q8z-xH-MPM"/>
@@ -1547,7 +1537,6 @@
                                             <outlet property="priceLabel" destination="7Lu-cd-DMV" id="oz1-C8-ne1"/>
                                             <outlet property="secondStar" destination="YnN-qF-ew2" id="gGd-RA-QMw"/>
                                             <outlet property="thirdStar" destination="c3g-V0-s7C" id="QJZ-cS-D2g"/>
-                                            <outlet property="timeLabel" destination="Kea-Wo-J5h" id="VlY-ZO-VQ2"/>
                                             <outlet property="titleLabel" destination="q3x-mH-Kmh" id="By1-Wq-rXN"/>
                                         </connections>
                                     </tableViewCell>

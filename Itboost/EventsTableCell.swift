@@ -19,7 +19,6 @@ class EventsTableCell: UITableViewCell {
     @IBOutlet weak var eventTypeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var firstStar: UIImageView!
     @IBOutlet weak var secondStar: UIImageView!
