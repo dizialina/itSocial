@@ -59,15 +59,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         awardsArray = ["ТОП 5 Спикеров", "150 Событий", "100 Событий", "50 Событий", "ТОП 10 Боссов"]
         awardColorsArray = [UIColor.magenta, UIColor.purple, UIColor.orange, UIColor.cyan, UIColor.brown]
         
-        // Make avatar image round
-        
-        avatarImage.layer.cornerRadius = avatarImage.frame.size.width / 2
-        avatarImage.clipsToBounds = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Make avatar image round
+        
+        self.view.layer.layoutIfNeeded()
+        avatarImage.layer.cornerRadius = avatarImage.frame.size.width / 2
+        avatarImage.clipsToBounds = true
         
         // Call log in screen if user is not authorized
         

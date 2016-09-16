@@ -17,12 +17,14 @@ class Constants {
     
     // MARK: Notification Keys
     
-    static let kLoadCommunitiesNotification = "LoadCommunitiesNotification"
-    static let kLoadOrganizationsNotification = "LoadOrganizationsNotification"
-    static let kAlreadyRun = "AlreadyRun"
+    static let LoadCommunitiesNotification = Notification.Name("LoadCommunitiesNotification")
+    static let LoadOrganizationsNotification = Notification.Name("LoadOrganizationsNotification")
+    //static let kLoadCommunitiesNotification = "LoadCommunitiesNotification"
+    //static let kLoadOrganizationsNotification = "LoadOrganizationsNotification"
     
     // MARK: NSUserDefaults Keys
     
+    static let kAlreadyRun = "AlreadyRun"
     static let kUserToken = "token"
     static let kUserID = "id"
     
@@ -35,6 +37,9 @@ class Constants {
     static let strongDarkBlue = UIColor(red: 0.016, green: 0.153, blue: 0.22, alpha: 1)
     static let mintBlue = UIColor(red:0.69, green:0.87, blue:0.85, alpha:1)
     static let darkMintBlue = UIColor(red:0.56, green:0.78, blue:0.82, alpha:1)
+    static let lightGrayColor = UIColor(red:0.78, green:0.78, blue:0.78, alpha:1)
+    static let lightGreenColor = UIColor(red:0.55, green:0.78, blue:0.25, alpha:1)
+    static let placeholderDefaultColor = UIColor(red:0.62, green:0.69, blue:0.73, alpha:1)
     
     // MARK: Flaticon links
     

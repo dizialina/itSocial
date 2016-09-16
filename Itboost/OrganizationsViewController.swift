@@ -23,7 +23,7 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(OrganizationsViewController.getOrganizationsFromDatabase), name: NSNotification.Name(rawValue: Constants.kLoadOrganizationsNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(OrganizationsViewController.getOrganizationsFromDatabase), name: Constants.LoadOrganizationsNotification, object: nil)
         
         self.navigationItem.title = "Организации"
         

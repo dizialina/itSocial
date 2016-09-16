@@ -8,29 +8,8 @@
 
 import Foundation
 import UIKit
-/*
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-*/
-
-class NewPostViewController: UIViewController {
+class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var postBodyTextView: UITextView!
@@ -41,7 +20,7 @@ class NewPostViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = "Новая запись"
-        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,12 +55,30 @@ class NewPostViewController: UIViewController {
         return true
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n"{
             textView.resignFirstResponder()
             return false
         }
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        if textView.text == "Введите текст" {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+        textView.becomeFirstResponder()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        if textView.text == "" {
+            textView.text = "Введите текст"
+            textView.textColor = Constants.placeholderDefaultColor
+        }
+        textView.resignFirstResponder()
     }
     
     // MARK: Helping methods

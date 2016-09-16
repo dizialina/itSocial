@@ -24,7 +24,7 @@ class EventCollectionViewController: UIViewController, UICollectionViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: NSNotification.Name(rawValue: Constants.kLoadCommunitiesNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.LoadCommunitiesNotification, object: nil)
         
         self.navigationItem.title = "События"
         

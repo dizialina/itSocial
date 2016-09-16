@@ -43,7 +43,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             UserDefaults.standard.set(false,forKey:Constants.kAlreadyRun)
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: NSNotification.Name(rawValue: Constants.kLoadCommunitiesNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.LoadCommunitiesNotification, object: nil)
         
         // Make navigation bar translucent
         

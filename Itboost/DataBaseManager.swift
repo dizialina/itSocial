@@ -221,7 +221,7 @@ class DataBaseManager: NSObject {
             do {
                 try managedObjectContext.save()
                 if isLastPage {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.kLoadCommunitiesNotification), object: nil)
+                    NotificationCenter.default.post(name: Constants.LoadCommunitiesNotification, object: nil)
                 }
             } catch let error as NSError {
                 print("Can't save to coredata new communities. Error: \(error.localizedDescription)")
@@ -334,7 +334,7 @@ class DataBaseManager: NSObject {
             do {
                 try managedObjectContext.save()
                 if isLastPage {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.kLoadOrganizationsNotification), object: nil)
+                    NotificationCenter.default.post(name: Constants.LoadOrganizationsNotification, object: nil)
                 }
             } catch let error as NSError {
                 print("Can't save to coredata new organizations. Error: \(error.localizedDescription)")

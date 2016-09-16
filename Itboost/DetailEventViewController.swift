@@ -87,7 +87,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         ServerManager().getWallPosts(wallThreadID, currentPage: currentPostsPage, success: { (response) in
             self.wallPostsArray += ResponseParser().parseWallPost(response!)
             self.currentPostsPage += 1
-            self.tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }) { (error) in
             print("Error receiving wall posts from event: " + error!.localizedDescription)
         }
@@ -167,6 +170,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             eventCell.joinEventButton.addTarget(self, action: #selector(DetailEventViewController.joinEvent(_:)), for: UIControlEvents.touchUpInside)
             
+            eventCell.addPostButton.addTarget(self, action: #selector(DetailEventViewController.addPost(_:)), for: UIControlEvents.touchUpInside)
+            
             // Set height of description label
             
             if let detailDescription = event.detailDescription {
@@ -182,8 +187,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             if !isJoin {
                 eventCell.joinEventButton.setTitle("Я пойду", for: UIControlState.normal)
+                eventCell.joinEventButton.backgroundColor = Constants.lightGreenColor
             } else {
                 eventCell.joinEventButton.setTitle("Я не пойду", for: UIControlState.normal)
+                eventCell.joinEventButton.backgroundColor = Constants.lightGrayColor
             }
             
             // Make avatar images round
@@ -252,16 +259,16 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         if (indexPath as NSIndexPath).row == 0 {
             
             let community = communityObject as! Community
-            guard community.detailDescription != nil else { return 825.0 }
+            guard community.detailDescription != nil else { return 856.0 }
             let detailDescription = community.detailDescription!
             
             let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
             let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset:2.0, device: nil)
             
-            guard descriptionHeight > 10 else { return 825.0 }
+            guard descriptionHeight > 10 else { return 856.0 }
             
             let deltaHeight =  descriptionHeight - 10
-            return 825.0 + deltaHeight
+            return 856.0 + deltaHeight
         
         } else {
             
@@ -344,6 +351,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                
                 DispatchQueue.main.async {
                     eventCell?.joinEventButton.setTitle("Я не пойду", for: UIControlState.normal)
+                    UIView.animate(withDuration: 0.3, animations: {
+                        eventCell?.joinEventButton.backgroundColor = Constants.lightGrayColor
+                    })
                     eventCell?.joinActivityIndicator.stopAnimating()
                 }
             }) { (error) in
@@ -359,6 +369,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 DispatchQueue.main.async {
                     eventCell?.joinEventButton.setTitle("Я пойду", for: UIControlState.normal)
+                    UIView.animate(withDuration: 0.3, animations: {
+                        eventCell?.joinEventButton.backgroundColor = Constants.lightGreenColor
+                    })
                     eventCell?.joinActivityIndicator.stopAnimating()
                 }
             }) { (error) in
@@ -366,6 +379,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 eventCell?.joinActivityIndicator.stopAnimating()
             }
         }
+    }
+    
+    func addPost(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "addNewPost", sender: nil)
     }
     
     // MARK: Helping methods
@@ -388,7 +405,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if (segue.identifier == "addPostToWall") {
+        if (segue.identifier == "addNewPost") {
             let viewController = segue.destination as! NewPostViewController
             let community = communityObject as! Community
             viewController.wallThreadID = community.threadID.intValue
