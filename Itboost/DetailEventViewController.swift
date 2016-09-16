@@ -33,7 +33,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
         let community = communityObject as! Community
         self.navigationItem.title = community.name
-        self.navigationItem.title = "Workshop «Ретроспектива проекта»"
+        
+        let navigationTitleFont = UIFont.systemFont(ofSize: 15)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:navigationTitleFont]
         
         // Make navigation bar translucent
         
@@ -50,6 +52,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.tableFooterView!.isHidden = true
         
         // Set event location
+        
         let event = communityObject as! Community
         if event.locations != nil {
             let locationDictionary = NSKeyedUnarchiver.unarchiveObject(with: event.locations!) as! [String:AnyObject]
@@ -128,8 +131,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: TableView DataSource and Delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return 2 + wallPostsArray.count
-        return 1
+        return 1 + wallPostsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -224,26 +226,36 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCell", for: indexPath) as! WallPostCell
             
-            let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 2]
+            let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 1]
             
             if wallPost.postTitle.characters.count > 0 {
                 wallPostCell.postTitleLabel.text = wallPost.postTitle
-            } else {
-                wallPostCell.postTitleLabel.text = "Без названия"
+            }
+            
+            if wallPost.authorUsername.characters.count > 0 {
+                wallPostCell.authorLabel.text = wallPost.authorUsername
             }
             
             wallPostCell.postDateLabel.text = convertDateToDateText(wallPost.postedAt as Date)
-            wallPostCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
+            wallPostCell.postTimeLabel.text = convertDateToTimeText(wallPost.postedAt as Date)
+            wallPostCell.commentsButton.setTitle("Комментарии (\(wallPost.commentsCount))", for: UIControlState.normal)
             
-            //wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), for: UIControlEvents.touchUpInside)
             wallPostCell.commentsButton.tag = wallPost.postID
             
-            let postBodyText:NSString = wallPost.postBody as NSString
-            wallPostCell.postBodyLabel.text = postBodyText as String
+            // Set height of description label
             
-            let font = UIFont.systemFont(ofSize: 15.0)
-            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let postBody = wallPost.postBody
+            let font = UIFont.systemFont(ofSize: 12.0)
+            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+                
             wallPostCell.heightBodyView.constant = bodyHeight
+            wallPostCell.postBodyLabel.text = postBody
+            
+            // Make avatar image round
+            
+            wallPostCell.userAvatar.layer.cornerRadius = 40 / 2
+            wallPostCell.userAvatar.clipsToBounds = true
             
             return wallPostCell
         }
@@ -259,29 +271,29 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         if (indexPath as NSIndexPath).row == 0 {
             
             let community = communityObject as! Community
-            guard community.detailDescription != nil else { return 856.0 }
+            guard community.detailDescription != nil else { return 868.0 }
             let detailDescription = community.detailDescription!
             
             let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
             let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset:2.0, device: nil)
             
-            guard descriptionHeight > 10 else { return 856.0 }
+            guard descriptionHeight > 15 else { return 868.0 }
             
-            let deltaHeight =  descriptionHeight - 10
-            return 856.0 + deltaHeight
+            let deltaHeight =  descriptionHeight - 15
+            return 868.0 + deltaHeight
         
         } else {
             
-            let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 2]
+            let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 1]
             
-            let postBodyText:NSString = wallPost.postBody as NSString
-            let font = UIFont.systemFont(ofSize: 15.0)
-            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let postBody = wallPost.postBody
+            let font = UIFont.systemFont(ofSize: 12.0)
+            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+           
+            guard bodyHeight > 16 else { return 100.0 }
             
-            guard bodyHeight > 30 else { return 125.0 }
-            
-            let deltaHeight =  bodyHeight - 30
-            return 125.0 + deltaHeight
+            let deltaHeight =  bodyHeight - 16
+            return 100.0 + deltaHeight
         }
         
     }
@@ -383,6 +395,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     func addPost(_ sender: UIButton) {
         self.performSegue(withIdentifier: "addNewPost", sender: nil)
+    }
+    
+    func openPostComments(_ sender: UIButton) {
+        
     }
     
     // MARK: Helping methods

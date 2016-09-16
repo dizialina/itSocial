@@ -54,6 +54,7 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: Get data methods
     
     func getFeeds() {
+        print("get posts method")
         
         ServerManager().getFeeds(currentPostsPage, success: { (response) in
             self.feedsArray += ResponseParser().parseWallPost(response!)
@@ -84,7 +85,7 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
             
         feedCell.postDateLabel.text = convertDateToText(wallPost.postedAt as Date)
-        feedCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
+     //   feedCell.commentsCountLabel.text = "Комментарии (\(wallPost.commentsCount))"
             
         feedCell.commentsButton.addTarget(self, action: #selector(FeedsViewController.openPostComments(_:)), for: UIControlEvents.touchUpInside)
         feedCell.commentsButton.tag = wallPost.postID

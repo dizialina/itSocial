@@ -80,7 +80,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             }
             
             wallPostCell.postDateLabel.text = convertDateToText(currentPost.postedAt as Date)
-            wallPostCell.commentsCountLabel.text = "Комментарии (\(currentPost.commentsCount))"
+           // wallPostCell.commentsCountLabel.text = "Комментарии (\(currentPost.commentsCount))"
             
             let postBodyText:NSString = currentPost.postBody as NSString
             wallPostCell.postBodyLabel.text = postBodyText as String
