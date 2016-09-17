@@ -21,7 +21,7 @@ class LoadPaginaionManager: NSObject {
         
         let urlString = Constants.linkToServerAPI + "event.getAll"
         
-        let loadEventsOperation = LoadEventsOperation(linkToData: urlString, currentPage:1, queue: operationQueue, dataType: .events)
+        let loadEventsOperation = LoadEventsOperation(linkToData: urlString, currentPage: 1, queue: operationQueue, dataType: .events)
         operationQueue.addOperation(loadEventsOperation)
         operationQueue.waitUntilAllOperationsAreFinished()
     }

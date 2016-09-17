@@ -55,14 +55,16 @@ class ServerManager: NSObject {
         
     }
     
-    func getOnePageEventsFromServer(_ sourceURL:String, operationQueue:OperationQueue, success: @escaping (_ response: AnyObject?, _ currentPage:Int) -> Void, failure: (_ error: Error?) -> Void) {
+    func getOnePageEventsFromServer(_ sourceURL:String, currentPage:Int, operationQueue:OperationQueue, success: @escaping (_ response: AnyObject?, _ currentPage:Int) -> Void, failure: (_ error: Error?) -> Void) {
         
         let manager = AFHTTPRequestOperationManager()
         //manager.requestSerializer.setValue("application/json; charset=UTF-8", forHTTPHeaderField:"Content-Type")
         manager.operationQueue = operationQueue
         //manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        manager.get(sourceURL, parameters: nil, success: { (operation, responce) in
+        let params:NSDictionary = ["page": currentPage]
+        
+        manager.get(sourceURL, parameters: params, success: { (operation, responce) in
             if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
                 //print(response)
                 if let results = response["response"] {

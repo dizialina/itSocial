@@ -36,18 +36,18 @@ class LoadEventsOperation: Operation {
             return
         }
     
-        createOperationForLoadTask(linkToRequestData, currentPage:currentPage, queue: dispatchQueue)
+        createOperationForLoadTask()
         self._executing = true
     }
     
     /// Function to request data from server async with block to handle responce from server
-    func createOperationForLoadTask(_ linkToLoad:String, currentPage:Int, queue:OperationQueue) {
+    func createOperationForLoadTask() {
         let serverManager = ServerManager()
         
         switch self.dataType {
         case .events:
             
-            serverManager.getOnePageEventsFromServer(linkToLoad, operationQueue: queue, success: { (response, currentPage) in
+            serverManager.getOnePageEventsFromServer(linkToRequestData, currentPage: currentPage, operationQueue: dispatchQueue, success: { (response, currentPage) in
                 
                 let communitiesArray = response as! [AnyObject]
                 
@@ -56,8 +56,7 @@ class LoadEventsOperation: Operation {
                     
                     DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:false)
                     let nextPage = currentPage + 1
-                    let newLinkToData = self.linkToRequestData + "?page=\(nextPage)"
-                    let newLoadEventsOperataion = LoadEventsOperation(linkToData: newLinkToData, currentPage:nextPage, queue: self.dispatchQueue, dataType: self.dataType)
+                    let newLoadEventsOperataion = LoadEventsOperation(linkToData: self.linkToRequestData, currentPage: nextPage, queue: self.dispatchQueue, dataType: self.dataType)
                     self.dispatchQueue.addOperation(newLoadEventsOperataion)
                     
                 } else {
@@ -71,7 +70,7 @@ class LoadEventsOperation: Operation {
             
         case .organizations:
             
-            serverManager.getOnePageOrganizationsFromServer(linkToLoad, currentPage: currentPage, operationQueue: queue, success: { (response, currentPage) in
+            serverManager.getOnePageOrganizationsFromServer(linkToRequestData, currentPage: currentPage, operationQueue: dispatchQueue, success: { (response, currentPage) in
                 
                 let organizationsArray = response as! [AnyObject]
                 
@@ -80,7 +79,6 @@ class LoadEventsOperation: Operation {
                     
                     DataBaseManager().writeAllOrganizations(organizationsArray, isLastPage:false)
                     let nextPage = currentPage + 1
-                    //let newLinkToData = self.linkToRequestData + "?page=\(nextPage)"
                     let newLoadEventsOperataion = LoadEventsOperation(linkToData: self.linkToRequestData, currentPage: nextPage, queue: self.dispatchQueue, dataType: self.dataType)
                     self.dispatchQueue.addOperation(newLoadEventsOperataion)
                     
