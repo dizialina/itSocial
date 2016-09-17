@@ -398,7 +398,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func openPostComments(_ sender: UIButton) {
-        
+        self.performSegue(withIdentifier: "showPostComments", sender: sender.tag)
     }
     
     // MARK: Helping methods

@@ -18,6 +18,7 @@ class WallPostCell: UITableViewCell {
     @IBOutlet weak var commentsButton: UIButton!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var userAvatar: UIImageView!
+    @IBOutlet weak var commentsCountLabel: UILabel!
     
     @IBOutlet weak var heightBodyView: NSLayoutConstraint!
     

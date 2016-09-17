@@ -23,7 +23,11 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         self.navigationItem.title = "Запись на стене"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         
+        navigationController?.navigationBar.barTintColor = Constants.darkMintBlue
+        let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
+        navigationBackgroundView?.alpha = 1.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +60,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             })
             
         }) { (error) in
-            print("Error receiving current post from event: " + error!.localizedDescription)
+            print("Error receiving post comments from event: " + error!.localizedDescription)
         }
         
     }
@@ -71,23 +75,33 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (indexPath as NSIndexPath).row == 0 {
             
-            let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCell", for: indexPath) as! WallPostCell
+            let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCellDetail", for: indexPath) as! WallPostCell
             
             if currentPost.postTitle.characters.count > 0 {
                 wallPostCell.postTitleLabel.text = currentPost.postTitle
-            } else {
-                wallPostCell.postTitleLabel.text = "Без названия"
             }
             
-            wallPostCell.postDateLabel.text = convertDateToText(currentPost.postedAt as Date)
-           // wallPostCell.commentsCountLabel.text = "Комментарии (\(currentPost.commentsCount))"
+            if currentPost.authorUsername.characters.count > 0 {
+                wallPostCell.authorLabel.text = currentPost.authorUsername
+            }
             
-            let postBodyText:NSString = currentPost.postBody as NSString
-            wallPostCell.postBodyLabel.text = postBodyText as String
+            wallPostCell.commentsCountLabel.text = "\(currentPost.commentsCount) комментариев"
+            wallPostCell.postDateLabel.text = convertDateToDateText(currentPost.postedAt as Date)
+            wallPostCell.postTimeLabel.text = convertDateToTimeText(currentPost.postedAt as Date)
             
-            let font = UIFont.systemFont(ofSize: 15.0)
-            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            // Set height of post body label
+            
+            let postBody = currentPost.postBody
+            let font = UIFont.systemFont(ofSize: 12.0)
+            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+            
             wallPostCell.heightBodyView.constant = bodyHeight
+            wallPostCell.postBodyLabel.text = postBody
+            
+            // Make avatar image round
+            
+            wallPostCell.userAvatar.layer.cornerRadius = 40 / 2
+            wallPostCell.userAvatar.clipsToBounds = true
             
             return wallPostCell
             
@@ -98,14 +112,21 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             let postComment = commentsArray[(indexPath as NSIndexPath).row - 1]
             
             commentCell.commentAuthorLabel.text = "От: \(postComment.authorUsername)"
-            commentCell.commentDateLabel.text = convertDateToText(postComment.postedAt as Date)
+            commentCell.commentDateLabel.text = convertDateToFullDateFormat(postComment.postedAt as Date)
             
-            let commentBodyText:NSString = postComment.commentBody as NSString
-            commentCell.commentBodyLabel.text = commentBodyText as String
+            // Set height of comment text
             
-            let font = UIFont.systemFont(ofSize: 15.0)
-            let bodyHeight = commentBodyText.heightForText(commentBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let commentBodyText = postComment.commentBody
+            let font = UIFont.systemFont(ofSize: 12.0)
+            let bodyHeight = commentBodyText.heightForText(commentBodyText as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+            
             commentCell.heightBodyView.constant = bodyHeight
+            commentCell.commentBodyLabel.text = commentBodyText
+            
+            // Make avatar image round
+            
+            commentCell.avatarImage.layer.cornerRadius = 40 / 2
+            commentCell.avatarImage.clipsToBounds = true
             
             return commentCell
         }
@@ -116,29 +137,28 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (indexPath as NSIndexPath).row == 0 {
             
-            let postBodyText:NSString = currentPost.postBody as NSString
-            let font = UIFont.systemFont(ofSize: 15.0)
-            let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let postBody = currentPost.postBody
+            let font = UIFont.systemFont(ofSize: 12.0)
+            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
             
-            guard bodyHeight > 30 else { return 125.0 }
+            guard bodyHeight > 16 else { return 112.0 }
             
-            let deltaHeight =  bodyHeight - 30
-            return 125.0 + deltaHeight
+            let deltaHeight =  bodyHeight - 16
+            return 112.0 + deltaHeight
             
         } else {
             
             let postComment = commentsArray[(indexPath as NSIndexPath).row - 1]
             
-            let commentBodyText:NSString = postComment.commentBody as NSString
-            let font = UIFont.systemFont(ofSize: 15.0)
-            let bodyHeight = commentBodyText.heightForText(commentBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
+            let commentBodyText = postComment.commentBody
+            let font = UIFont.systemFont(ofSize: 12.0)
+            let bodyHeight = commentBodyText.heightForText(commentBodyText as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
             
-            guard bodyHeight > 30 else { return 98.0 }
+            guard bodyHeight > 16 else { return 84.0 }
             
-            let deltaHeight =  bodyHeight - 30
-            return 98.0 + deltaHeight
+            let deltaHeight =  bodyHeight - 16
+            return 84.0 + deltaHeight
         }
-        
     }
     
     // MARK: TextField Delegate
@@ -167,10 +187,24 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: Helping methods
     
-    func convertDateToText(_ date:Date) -> String {
+    func convertDateToTimeText(_ date:Date) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: date)
+    }
+    
+    func convertDateToDateText(_ date:Date) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
+    func convertDateToFullDateFormat(_ date:Date) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm dd/MM/yyyy"
         return dateFormatter.string(from: date)
     }
     
