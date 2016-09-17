@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import IQKeyboardManager
+import IQKeyboardManagerSwift
 import Fabric
 import Crashlytics
 import GoogleMaps
@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UserDefaults.standard.set(true, forKey:Constants.kAlreadyRun)
         
-        IQKeyboardManager.shared().isEnabled = true
+        //IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.sharedManager().enable = true
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
            LoadPaginaionManager().loadAllEventsFromServer()

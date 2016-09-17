@@ -181,12 +181,14 @@ class ServerManager: NSObject {
     
     // MARK: Organization methods
     
-    func getOnePageOrganizationsFromServer(_ sourceURL:String, operationQueue:OperationQueue, success: @escaping (_ response: AnyObject?, _ currentPage:Int) -> Void, failure: (_ error: Error?) -> Void) {
+    func getOnePageOrganizationsFromServer(_ sourceURL:String, currentPage:Int, operationQueue:OperationQueue, success: @escaping (_ response: AnyObject?, _ currentPage:Int) -> Void, failure: (_ error: Error?) -> Void) {
         
         let manager = AFHTTPRequestOperationManager()
         manager.operationQueue = operationQueue
         
-        manager.get(sourceURL, parameters: nil, success: { (operation, responce) in
+        let params:NSDictionary = ["page": currentPage]
+        
+        manager.get(sourceURL, parameters: params, success: { (operation, responce) in
             if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
                 //print(response)
                 if let results = response["response"] {

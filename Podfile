@@ -8,7 +8,7 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'GoogleMaps', '~> 2.0'
 pod 'IQKeyboardManager', '~> 4.0'
-# pod 'IQKeyboardManagerSwift', '~> 4.0.6'
+pod 'IQKeyboardManagerSwift', '~> 4.0.6'
 
 end
 
