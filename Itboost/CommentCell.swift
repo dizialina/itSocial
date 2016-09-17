@@ -15,6 +15,7 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var commentBodyLabel: UILabel!
     @IBOutlet weak var commentDateLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var deleteCommentButton: UIButton!
     
     @IBOutlet weak var heightBodyView: NSLayoutConstraint!
     

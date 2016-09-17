@@ -89,7 +89,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             wallPostCell.postDateLabel.text = convertDateToDateText(currentPost.postedAt as Date)
             wallPostCell.postTimeLabel.text = convertDateToTimeText(currentPost.postedAt as Date)
             
-            wallPostCell.deletePostButton.addTarget(self, action: #selector(DetailEventViewController.deletePost(_:)), for: UIControlEvents.touchUpInside)
+            wallPostCell.deletePostButton.addTarget(self, action: #selector(CommentsViewController.deletePost(_:)), for: UIControlEvents.touchUpInside)
             wallPostCell.deletePostButton.tag = currentPost.postID
             
             // Set height of post body label
@@ -116,6 +116,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             
             commentCell.commentAuthorLabel.text = "От: \(postComment.authorUsername)"
             commentCell.commentDateLabel.text = convertDateToFullDateFormat(postComment.postedAt as Date)
+            
+            commentCell.deleteCommentButton.addTarget(self, action: #selector(CommentsViewController.deleteComment(_:)), for: UIControlEvents.touchUpInside)
+            commentCell.deleteCommentButton.tag = postComment.commentID
             
             // Set height of comment text
             
@@ -202,6 +205,40 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             
         }) { (error) in
             print("Error while deleting wall post: " + error!.localizedDescription)
+        }
+        
+    }
+    
+    func deleteComment(_ sender: UIButton) {
+        
+        let commentIDToDelete = sender.tag
+        
+        // Detect indexPath for deleted post
+        
+        var indexPath: IndexPath?
+        for postComment in commentsArray {
+            if postComment.commentID == commentIDToDelete {
+                let deletingRow = commentsArray.index(of: postComment)!
+                indexPath = IndexPath(row: deletingRow + 1, section: 0)
+            }
+        }
+        
+        // Delete post from server
+        
+        ServerManager().deleteWallComment(commentIDToDelete, success: { (response) in
+            
+            // Delete post from table view if success
+            
+            DispatchQueue.main.async {
+                self.tableView.beginUpdates()
+                if indexPath != nil {
+                    self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.bottom)
+                }
+                self.tableView.endUpdates()
+            }
+            
+        }) { (error) in
+            print("Error while deleting wall comment: " + error!.localizedDescription)
         }
         
     }

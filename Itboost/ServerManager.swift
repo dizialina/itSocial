@@ -707,6 +707,16 @@ class ServerManager: NSObject {
             })
         { (task:URLSessionDataTask?, error:Error) in
             print("Error while deleting wall comment: " + error.localizedDescription)
+            
+            // Example of parsing error for backend
+            
+            do {
+                let responseDict = try JSONSerialization.jsonObject(with: ((error as NSError).userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as! Data), options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                print(responseDict)
+            } catch {
+                print("Error parsing error")
+            }
+            
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error)
         }

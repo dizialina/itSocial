@@ -2236,15 +2236,24 @@
                                                     <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eA7-LM-aMt">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="VhK-Q0-2wP"/>
+                                                        <constraint firstAttribute="width" constant="17" id="uha-tt-Nsy"/>
+                                                    </constraints>
+                                                    <state key="normal" image="ClearButtonGray"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="JdM-Sp-deT" firstAttribute="leading" secondItem="JvQ-li-soa" secondAttribute="trailing" constant="8" id="A7E-wY-FPI"/>
-                                                <constraint firstAttribute="trailing" secondItem="EUW-lm-id7" secondAttribute="trailing" constant="8" id="J1J-JT-lHZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="EUW-lm-id7" secondAttribute="trailing" constant="30" id="J1J-JT-lHZ"/>
                                                 <constraint firstItem="EUW-lm-id7" firstAttribute="top" secondItem="TZo-7W-SQl" secondAttribute="top" constant="8" id="U6Y-yz-aok"/>
                                                 <constraint firstAttribute="trailing" secondItem="Wv6-M5-Abx" secondAttribute="trailing" constant="8" id="XaQ-K1-IjV"/>
                                                 <constraint firstItem="JdM-Sp-deT" firstAttribute="top" secondItem="EUW-lm-id7" secondAttribute="bottom" id="ij0-pC-3zk"/>
                                                 <constraint firstItem="Wv6-M5-Abx" firstAttribute="top" secondItem="JdM-Sp-deT" secondAttribute="bottom" constant="8" id="nFJ-tf-MQm"/>
+                                                <constraint firstAttribute="trailing" secondItem="eA7-LM-aMt" secondAttribute="trailing" constant="8" id="ojU-gT-T26"/>
                                                 <constraint firstItem="JvQ-li-soa" firstAttribute="top" secondItem="TZo-7W-SQl" secondAttribute="top" constant="10" id="qvi-T6-f55"/>
+                                                <constraint firstItem="eA7-LM-aMt" firstAttribute="top" secondItem="TZo-7W-SQl" secondAttribute="top" constant="8" id="scH-8u-7zz"/>
                                                 <constraint firstItem="EUW-lm-id7" firstAttribute="leading" secondItem="JvQ-li-soa" secondAttribute="trailing" constant="8" id="tHC-Tz-mMH"/>
                                                 <constraint firstItem="JvQ-li-soa" firstAttribute="leading" secondItem="TZo-7W-SQl" secondAttribute="leading" constant="10" id="twX-hC-CFw"/>
                                                 <constraint firstAttribute="trailing" secondItem="JdM-Sp-deT" secondAttribute="trailing" constant="13" id="vTK-Ue-rII"/>
@@ -2255,6 +2264,7 @@
                                             <outlet property="commentAuthorLabel" destination="EUW-lm-id7" id="tUt-PV-5Mv"/>
                                             <outlet property="commentBodyLabel" destination="JdM-Sp-deT" id="gzg-22-Ez7"/>
                                             <outlet property="commentDateLabel" destination="Wv6-M5-Abx" id="yMg-NF-6sG"/>
+                                            <outlet property="deleteCommentButton" destination="eA7-LM-aMt" id="Vq5-B9-bVa"/>
                                             <outlet property="heightBodyView" destination="vf4-yN-FDC" id="dII-dj-mkY"/>
                                         </connections>
                                     </tableViewCell>
@@ -3334,6 +3344,7 @@
         <image name="Calendar" width="32" height="32"/>
         <image name="CheckRound" width="32" height="32"/>
         <image name="CiclumLogo" width="243" height="63"/>
+        <image name="ClearButtonGray" width="32" height="32"/>
         <image name="CommentLeave" width="32" height="32"/>
         <image name="Comments" width="32" height="32"/>
         <image name="CreatorProfile" width="32" height="32"/>
