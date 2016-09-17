@@ -26,8 +26,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     var currentPostsPage = 1
     var isJoin = false
     
-    let tempDescription = "Ciklum Харьков приглашает всех любителей .NET посетить \"Kharkiv .NET Saturday\", который состоится 16 июля 2016 года в офисе Ciklum. Приглашаем .NET разработчиков провести субботнее утро в компании вкусного кофе, а также юнит-тестирования, Windows Azure и кросс-платформенной разработки."
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -240,8 +238,13 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             wallPostCell.postTimeLabel.text = convertDateToTimeText(wallPost.postedAt as Date)
             wallPostCell.commentsButton.setTitle("Комментарии (\(wallPost.commentsCount))", for: UIControlState.normal)
             
+            // Add actions
+            
             wallPostCell.commentsButton.addTarget(self, action: #selector(DetailEventViewController.openPostComments(_:)), for: UIControlEvents.touchUpInside)
             wallPostCell.commentsButton.tag = wallPost.postID
+            
+            wallPostCell.deletePostButton.addTarget(self, action: #selector(DetailEventViewController.deletePost(_:)), for: UIControlEvents.touchUpInside)
+            wallPostCell.deletePostButton.tag = wallPost.postID
             
             // Set height of description label
             
@@ -399,6 +402,40 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     func openPostComments(_ sender: UIButton) {
         self.performSegue(withIdentifier: "showPostComments", sender: sender.tag)
+    }
+    
+    func deletePost(_ sender: UIButton) {
+        
+        let postIDToDelete = sender.tag
+        
+        // Detect indexPath for deleted post
+        
+        var indexPath: IndexPath?
+        for wallPost in wallPostsArray {
+            if wallPost.postID == postIDToDelete {
+                let deletingRow = wallPostsArray.index(of: wallPost)!
+                indexPath = IndexPath(row: deletingRow + 1, section: 0)
+            }
+        }
+        
+        // Delete post from server
+        
+        ServerManager().deleteWallPost(postIDToDelete, success: { (response) in
+            
+            // Delete post from table view if success
+            
+            DispatchQueue.main.async {
+                self.tableView.beginUpdates()
+                if indexPath != nil {
+                    self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.bottom)
+                }
+                self.tableView.endUpdates()
+            }
+            
+        }) { (error) in
+            print("Error while deleting wall post: " + error!.localizedDescription)
+        }
+        
     }
     
     // MARK: Helping methods

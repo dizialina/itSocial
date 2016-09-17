@@ -89,6 +89,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             wallPostCell.postDateLabel.text = convertDateToDateText(currentPost.postedAt as Date)
             wallPostCell.postTimeLabel.text = convertDateToTimeText(currentPost.postedAt as Date)
             
+            wallPostCell.deletePostButton.addTarget(self, action: #selector(DetailEventViewController.deletePost(_:)), for: UIControlEvents.touchUpInside)
+            wallPostCell.deletePostButton.tag = currentPost.postID
+            
             // Set height of post body label
             
             let postBody = currentPost.postBody
@@ -181,6 +184,24 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
                 print("Error sending comment to post: " + error!.localizedDescription)
             })
             
+        }
+        
+    }
+    
+    func deletePost(_ sender: UIButton) {
+        
+        let postIDToDelete = sender.tag
+        
+        // Delete post from server
+        
+        ServerManager().deleteWallPost(postIDToDelete, success: { (response) in
+            
+            DispatchQueue.main.async {
+                 _ = self.navigationController?.popViewController(animated: true)
+            }
+            
+        }) { (error) in
+            print("Error while deleting wall post: " + error!.localizedDescription)
         }
         
     }

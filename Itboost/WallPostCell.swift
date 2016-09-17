@@ -16,6 +16,7 @@ class WallPostCell: UITableViewCell {
     @IBOutlet weak var postTimeLabel: UILabel!
     @IBOutlet weak var postDateLabel: UILabel!
     @IBOutlet weak var commentsButton: UIButton!
+    @IBOutlet weak var deletePostButton: UIButton!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var commentsCountLabel: UILabel!

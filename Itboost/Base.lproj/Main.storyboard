@@ -33,7 +33,7 @@
         <scene sceneID="R1K-Ml-cSV">
             <objects>
                 <navigationController id="iCd-2n-KOa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Организации" image="Cup" id="MUO-D1-Ezu"/>
+                    <tabBarItem key="tabBarItem" title="Организации" image="Comments" id="MUO-D1-Ezu"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vwk-Wy-5KJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1260,7 +1260,7 @@
                                                         <constraint firstItem="7zV-46-2ex" firstAttribute="height" secondItem="ipP-Ek-X4W" secondAttribute="height" id="7Wn-Ow-q1L"/>
                                                         <constraint firstItem="dvT-4R-oiT" firstAttribute="top" secondItem="Pca-tv-21H" secondAttribute="bottom" constant="17" id="Ama-Bf-YSw"/>
                                                         <constraint firstAttribute="trailing" secondItem="toN-IW-i99" secondAttribute="trailing" id="BCo-eI-ndp"/>
-                                                        <constraint firstAttribute="bottom" secondItem="toN-IW-i99" secondAttribute="bottom" id="BPC-IL-xt5"/>
+                                                        <constraint firstAttribute="bottom" secondItem="toN-IW-i99" secondAttribute="bottom" constant="-1" id="BPC-IL-xt5"/>
                                                         <constraint firstAttribute="trailing" secondItem="R1Y-gV-Efu" secondAttribute="trailing" constant="8" id="BaA-Hm-dVi"/>
                                                         <constraint firstItem="R1Y-gV-Efu" firstAttribute="centerY" secondItem="9ro-TG-mtF" secondAttribute="centerY" id="Cz7-T6-BRu"/>
                                                         <constraint firstItem="Qgq-gh-rIm" firstAttribute="leading" secondItem="HnU-KW-yqH" secondAttribute="leading" constant="8" id="Dqs-Im-0bh"/>
@@ -1412,10 +1412,33 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eV0-Qk-qQT">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="61" id="YUf-h2-gUi"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                                    <state key="normal" title="Удалить">
+                                                        <color key="titleColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="1Yr-Ur-DZi" secondAttribute="trailing" constant="13" id="2O4-8N-18O"/>
                                                 <constraint firstAttribute="trailing" secondItem="xgJ-GX-X50" secondAttribute="trailing" constant="13" id="39D-Wj-wJN"/>
+                                                <constraint firstItem="xgJ-GX-X50" firstAttribute="leading" secondItem="eV0-Qk-qQT" secondAttribute="trailing" constant="8" id="4aw-9P-Eg3"/>
+                                                <constraint firstItem="eV0-Qk-qQT" firstAttribute="height" secondItem="xgJ-GX-X50" secondAttribute="height" id="69j-zM-4uR"/>
                                                 <constraint firstItem="bjM-hy-wGq" firstAttribute="leading" secondItem="CJV-X9-G4Q" secondAttribute="trailing" id="7kd-hA-GYp"/>
                                                 <constraint firstItem="ixt-oG-TKZ" firstAttribute="top" secondItem="bjM-hy-wGq" secondAttribute="bottom" constant="-2" id="8KV-J9-gP2"/>
                                                 <constraint firstItem="otC-dI-xQv" firstAttribute="leading" secondItem="qNA-lj-uYE" secondAttribute="leading" constant="10" id="AeQ-Ph-221"/>
@@ -1427,6 +1450,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="ixt-oG-TKZ" secondAttribute="trailing" constant="13" id="ifw-Sd-xTS"/>
                                                 <constraint firstAttribute="bottom" secondItem="xgJ-GX-X50" secondAttribute="bottom" constant="6" id="jTN-UW-gjP"/>
                                                 <constraint firstItem="2Fi-eF-9TM" firstAttribute="top" secondItem="CJV-X9-G4Q" secondAttribute="bottom" id="m6n-GC-ePu"/>
+                                                <constraint firstItem="eV0-Qk-qQT" firstAttribute="centerY" secondItem="xgJ-GX-X50" secondAttribute="centerY" id="s4b-DD-usi"/>
                                                 <constraint firstItem="1Yr-Ur-DZi" firstAttribute="leading" secondItem="otC-dI-xQv" secondAttribute="trailing" constant="8" id="t4p-Pe-doX"/>
                                                 <constraint firstItem="CJV-X9-G4Q" firstAttribute="top" secondItem="qNA-lj-uYE" secondAttribute="top" constant="8" id="xit-NT-fS6"/>
                                                 <constraint firstItem="otC-dI-xQv" firstAttribute="top" secondItem="qNA-lj-uYE" secondAttribute="top" constant="10" id="xli-ci-vb8"/>
@@ -1435,6 +1459,7 @@
                                         <connections>
                                             <outlet property="authorLabel" destination="2Fi-eF-9TM" id="pYz-4i-dZh"/>
                                             <outlet property="commentsButton" destination="xgJ-GX-X50" id="FLL-5q-gCv"/>
+                                            <outlet property="deletePostButton" destination="eV0-Qk-qQT" id="tAI-b6-Np5"/>
                                             <outlet property="heightBodyView" destination="hG3-ye-w5h" id="RuC-hC-dEW"/>
                                             <outlet property="postBodyLabel" destination="1Yr-Ur-DZi" id="AfP-2L-h7o"/>
                                             <outlet property="postDateLabel" destination="bjM-hy-wGq" id="Axl-bu-iDg"/>
@@ -2110,6 +2135,28 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwQ-HQ-uRX">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="61" id="T8Z-ft-0sp"/>
+                                                        <constraint firstAttribute="height" constant="18" id="qEs-vd-x2t"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                                    <state key="normal" title="Удалить">
+                                                        <color key="titleColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="xau-IM-0vE" firstAttribute="leading" secondItem="Z5V-1T-Pid" secondAttribute="trailing" constant="8" id="1F6-QZ-aWf"/>
@@ -2125,6 +2172,7 @@
                                                 <constraint firstItem="Z5V-1T-Pid" firstAttribute="top" secondItem="6NS-sj-j9c" secondAttribute="top" constant="10" id="TwN-S1-fxE"/>
                                                 <constraint firstItem="7fb-3w-AmR" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" constant="8" id="Z63-w1-GnA"/>
                                                 <constraint firstAttribute="trailing" secondItem="Bmo-8a-lVA" secondAttribute="trailing" id="aNR-5L-UGx"/>
+                                                <constraint firstItem="7fb-3w-AmR" firstAttribute="top" secondItem="CwQ-HQ-uRX" secondAttribute="bottom" constant="4" id="cE4-hq-IBj"/>
                                                 <constraint firstAttribute="trailing" secondItem="W9p-k8-pdm" secondAttribute="trailing" constant="13" id="eOP-lY-Vce"/>
                                                 <constraint firstItem="IPT-rI-hgg" firstAttribute="leading" secondItem="Z5V-1T-Pid" secondAttribute="trailing" constant="8" id="kfb-DP-CSb"/>
                                                 <constraint firstItem="QJV-K6-n0M" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" id="lY3-O1-w09"/>
@@ -2133,6 +2181,7 @@
                                                 <constraint firstItem="IPT-rI-hgg" firstAttribute="top" secondItem="xau-IM-0vE" secondAttribute="bottom" id="rZg-66-bge"/>
                                                 <constraint firstAttribute="trailing" secondItem="Dbj-3T-TOf" secondAttribute="trailing" constant="13" id="tlj-pY-rW0"/>
                                                 <constraint firstAttribute="bottom" secondItem="QJV-K6-n0M" secondAttribute="bottom" id="vGH-Xy-ep1"/>
+                                                <constraint firstAttribute="trailing" secondItem="CwQ-HQ-uRX" secondAttribute="trailing" constant="8" id="wTv-3x-E9y"/>
                                                 <constraint firstItem="Z5V-1T-Pid" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" constant="10" id="xBb-Z5-TdY"/>
                                                 <constraint firstAttribute="trailing" secondItem="1uI-2C-Tql" secondAttribute="trailing" constant="13" id="yub-Lo-r02"/>
                                             </constraints>
@@ -2140,6 +2189,7 @@
                                         <connections>
                                             <outlet property="authorLabel" destination="IPT-rI-hgg" id="6pc-vz-YgZ"/>
                                             <outlet property="commentsCountLabel" destination="7fb-3w-AmR" id="hH5-gF-K8f"/>
+                                            <outlet property="deletePostButton" destination="CwQ-HQ-uRX" id="Cyc-dU-vR5"/>
                                             <outlet property="heightBodyView" destination="Xb5-VF-hBw" id="HjL-4S-zgw"/>
                                             <outlet property="postBodyLabel" destination="1uI-2C-Tql" id="6d8-lS-uDU"/>
                                             <outlet property="postDateLabel" destination="Dbj-3T-TOf" id="7A6-uH-Mo9"/>
