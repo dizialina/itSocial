@@ -30,10 +30,23 @@ class EnterScreenViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Actions
+    
+    @IBAction func googleAuthorization(_ sender: AnyObject) {
+    }
+    
+    @IBAction func facebookAuthorization(_ sender: AnyObject) {
+    }
+    
+    @IBAction func vkontakteAuthorization(_ sender: AnyObject) {
+    }
+    
     @IBAction func passAuthorization(_ sender: AnyObject) {
         (presentingViewController as! TabBarViewController).selectedIndex = 0
         self.dismiss(animated: true, completion: nil)
     }
+    
+    // MARK: Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

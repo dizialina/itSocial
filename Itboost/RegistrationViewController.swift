@@ -8,28 +8,18 @@
 
 import Foundation
 import UIKit
-/*
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-*/
 
 class RegistrationViewController: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var hidePasswordButton: UIButton!
+    @IBOutlet weak var usernameBackgroundView: UIView!
+    @IBOutlet weak var emailBackgroundView: UIView!
+    @IBOutlet weak var passwordBackgroundView: UIView!
     
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
+    var isPasswordShow = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +30,20 @@ class RegistrationViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: Actions
+    
+    @IBAction func hidePassword(_ sender: AnyObject) {
+        
+        if isPasswordShow {
+            passwordField.isSecureTextEntry = false
+            isPasswordShow = false
+        } else {
+            passwordField.isSecureTextEntry = true
+            isPasswordShow = true
+        }
+    }
+    
     
     @IBAction func registrationAction(_ sender: AnyObject) {
         
@@ -60,38 +64,38 @@ class RegistrationViewController: UIViewController {
                 let textInField:NSString = emailField.text! as NSString
                 let componentsByDog = textInField.components(separatedBy: "@")
                 if componentsByDog.first!.characters.count < 3 {
-                    emailLabel.textColor = UIColor.red
+                    emailBackgroundView.layer.borderColor = Constants.redAlertColor.cgColor
                 } else {
                     let componentsByDot = (componentsByDog[1] as NSString).components(separatedBy: ".")
                     if (componentsByDot.first?.characters.count)! < 1 || componentsByDot[1].characters.count < 2 {
-                        emailLabel.textColor = UIColor.red
+                        emailBackgroundView.layer.borderColor = Constants.redAlertColor.cgColor
                     } else {
-                        emailLabel.textColor = UIColor.black
+                        emailBackgroundView.layer.borderColor = UIColor.white.cgColor
                         userInfo["email"] = emailField.text
                         emailEmpty = false
                     }
                 }
             } else {
-                emailLabel.textColor = UIColor.red
+                emailBackgroundView.layer.borderColor = Constants.redAlertColor.cgColor
             }
         } else {
-            emailLabel.textColor = UIColor.red
+            emailBackgroundView.layer.borderColor = Constants.redAlertColor.cgColor
         }
         
         if usernameField.text!.characters.count > 0 {
-            usernameLabel.textColor = UIColor.black
+            usernameBackgroundView.layer.borderColor = UIColor.white.cgColor
             userInfo["username"] = usernameField.text
             usernameEmpty = false
         } else {
-            usernameLabel.textColor = UIColor.red
+            usernameBackgroundView.layer.borderColor = Constants.redAlertColor.cgColor
         }
         
-        if passwordField.text!.characters.count > 5 {
-            passwordLabel.textColor = UIColor.black
+        if passwordField.text!.characters.count > 2 {
+            passwordBackgroundView.layer.borderColor = UIColor.white.cgColor
             userInfo["password"] = passwordField.text
             passwordEmpty = false
         } else {
-            passwordLabel.textColor = UIColor.red
+            passwordBackgroundView.layer.borderColor = Constants.redAlertColor.cgColor
         }
         
         

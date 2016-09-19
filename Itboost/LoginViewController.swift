@@ -27,6 +27,8 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Actions
+    
     @IBAction func acceptLogin(_ sender: AnyObject) {
         
         var userInfo = [String:String]()
@@ -57,8 +59,12 @@ class LoginViewController: UIViewController {
             passwordField.isSecureTextEntry = true
             isPasswordShow = true
         }
-        
     }
+    
+    @IBAction func remindPassword(_ sender: AnyObject) {
+    }
+    
+    // MARK: Helping methods
     
     
     func showAlertWithHandler() {
