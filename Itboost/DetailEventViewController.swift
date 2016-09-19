@@ -35,7 +35,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         let navigationTitleFont = UIFont.systemFont(ofSize: 15)
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:navigationTitleFont]
         
-        
         // Set footer for pull to refresh
         
         refreshControl = UIRefreshControl()

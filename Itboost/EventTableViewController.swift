@@ -197,7 +197,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         if (segue.identifier == "openEvent") {
             let viewController = segue.destination as! DetailEventViewController
             let indexPath = tableView.indexPathForSelectedRow
-            viewController.communityObject = eventList[((indexPath as NSIndexPath?)?.row)!]
+            viewController.communityObject = eventList[(indexPath?.row)!]
         }
         
     }

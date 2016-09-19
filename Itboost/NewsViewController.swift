@@ -31,14 +31,6 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         refreshControl.tintColor = UIColor.clear
         collectionView.addSubview(refreshControl)
         
-        // Make navigation bar translucent
-        
-        navigationController?.navigationBar.barTintColor = UIColor.white
-        let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
-        navigationBackgroundView?.alpha = 0.3
-        
-        navigationController?.hidesBarsOnSwipe = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +40,14 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         newsArray.removeAll()
         collectionView.reloadData()
         getNews()
+        
+        // Make navigation bar translucent
+        
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
+        navigationBackgroundView?.alpha = 0.3
+        
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,7 +62,7 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
             self.newsArray += ResponseParser().parseNews(response!)
             self.currentNewsPage += 1
             
-            self.numberOfTestCells += 2
+            //self.numberOfTestCells += 2
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -81,15 +81,14 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return newsArray.count
-        return numberOfTestCells
+        return newsArray.count
+        //return numberOfTestCells
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
         let newsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCollectionCell", for: indexPath) as! NewsCollectionCell
         
-        /*
         let currentNews = newsArray[indexPath.row]
         
         if currentNews.authorUsername.characters.count > 0 {
@@ -105,13 +104,13 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         
         newsCell.dateLabel.text = convertDateToText(currentNews.createdAt)
-        */
         
         // Set actions for cell buttons
         
         newsCell.openCommentsButton.addTarget(self, action: #selector(NewsViewController.openComments(_:)), for: UIControlEvents.touchUpInside)
         
         newsCell.readFullButton.addTarget(self, action: #selector(NewsViewController.openDetailNews(_:)), for: UIControlEvents.touchUpInside)
+        newsCell.readFullButton.tag = indexPath.row
         
         // Make avatar image round
     
@@ -120,7 +119,6 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // Set shadow for cell
             
-        newsCell.layer.shadowOffset = CGSize(width: 0, height: 1)
         newsCell.layer.shadowColor = UIColor.black.cgColor
         newsCell.layer.shadowRadius = 2.0
         newsCell.layer.shadowOpacity = 0.3
@@ -154,7 +152,7 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func openDetailNews(_ sender: UIButton) {
-        
+        self.performSegue(withIdentifier: "showNewsDetail", sender: sender.tag)
     }
     
     // MARK: Refreshing Collection
@@ -207,6 +205,17 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM в HH:mm"
         return dateFormatter.string(from: date)
+    }
+    
+    // MARK: Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "showNewsDetail") {
+            let viewController = segue.destination as! DetailNewsViewController
+            viewController.currentNews = newsArray[sender as! Int]
+        }
+        
     }
         
 }

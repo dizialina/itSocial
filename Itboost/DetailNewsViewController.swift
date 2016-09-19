@@ -1,42 +1,51 @@
 //
-//  DetailEventViewController.swift
+//  DetailNewsViewController.swift
 //  Itboost
 //
-//  Created by Admin on 09.08.16.
+//  Created by Alina Yehorova on 19.09.16.
 //  Copyright © 2016 Alina Egorova. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newCommentField: UITextField!
     
-    var postID = Int()
-    var currentPost = WallPost()
+    var newsID = Int()
+    var currentNews = News()
     var commentsArray = [PostComment]()
+    
+    // Temp
+    let articleText = "Прокрастинация — склонность откладывать дел на потом, несмотря на очевидные негативные последствия такого бездействия, — превратилась в глобальную проблему: по некоторым данным, каждый пятый человек страдает ею хронически. Прокрастинацию связывают с нарушением мотивации — результата совместной работы систем сознательного контроля и эмоциональной стимуляции. Волевую сферу связывают с деятельностью префронтальной коры, а эмоциональную — с лимбической системой мозга. Поэтому Тинъюн Фэн (Tingyong Feng) и его коллеги из Юго-Западного университета в китайском Чунцине предположили, что у людей, больше или меньше склонных к прокрастинации, отличия в поведении должны коррелировать с активностью этих областей мозга, а также с «силой» связей между ними."
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Запись на стене"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        newsID = currentNews.newsID
         
-        navigationController?.navigationBar.barTintColor = Constants.darkMintBlue
+        // Set navigation bar
+        
+        self.navigationItem.title = currentNews.title
+        
+        let navigationTitleFont = UIFont.systemFont(ofSize: 15)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:navigationTitleFont]
+        
+        navigationController?.navigationBar.barTintColor = UIColor(red:0.78, green:0.89, blue:0.90, alpha:1.0)
         let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
         navigationBackgroundView?.alpha = 1.0
         
         navigationController?.hidesBarsOnSwipe = false
         navigationController?.setNavigationBarHidden(false, animated: true)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getPostComments()
+        getNewsComments()
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,9 +54,12 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: Get data methods
     
-    func getPostComments() {
+    func getNewsComments() {
         
-        ServerManager().getPostComments(postID, success: { (response) in
+        // Need to rewrite when backend add comments to news
+        
+        /*
+        ServerManager().getPostComments(newsID, success: { (response) in
             
             let postDictionary = response as! [String:AnyObject]
             let postObjectsArray = ResponseParser().parseWallPost([postDictionary as AnyObject])
@@ -65,7 +77,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         }) { (error) in
             print("Error receiving post comments from event: " + error!.localizedDescription)
         }
-        
+        */
     }
     
     // MARK: TableView DataSource and Delegate
@@ -78,47 +90,61 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (indexPath as NSIndexPath).row == 0 {
             
-            let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCellDetail", for: indexPath) as! WallPostCell
+            let newsCell = tableView.dequeueReusableCell(withIdentifier: "DetailNewsCell", for: indexPath) as! DetailNewsCell
             
-            if currentPost.postTitle.characters.count > 0 {
-                wallPostCell.postTitleLabel.text = currentPost.postTitle
+            if currentNews.authorUsername.characters.count > 0 {
+                newsCell.authorLabel.text = currentNews.authorUsername
             }
             
-            if currentPost.authorUsername.characters.count > 0 {
-                wallPostCell.authorLabel.text = currentPost.authorUsername
+            if currentNews.content.characters.count > 0 {
+                newsCell.bodyLabel.text = currentNews.content
             }
             
-            wallPostCell.commentsCountLabel.text = "\(currentPost.commentsCount) комментариев"
-            wallPostCell.postDateLabel.text = convertDateToDateText(currentPost.postedAt as Date)
-            wallPostCell.postTimeLabel.text = convertDateToTimeText(currentPost.postedAt as Date)
+            if currentNews.title.characters.count > 0 {
+                newsCell.titleLabel.text = currentNews.title
+            }
             
-            wallPostCell.deletePostButton.addTarget(self, action: #selector(CommentsViewController.deletePost(_:)), for: UIControlEvents.touchUpInside)
-            wallPostCell.deletePostButton.tag = currentPost.postID
+            newsCell.dateLabel.text = convertDateToTextDate(currentNews.createdAt)
             
             // Set height of post body label
             
-            let postBody = currentPost.postBody
-            let font = UIFont.systemFont(ofSize: 12.0)
-            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+            let newsBody = currentNews.content
             
-            wallPostCell.heightBodyView.constant = bodyHeight
-            wallPostCell.postBodyLabel.text = postBody
+            let font = UIFont.systemFont(ofSize: 13.0)
+            let bodyHeight = newsBody.heightForText(newsBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 16), offset: 2.0, device: nil)
+            
+            newsCell.heightBodyLabel.constant = bodyHeight
+            newsCell.bodyLabel.text = newsBody
+            
+            if bodyHeight > 25 {
+                let deltaHeight =  bodyHeight - 25
+                newsCell.heightMainInfoView.constant += deltaHeight
+            }
             
             // Make avatar image round
             
-            wallPostCell.userAvatar.layer.cornerRadius = 40 / 2
-            wallPostCell.userAvatar.clipsToBounds = true
+            newsCell.authorAvatar.layer.cornerRadius = 33 / 2
+            newsCell.authorAvatar.clipsToBounds = true
             
-            return wallPostCell
+            // Make shadow for background view
+            
+            newsCell.mainInfoView.layer.shadowColor = UIColor.black.cgColor
+            newsCell.mainInfoView.layer.shadowRadius = 1.0
+            newsCell.mainInfoView.layer.shadowOpacity = 0.1
+            newsCell.mainInfoView.layer.shadowOffset = CGSize(width: 0, height: 0)
+            newsCell.mainInfoView.clipsToBounds = false
+            newsCell.mainInfoView.layer.shadowPath = UIBezierPath(rect: newsCell.mainInfoView.layer.bounds).cgPath
+            
+            return newsCell
             
         } else {
             
-            let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
+            let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentNewsCell", for: indexPath) as! CommentCell
             
             let postComment = commentsArray[(indexPath as NSIndexPath).row - 1]
             
             commentCell.commentAuthorLabel.text = "От: \(postComment.authorUsername)"
-            commentCell.commentDateLabel.text = convertDateToFullDateFormat(postComment.postedAt as Date)
+            commentCell.commentDateLabel.text = convertDateToCommentDate(postComment.postedAt as Date)
             
             commentCell.deleteCommentButton.addTarget(self, action: #selector(CommentsViewController.deleteComment(_:)), for: UIControlEvents.touchUpInside)
             commentCell.deleteCommentButton.tag = postComment.commentID
@@ -127,7 +153,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             
             let commentBodyText = postComment.commentBody
             let font = UIFont.systemFont(ofSize: 12.0)
-            let bodyHeight = commentBodyText.heightForText(commentBodyText as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+            let bodyHeight = commentBodyText.heightForText(commentBodyText as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset: 2.0, device: nil)
             
             commentCell.heightBodyView.constant = bodyHeight
             commentCell.commentBodyLabel.text = commentBodyText
@@ -146,14 +172,15 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (indexPath as NSIndexPath).row == 0 {
             
-            let postBody = currentPost.postBody
-            let font = UIFont.systemFont(ofSize: 12.0)
-            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+            let newsBody = currentNews.content
             
-            guard bodyHeight > 16 else { return 112.0 }
+            let font = UIFont.systemFont(ofSize: 13.0)
+            let bodyHeight = newsBody.heightForText(newsBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 16), offset: 2.0, device: nil)
             
-            let deltaHeight =  bodyHeight - 16
-            return 112.0 + deltaHeight
+            guard bodyHeight > 25 else { return 318.0 }
+            
+            let deltaHeight =  bodyHeight - 25
+            return 318.0 + deltaHeight
             
         } else {
             
@@ -183,31 +210,17 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         if newCommentField.text!.characters.count > 0 {
             
-            ServerManager().postComment(postID, commentText: newCommentField.text!, success: { (response) in
+            // Need to rewrite when backend add comments to news
+            
+            /*
+            ServerManager().postComment(newsID, commentText: newCommentField.text!, success: { (response) in
                 self.newCommentField.text = ""
                 self.getPostComments()
-            }, failure: { (error) in
-                print("Error sending comment to post: " + error!.localizedDescription)
+                }, failure: { (error) in
+                    print("Error sending comment to post: " + error!.localizedDescription)
             })
+            */
             
-        }
-        
-    }
-    
-    func deletePost(_ sender: UIButton) {
-        
-        let postIDToDelete = sender.tag
-        
-        // Delete post from server
-        
-        ServerManager().deleteWallPost(postIDToDelete, success: { (response) in
-            
-            DispatchQueue.main.async {
-                 _ = self.navigationController?.popViewController(animated: true)
-            }
-            
-        }) { (error) in
-            print("Error while deleting wall post: " + error!.localizedDescription)
         }
         
     }
@@ -253,24 +266,17 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: Helping methods
     
-    func convertDateToTimeText(_ date:Date) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        return dateFormatter.string(from: date)
-    }
-    
-    func convertDateToDateText(_ date:Date) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        return dateFormatter.string(from: date)
-    }
-    
-    func convertDateToFullDateFormat(_ date:Date) -> String {
+    func convertDateToCommentDate(_ date:Date) -> String {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm dd/MM/yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
+    func convertDateToTextDate(_ date:Date) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM в HH:mm"
         return dateFormatter.string(from: date)
     }
     
@@ -280,5 +286,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
 }
+
 
 
