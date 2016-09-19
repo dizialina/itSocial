@@ -13,6 +13,9 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var hidePasswordButton: UIButton!
+    
+    var isPasswordShow = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +47,19 @@ class LoginViewController: UIViewController {
     @IBAction func cancelLogin(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func hidePassword(_ sender: AnyObject) {
+        
+        if isPasswordShow {
+            passwordField.isSecureTextEntry = false
+            isPasswordShow = false
+        } else {
+            passwordField.isSecureTextEntry = true
+            isPasswordShow = true
+        }
+        
+    }
+    
     
     func showAlertWithHandler() {
         
