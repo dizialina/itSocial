@@ -28,6 +28,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         navigationController?.navigationBar.barTintColor = Constants.darkMintBlue
         let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
         navigationBackgroundView?.alpha = 1.0
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -19,18 +19,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        // Set text color for all alerts buttons in application
+        window?.tintColor = Constants.darkMintBlue
+        
+        // Value for checking user's authorization when app launched
         UserDefaults.standard.set(true, forKey:Constants.kAlreadyRun)
         
-        //IQKeyboardManager.shared().isEnabled = true
+        // Enable keyboard manager
         IQKeyboardManager.sharedManager().enable = true
         
+        // Load all events for initial event screen
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
            LoadPaginaionManager().loadAllEventsFromServer()
         })
         
+        // Fabric + Chrashlytics
         //Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics.self])
         
+        // Google services
         GMSServices.provideAPIKey(Constants.APIKey)
         
         return true

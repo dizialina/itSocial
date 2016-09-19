@@ -74,10 +74,11 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let feedCell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! WallPostCell
+        let feedCell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! WallPostCell
             
         let wallPost = feedsArray[(indexPath as NSIndexPath).row]
-            
+        
+        /*
         if wallPost.postTitle.characters.count > 0 {
             feedCell.postTitleLabel.text = wallPost.postTitle
         } else {
@@ -96,6 +97,7 @@ class FeedsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let font = UIFont.systemFont(ofSize: 15.0)
         let bodyHeight = postBodyText.heightForText(postBodyText, neededFont:font, viewWidth: (self.view.frame.width - 35), offset:0.0, device: nil)
         feedCell.heightBodyView.constant = bodyHeight
+        */
             
         return feedCell
     }
