@@ -14,6 +14,7 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var collectionView: UICollectionView!
     
     var refreshControl:UIRefreshControl!
+    var loadMoreView:NewsFooterCell?
     var loadMoreStatus = false
     var currentNewsPage = 1
     var newsArray = [News]()
@@ -97,6 +98,14 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let newsFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "NewsFooter", for: indexPath) as! NewsFooterCell
+        loadMoreView = newsFooter
+        return newsFooter
+        
+    }
+    
     //MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
@@ -119,14 +128,14 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func loadMore() {
         if !loadMoreStatus {
             self.loadMoreStatus = true
-            //self.activityIndicator.startAnimating()
-            //self.tableView.tableFooterView!.isHidden = false
+            self.loadMoreView?.activityIndicator.startAnimating()
+            self.loadMoreView?.loadMoreLabel.isHidden = false
             loadMoreBegin("Load more",
                           loadMoreEnd: {(x:Int) -> () in
                             self.collectionView.reloadData()
                             self.loadMoreStatus = false
-                            //self.activityIndicator.stopAnimating()
-                            //self.tableView.tableFooterView!.isHidden = true
+                            self.loadMoreView?.activityIndicator.stopAnimating()
+                            self.loadMoreView?.loadMoreLabel.isHidden = true
             })
         }
     }

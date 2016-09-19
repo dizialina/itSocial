@@ -2466,28 +2466,32 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NewsFooter" id="xfZ-Ff-ifx">
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NewsFooter" id="xfZ-Ff-ifx" customClass="NewsFooterCell" customModule="Itboost" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="344" width="375" height="39"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="owG-B0-fNB"/>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="owG-B0-fNB"/>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPZ-Uy-gcW">
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="82" id="Pin-5j-Bt0"/>
                                                 <constraint firstAttribute="height" constant="21" id="YIh-5U-wCU"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.56862745100000001" green="0.77647058820000003" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="owG-B0-fNB" firstAttribute="centerY" secondItem="xfZ-Ff-ifx" secondAttribute="centerY" id="4M6-uI-0aS"/>
                                         <constraint firstItem="jPZ-Uy-gcW" firstAttribute="centerY" secondItem="owG-B0-fNB" secondAttribute="centerY" id="J4D-hS-tLf"/>
                                         <constraint firstItem="owG-B0-fNB" firstAttribute="centerX" secondItem="xfZ-Ff-ifx" secondAttribute="centerX" constant="-44" id="ZIL-cO-rBd"/>
                                         <constraint firstItem="jPZ-Uy-gcW" firstAttribute="leading" secondItem="owG-B0-fNB" secondAttribute="trailing" constant="8" id="mxP-K4-6sB"/>
                                     </constraints>
+                                    <connections>
+                                        <outlet property="activityIndicator" destination="owG-B0-fNB" id="Bjo-8y-ypQ"/>
+                                        <outlet property="loadMoreLabel" destination="jPZ-Uy-gcW" id="bqM-4w-OHs"/>
+                                    </connections>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="NN3-Wf-Vkj" id="APg-ms-J3A"/>
