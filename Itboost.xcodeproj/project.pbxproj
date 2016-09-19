@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0300409F1D90128E00E5768A /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0300409E1D90128E00E5768A /* NewsViewController.swift */; };
+		030040A11D901E1400E5768A /* NewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030040A01D901E1400E5768A /* NewsCollectionCell.swift */; };
 		038284971D8AC6A8000E3B82 /* Community+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */; };
 		038284981D8AC6A8000E3B82 /* Community+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */; };
 		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
@@ -59,6 +61,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0300409E1D90128E00E5768A /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		030040A01D901E1400E5768A /* NewsCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCollectionCell.swift; sourceTree = "<group>"; };
 		0382848E1D8AC565000E3B82 /* Itboost-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Itboost-Bridging-Header.h"; sourceTree = "<group>"; };
 		038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataClass.swift"; sourceTree = "<group>"; };
 		038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				84A2200A1D5A577F0003E1BA /* DetailEventViewController.swift */,
 				03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */,
 				84023D041D5B2CA1005DD716 /* NewPostViewController.swift */,
+				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 			children = (
 				03ABF5801D661A190053FAD9 /* Profile Cells */,
 				03ABF5811D661A630053FAD9 /* Event Cells */,
+				030040A01D901E1400E5768A /* NewsCollectionCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -307,9 +313,9 @@
 				84A220001D57BB1C0003E1BA /* Login/Registration */,
 				03ABF5691D60DF2C0053FAD9 /* Events */,
 				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
-				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
 				03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */,
 				03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */,
+				0300409E1D90128E00E5768A /* NewsViewController.swift */,
 				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
 			);
 			name = "View Controllers";
@@ -478,6 +484,7 @@
 				84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */,
 				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
 				84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */,
+				0300409F1D90128E00E5768A /* NewsViewController.swift in Sources */,
 				84A43DEE1D3E828A00F09B14 /* EventCollectionCell.swift in Sources */,
 				03FC36661D88044500C530FF /* News.swift in Sources */,
 				03ABF58B1D6B36FA0053FAD9 /* FeedsViewController.swift in Sources */,
@@ -486,6 +493,7 @@
 				03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */,
 				84023D091D5B3EFF005DD716 /* ResponseParses.swift in Sources */,
 				84A21FFB1D57BAD30003E1BA /* EnterScreenViewController.swift in Sources */,
+				030040A11D901E1400E5768A /* NewsCollectionCell.swift in Sources */,
 				03ABF5831D66269C0053FAD9 /* AwardsCell.swift in Sources */,
 				84A43DEA1D3E769B00F09B14 /* NewEventViewController.swift in Sources */,
 				842A12E21D4F405800AD2673 /* EventOneColumnCellLayout.swift in Sources */,
