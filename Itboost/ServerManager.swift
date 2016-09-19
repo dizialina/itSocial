@@ -649,7 +649,7 @@ class ServerManager: NSObject {
         let params:NSDictionary = ["post_id": postID]
         print(params)
         
-        sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        //sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
         if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -672,7 +672,7 @@ class ServerManager: NSObject {
             // Example of parsing error for backend
             
             do {
-                let responseDict = try JSONSerialization.jsonObject(with: ((error as NSError).userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as! Data), options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                let responseDict = try JSONSerialization.jsonObject(with: ((error as NSError).userInfo [AFNetworkingOperationFailingURLResponseDataErrorKey] as! Data), options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(responseDict)
             } catch {
                 print("Error parsing error")
@@ -688,7 +688,7 @@ class ServerManager: NSObject {
         let params:NSDictionary = ["comment_id": commentID]
         print(params)
         
-        sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        //sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
         if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

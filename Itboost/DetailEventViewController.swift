@@ -35,11 +35,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         let navigationTitleFont = UIFont.systemFont(ofSize: 15)
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:navigationTitleFont]
         
-        // Make navigation bar translucent
-        
-        navigationController?.navigationBar.barTintColor = UIColor.white
-        let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
-        navigationBackgroundView?.alpha = 0.3
         
         // Set footer for pull to refresh
         
@@ -72,6 +67,14 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.reloadData()
         getEventWallPosts()
         getJoiningStatus()
+        
+        // Make navigation bar translucent
+        
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
+        navigationBackgroundView?.alpha = 0.3
+        
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -408,16 +411,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         
         let postIDToDelete = sender.tag
         
-        // Detect indexPath for deleted post
-        
-        var indexPath: IndexPath?
-        for wallPost in wallPostsArray {
-            if wallPost.postID == postIDToDelete {
-                let deletingRow = wallPostsArray.index(of: wallPost)!
-                indexPath = IndexPath(row: deletingRow + 1, section: 0)
-            }
-        }
-        
         // Delete post from server
         
         ServerManager().deleteWallPost(postIDToDelete, success: { (response) in
@@ -425,8 +418,23 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             // Delete post from table view if success
             
             DispatchQueue.main.async {
+                
+                // Detect indexPath for deleted post
+                
+                var postIndexToDelete: Int?
+                var indexPath: IndexPath?
+                for wallPost in self.wallPostsArray {
+                    if wallPost.postID == postIDToDelete {
+                        postIndexToDelete = self.wallPostsArray.index(of: wallPost)!
+                        indexPath = IndexPath(row: postIndexToDelete! + 1, section: 0)
+                    }
+                }
+                
+                // Delete post from table view and from array
+                
                 self.tableView.beginUpdates()
                 if indexPath != nil {
+                    self.wallPostsArray.remove(at: postIndexToDelete!)
                     self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.bottom)
                 }
                 self.tableView.endUpdates()

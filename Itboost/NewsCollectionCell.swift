@@ -17,6 +17,7 @@ class NewsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var articleImage: UIImageView!
+    @IBOutlet weak var commentsLabel: UILabel!
     
     @IBOutlet weak var readFullButton: UIButton!
     @IBOutlet weak var openCommentsButton: UIButton!

@@ -21,6 +21,10 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         
         self.navigationItem.title = "Новая запись"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        
+        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

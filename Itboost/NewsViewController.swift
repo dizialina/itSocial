@@ -25,9 +25,19 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set footer for pull to refresh
+        
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.clear
         collectionView.addSubview(refreshControl)
+        
+        // Make navigation bar translucent
+        
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
+        navigationBackgroundView?.alpha = 0.3
+        
+        navigationController?.hidesBarsOnSwipe = true
         
     }
     
@@ -78,7 +88,31 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
         let newsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCollectionCell", for: indexPath) as! NewsCollectionCell
-            
+        
+        /*
+        let currentNews = newsArray[indexPath.row]
+        
+        if currentNews.authorUsername.characters.count > 0 {
+            newsCell.authorLabel.text = currentNews.authorUsername
+        }
+        
+        if currentNews.content.characters.count > 0 {
+            newsCell.bodyLabel.text = currentNews.content
+        }
+        
+        if currentNews.title.characters.count > 0 {
+            newsCell.titleLabel.text = currentNews.title
+        }
+        
+        newsCell.dateLabel.text = convertDateToText(currentNews.createdAt)
+        */
+        
+        // Set actions for cell buttons
+        
+        newsCell.openCommentsButton.addTarget(self, action: #selector(NewsViewController.openComments(_:)), for: UIControlEvents.touchUpInside)
+        
+        newsCell.readFullButton.addTarget(self, action: #selector(NewsViewController.openDetailNews(_:)), for: UIControlEvents.touchUpInside)
+        
         // Make avatar image round
     
         newsCell.authorAvatar.layer.cornerRadius = 33 / 2
@@ -111,6 +145,16 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         
             return CGSize(width: self.view.frame.width, height: 344)
+    }
+    
+    // MARK: Actions
+    
+    func openComments(_ sender: UIButton) {
+        
+    }
+    
+    func openDetailNews(_ sender: UIButton) {
+        
     }
     
     // MARK: Refreshing Collection
@@ -161,7 +205,7 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func convertDateToText(_ date:Date) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        dateFormatter.dateFormat = "dd MMM в HH:mm"
         return dateFormatter.string(from: date)
     }
         

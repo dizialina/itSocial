@@ -28,6 +28,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         navigationController?.navigationBar.barTintColor = Constants.darkMintBlue
         let navigationBackgroundView = self.navigationController?.navigationBar.subviews.first
         navigationBackgroundView?.alpha = 1.0
+        
+        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
 
     }
     
@@ -231,8 +234,23 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             // Delete post from table view if success
             
             DispatchQueue.main.async {
+                
+                // Detect indexPath for deleted comment
+                
+                var commentIndexToDelete: Int?
+                var indexPath: IndexPath?
+                for postComment in self.commentsArray {
+                    if postComment.commentID == commentIDToDelete {
+                        commentIndexToDelete = self.commentsArray.index(of: postComment)!
+                        indexPath = IndexPath(row: commentIndexToDelete! + 1, section: 0)
+                    }
+                }
+                
+                // Delete comment from table view and from array
+                
                 self.tableView.beginUpdates()
                 if indexPath != nil {
+                    self.commentsArray.remove(at: commentIndexToDelete!)
                     self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.bottom)
                 }
                 self.tableView.endUpdates()

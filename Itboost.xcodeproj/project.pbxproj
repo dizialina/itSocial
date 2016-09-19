@@ -133,6 +133,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		034430241D902F96000723A1 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				0300409E1D90128E00E5768A /* NewsViewController.swift */,
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
 		03ABF5681D60DF090053FAD9 /* Archive Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,10 +323,10 @@
 			children = (
 				84A220001D57BB1C0003E1BA /* Login/Registration */,
 				03ABF5691D60DF2C0053FAD9 /* Events */,
+				034430241D902F96000723A1 /* News */,
 				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
 				03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */,
 				03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */,
-				0300409E1D90128E00E5768A /* NewsViewController.swift */,
 				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
 			);
 			name = "View Controllers";
