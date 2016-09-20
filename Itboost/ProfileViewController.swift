@@ -99,6 +99,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         UserDefaults.standard.setValue(nil, forKey: Constants.kUserToken)
         UserDefaults.standard.setValue(nil, forKey: Constants.kUserID)
+        UserDefaults.standard.setValue(nil, forKey: Constants.kUserLogin)
+        UserDefaults.standard.setValue(nil, forKey: Constants.kUserPassword)
         
         tabBarController?.selectedIndex = 0
         let navVC = tabBarController?.viewControllers![0] as! UINavigationController

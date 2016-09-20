@@ -25,6 +25,8 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getNews()
+        
         // Set footer for pull to refresh
         
         refreshControl = UIRefreshControl()
@@ -36,10 +38,12 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        /*
         currentNewsPage = 1
         newsArray.removeAll()
         collectionView.reloadData()
         getNews()
+        */
         
         // Make navigation bar translucent
         

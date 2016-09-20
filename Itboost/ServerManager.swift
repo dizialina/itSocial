@@ -302,12 +302,15 @@ class ServerManager: NSObject {
     
     func postAuthorization(_ userInfo:NSDictionary, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
-        let params:NSDictionary = ["_username": userInfo["username"]!,
-                                   "_password": userInfo["password"]!]
+        let userLogin = userInfo["username"]!
+        let userPassword = userInfo["password"]!
+        
+        let params:NSDictionary = ["_username": userLogin,
+                                   "_password": userPassword]
         print(params)
         
         sessionManager.post("login_check", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
-            print(responseObject)
+            //print(responseObject)
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     
@@ -320,6 +323,10 @@ class ServerManager: NSObject {
                     }
                     if token != nil {
                         UserDefaults.standard.setValue(token, forKey: Constants.kUserToken)
+                        
+                        // Save this values for authomatic reauthorization
+                        UserDefaults.standard.setValue(userLogin, forKey: Constants.kUserLogin)
+                        UserDefaults.standard.setValue(userPassword, forKey: Constants.kUserPassword)
                     }
                     success(nil)
                 }
@@ -336,9 +343,12 @@ class ServerManager: NSObject {
     
     func postRegistration(_ userInfo:NSDictionary, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
+        let userLogin = userInfo["username"]!
+        let userPassword = userInfo["password"]!
+        
         let params:NSDictionary = ["email": userInfo["email"]!,
-                                   "username": userInfo["username"]!,
-                                   "password": userInfo["password"]!]
+                                   "username": userLogin,
+                                   "password": userPassword]
         
         sessionManager.post("registration", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
@@ -354,6 +364,10 @@ class ServerManager: NSObject {
                     }
                     if token != nil {
                         UserDefaults.standard.setValue(token, forKey: Constants.kUserToken)
+                        
+                        // Save this values for authomatic reauthorization
+                        UserDefaults.standard.setValue(userLogin, forKey: Constants.kUserLogin)
+                        UserDefaults.standard.setValue(userPassword, forKey: Constants.kUserPassword)
                     }
                     success(nil)
                 }

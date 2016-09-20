@@ -40,6 +40,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Google services
         GMSServices.provideAPIKey(Constants.APIKey)
         
+        //Updating user's token
+        if UserDefaults.standard.value(forKey: Constants.kUserLogin) != nil {
+            let login = UserDefaults.standard.value(forKey: Constants.kUserLogin)
+            let password = UserDefaults.standard.value(forKey: Constants.kUserPassword)
+            let userInfo:NSDictionary = ["username": login!, "password": password!]
+            
+            ServerManager().postAuthorization(userInfo, success: { (response) -> Void in
+                print("Success relogin")
+            }) { (error) -> Void in
+                print("Error while reauthorization: " + error!.localizedDescription)
+            }
+        }
+        
         return true
     }
 

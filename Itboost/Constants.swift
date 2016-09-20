@@ -25,8 +25,10 @@ class Constants {
     // MARK: NSUserDefaults Keys
     
     static let kAlreadyRun = "AlreadyRun"
-    static let kUserToken = "token"
-    static let kUserID = "id"
+    static let kUserToken = "UserToken"
+    static let kUserID = "UserID"
+    static let kUserLogin = "UserLogin"
+    static let kUserPassword = "UserPassword"
     
     // MARK: UIColors
     
