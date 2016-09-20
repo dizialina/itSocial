@@ -13,13 +13,16 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newCommentField: UITextField!
+    @IBOutlet weak var viewMore: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var refreshControl:UIRefreshControl!
     
     var newsID = Int()
     var currentNews = News()
-    var commentsArray = [PostComment]()
-    
-    // Temp
-    let articleText = "Прокрастинация — склонность откладывать дел на потом, несмотря на очевидные негативные последствия такого бездействия, — превратилась в глобальную проблему: по некоторым данным, каждый пятый человек страдает ею хронически. Прокрастинацию связывают с нарушением мотивации — результата совместной работы систем сознательного контроля и эмоциональной стимуляции. Волевую сферу связывают с деятельностью префронтальной коры, а эмоциональную — с лимбической системой мозга. Поэтому Тинъюн Фэн (Tingyong Feng) и его коллеги из Юго-Западного университета в китайском Чунцине предположили, что у людей, больше или меньше склонных к прокрастинации, отличия в поведении должны коррелировать с активностью этих областей мозга, а также с «силой» связей между ними."
+    var commentsArray = [WallPost]()
+    var currentPostsPage = 1
+    var loadMoreStatus = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,14 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationController?.hidesBarsOnSwipe = false
         navigationController?.setNavigationBarHidden(false, animated: true)
         
+        // Set footer for pull to refresh
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.clear
+        tableView.addSubview(refreshControl)
+        self.tableView.tableFooterView = viewMore
+        self.tableView.tableFooterView!.isHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,28 +67,20 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func getNewsComments() {
         
-        // Need to rewrite when backend add comments to news
+        if currentNews.threadID != 0 {
         
-        /*
-        ServerManager().getPostComments(newsID, success: { (response) in
+            ServerManager().getWallPosts(currentNews.threadID, currentPage: currentPostsPage, success: { (response) in
+                self.commentsArray += ResponseParser().parseWallPost(response!)
+                self.currentPostsPage += 1
             
-            let postDictionary = response as! [String:AnyObject]
-            let postObjectsArray = ResponseParser().parseWallPost([postDictionary as AnyObject])
-            if postObjectsArray.count > 0 {
-                self.currentPost = postObjectsArray.first!
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }) { (error) in
+                print("Error receiving wall posts from news: " + error!.localizedDescription)
             }
-            
-            let commentsObjectsArray = postDictionary["comments"] as! [AnyObject]
-            self.commentsArray = ResponseParser().parsePostComments(commentsObjectsArray)
-            
-            DispatchQueue.main.async(execute: {
-                self.tableView.reloadData()
-            })
-            
-        }) { (error) in
-            print("Error receiving post comments from event: " + error!.localizedDescription)
         }
-        */
+ 
     }
     
     // MARK: TableView DataSource and Delegate
@@ -147,11 +150,11 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
             commentCell.commentDateLabel.text = convertDateToCommentDate(postComment.postedAt as Date)
             
             commentCell.deleteCommentButton.addTarget(self, action: #selector(CommentsViewController.deleteComment(_:)), for: UIControlEvents.touchUpInside)
-            commentCell.deleteCommentButton.tag = postComment.commentID
+            commentCell.deleteCommentButton.tag = postComment.postID
             
             // Set height of comment text
             
-            let commentBodyText = postComment.commentBody
+            let commentBodyText = postComment.postBody
             let font = UIFont.systemFont(ofSize: 12.0)
             let bodyHeight = commentBodyText.heightForText(commentBodyText as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset: 2.0, device: nil)
             
@@ -186,7 +189,7 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
             
             let postComment = commentsArray[indexPath.row - 1]
             
-            let commentBodyText = postComment.commentBody
+            let commentBodyText = postComment.postBody
             let font = UIFont.systemFont(ofSize: 12.0)
             let bodyHeight = commentBodyText.heightForText(commentBodyText as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
             
@@ -210,16 +213,23 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if newCommentField.text!.characters.count > 0 {
             
-            // Need to rewrite when backend add comments to news
+            let threadIDsDict = ["id": currentNews.threadID]
             
-            /*
-            ServerManager().postComment(newsID, commentText: newCommentField.text!, success: { (response) in
-                self.newCommentField.text = ""
-                self.getPostComments()
-                }, failure: { (error) in
-                    print("Error sending comment to post: " + error!.localizedDescription)
+            ServerManager().postNewMessageOnWall(threadIDsDict, title: "", body: newCommentField.text!, success: { (response) in
+                
+                self.currentPostsPage = 1
+                self.commentsArray.removeAll()
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.newCommentField.text = ""
+                }
+                
+                self.getNewsComments()
+                
+            }, failure: { (error) in
+                print("Error while adding new comment: " + error!.localizedDescription)
             })
-            */
             
         }
         
@@ -227,41 +237,83 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func deleteComment(_ sender: UIButton) {
         
-        let commentIDToDelete = sender.tag
+        let postIDToDelete = sender.tag
         
         // Delete post from server
         
-        ServerManager().deleteWallComment(commentIDToDelete, success: { (response) in
+        ServerManager().deleteWallPost(postIDToDelete, success: { (response) in
             
             // Delete post from table view if success
             
             DispatchQueue.main.async {
                 
-                // Detect indexPath for deleted comment
+                // Detect indexPath for deleted post
                 
-                var commentIndexToDelete: Int?
+                var postIndexToDelete: Int?
                 var indexPath: IndexPath?
-                for postComment in self.commentsArray {
-                    if postComment.commentID == commentIDToDelete {
-                        commentIndexToDelete = self.commentsArray.index(of: postComment)!
-                        indexPath = IndexPath(row: commentIndexToDelete! + 1, section: 0)
+                for wallPost in self.commentsArray {
+                    if wallPost.postID == postIDToDelete {
+                        postIndexToDelete = self.commentsArray.index(of: wallPost)!
+                        indexPath = IndexPath(row: postIndexToDelete! + 1, section: 0)
                     }
                 }
                 
-                // Delete comment from table view and from array
+                // Delete post from table view and from array
                 
                 self.tableView.beginUpdates()
                 if indexPath != nil {
-                    self.commentsArray.remove(at: commentIndexToDelete!)
+                    self.commentsArray.remove(at: postIndexToDelete!)
                     self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.bottom)
                 }
                 self.tableView.endUpdates()
             }
             
         }) { (error) in
-            print("Error while deleting wall comment: " + error!.localizedDescription)
+            print("Error while deleting comment: " + error!.localizedDescription)
         }
+    }
+    
+    // MARK: Refreshing Table
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
         
+        if deltaOffset <= 0 {
+            loadMore()
+        }
+    }
+    
+    func loadMore() {
+        if !loadMoreStatus {
+            self.loadMoreStatus = true
+            self.activityIndicator.startAnimating()
+            self.tableView.tableFooterView!.isHidden = false
+            loadMoreBegin("Load more",
+                          loadMoreEnd: {(x:Int) -> () in
+                            self.tableView.reloadData()
+                            self.loadMoreStatus = false
+                            self.activityIndicator.stopAnimating()
+                            self.tableView.tableFooterView!.isHidden = true
+            })
+        }
+    }
+    
+    func loadMoreBegin(_ newtext:String, loadMoreEnd:@escaping (Int) -> ()) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            print("loadmore")
+            
+            if self.currentPostsPage != 1 {
+                self.getNewsComments()
+            }
+            
+            sleep(2)
+            
+            DispatchQueue.main.async {
+                loadMoreEnd(0)
+            }
+        }
     }
     
     // MARK: Helping methods

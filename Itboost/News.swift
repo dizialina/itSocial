@@ -25,5 +25,6 @@ class News: NSObject {
     var viewsCount = 0
     var createdAt = Date()
     var type: NewsType?
+    var threadID = Int()
     
 }

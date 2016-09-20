@@ -41,7 +41,6 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         /*
         currentNewsPage = 1
         newsArray.removeAll()
-        collectionView.reloadData()
         getNews()
         */
         
@@ -105,6 +104,10 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if currentNews.title.characters.count > 0 {
             newsCell.titleLabel.text = currentNews.title
+        }
+        
+        if currentNews.viewsCount > 0 {
+            newsCell.commentsLabel.text = "Просмотров: \(currentNews.viewsCount)"
         }
         
         newsCell.dateLabel.text = convertDateToText(currentNews.createdAt)

@@ -12,7 +12,7 @@
             <objects>
                 <navigationController id="Wc9-hl-f9t" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="События" image="Calendar" id="YU6-Tk-qOO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="KUL-N4-qz0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KUL-N4-qz0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,7 +34,7 @@
             <objects>
                 <navigationController id="iCd-2n-KOa" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Организации" image="Comments" id="MUO-D1-Ezu"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vwk-Wy-5KJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vwk-Wy-5KJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -55,7 +55,7 @@
             <objects>
                 <navigationController id="1Go-Tf-5Hb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" image="CreatorProfile" id="qPO-9W-4D3"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="obe-F2-Rdj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="obe-F2-Rdj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2333,12 +2333,12 @@
                                                                 <constraint firstAttribute="height" constant="33" id="mL9-Jq-NfN"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18 мая в 17:34" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="V6b-L9-IWZ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет даты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="V6b-L9-IWZ">
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                             <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Microsoft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="aVf-z5-MDP">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет автора" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="aVf-z5-MDP">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="pl1-mJ-WtR"/>
                                                             </constraints>
@@ -2369,7 +2369,7 @@
                                                         <constraint firstAttribute="height" constant="119" id="dqT-j0-f38"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Microsoft New News" textAlignment="center" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-iS-nLe">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Без названия" textAlignment="center" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-iS-nLe">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="2oP-Ye-2tw"/>
                                                     </constraints>
@@ -2377,11 +2377,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEJ-vf-PSd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Отсутствует)" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEJ-vf-PSd">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="88" id="YEB-BF-sRc"/>
                                                     </constraints>
-                                                    <string key="text">Что бы вы предпочли: быть президентом крупной инвестиционной компании, жить в роскошной квартире с видом на миллиард долларов, раскатывать на последней модели «Феррари» и при этом оставаться холостяком или работать продавцом автопокрышек у «Большого Эда», покупать одежду в супермаркете и передвигаться по родному пригороду на вместительном и еще не очень старом минивене?</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2402,7 +2401,7 @@
                                                         <constraint firstAttribute="width" constant="21" id="cE4-rk-ysx"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комментарии (0)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1QI-ve-g3y">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Просмотров: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1QI-ve-g3y">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="nAX-OV-bFg"/>
                                                         <constraint firstAttribute="width" constant="146" id="tLa-Un-MZv"/>
@@ -2524,7 +2523,7 @@
         <!--Detail News View Controller-->
         <scene sceneID="ma9-dc-TVA">
             <objects>
-                <viewController id="LZS-Oq-SOC" customClass="DetailNewsViewController" customModule="Itboost" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="LZS-Oq-SOC" customClass="DetailNewsViewController" customModule="Itboost" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="r0u-qY-e6h"/>
                         <viewControllerLayoutGuide type="bottom" id="17N-EV-SK9"/>
@@ -2535,9 +2534,32 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EHl-Ck-1Hz">
                                 <color key="backgroundColor" red="0.56862745100000001" green="0.77647058820000003" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="5CX-cj-Vz8">
+                                    <rect key="frame" x="0.0" y="430" width="375" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="JRX-ge-lP6"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIN-1y-DWd">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="66h-s2-ACt"/>
+                                                <constraint firstAttribute="height" constant="21" id="ISe-Kp-b9m"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.56862745100000001" green="0.77647058820000003" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="SIN-1y-DWd" firstAttribute="centerY" secondItem="JRX-ge-lP6" secondAttribute="centerY" id="J16-Q4-l9A"/>
+                                        <constraint firstItem="JRX-ge-lP6" firstAttribute="centerY" secondItem="5CX-cj-Vz8" secondAttribute="centerY" id="KAh-DV-1dL"/>
+                                        <constraint firstItem="SIN-1y-DWd" firstAttribute="leading" secondItem="JRX-ge-lP6" secondAttribute="trailing" constant="8" id="ulU-dg-5kH"/>
+                                        <constraint firstItem="JRX-ge-lP6" firstAttribute="centerX" secondItem="5CX-cj-Vz8" secondAttribute="centerX" constant="-44" id="yR7-Ha-HG4"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailNewsCell" rowHeight="318" id="CsN-vP-Bxp" customClass="DetailNewsCell" customModule="Itboost" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="318"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="318"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CsN-vP-Bxp" id="wCW-0i-FjD">
                                             <frame key="frameInset" width="375" height="317"/>
@@ -2559,12 +2581,12 @@
                                                                         <constraint firstAttribute="height" constant="33" id="y0f-Sx-kCk"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18 мая в 17:34" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="UpN-N3-yff">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет даты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="UpN-N3-yff">
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                     <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Microsoft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="1ka-4c-8ea">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет автора" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="1ka-4c-8ea">
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="21" id="9gX-Dc-0c3"/>
                                                                     </constraints>
@@ -2590,7 +2612,7 @@
                                                                 <constraint firstItem="1ka-4c-8ea" firstAttribute="top" secondItem="C5d-gb-f7s" secondAttribute="top" constant="6" id="USa-JQ-PhZ"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Microsoft New News" textAlignment="center" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="OL0-DN-jea">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Без названия" textAlignment="center" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="OL0-DN-jea">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="36" id="338-eO-tUp"/>
                                                             </constraints>
@@ -2598,7 +2620,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Что бы вы предпочли: быть президентом крупной инв" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I48-Zt-w5e">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Отсутствует)" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I48-Zt-w5e">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="FiB-Aq-ifH"/>
                                                             </constraints>
@@ -2638,6 +2660,12 @@
                                                         <constraint firstItem="I48-Zt-w5e" firstAttribute="top" secondItem="OL0-DN-jea" secondAttribute="bottom" constant="-5" id="ztz-Yf-ddD"/>
                                                     </constraints>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8FQ-Uz-lPe">
+                                                    <color key="backgroundColor" red="0.56862745100000001" green="0.77647058820000003" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="10" id="Lcq-y0-MQn"/>
+                                                    </constraints>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRS-lO-iCq">
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0n-GI-A5j">
@@ -2646,7 +2674,7 @@
                                                                 <constraint firstAttribute="height" constant="1" id="JWG-Gf-UlL"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 комментариев" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2R-O2-d1B">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комментарии" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2R-O2-d1B">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="dPB-ny-jC2"/>
                                                             </constraints>
@@ -2657,12 +2685,13 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Six-Qz-PEZ">
                                                             <color key="backgroundColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="1" id="G8p-Cg-y0K"/>
+                                                                <constraint firstAttribute="height" constant="2" id="G8p-Cg-y0K"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="27" id="H13-kI-Bci"/>
                                                         <constraint firstAttribute="bottom" secondItem="Six-Qz-PEZ" secondAttribute="bottom" id="K7T-UZ-lnF"/>
                                                         <constraint firstItem="Q2R-O2-d1B" firstAttribute="top" secondItem="a0n-GI-A5j" secondAttribute="bottom" id="P9I-AP-hDD"/>
                                                         <constraint firstItem="a0n-GI-A5j" firstAttribute="top" secondItem="cRS-lO-iCq" secondAttribute="top" id="W9o-mp-fr8"/>
@@ -2677,13 +2706,15 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.56862745100000001" green="0.77647058820000003" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
+                                                <constraint firstItem="cRS-lO-iCq" firstAttribute="top" secondItem="8FQ-Uz-lPe" secondAttribute="bottom" id="4zN-cW-6rw"/>
                                                 <constraint firstItem="m85-fl-ufG" firstAttribute="top" secondItem="wCW-0i-FjD" secondAttribute="top" constant="10" id="8yu-xg-3Dz"/>
                                                 <constraint firstItem="m85-fl-ufG" firstAttribute="leading" secondItem="wCW-0i-FjD" secondAttribute="leading" id="M96-Y6-e47"/>
                                                 <constraint firstAttribute="trailing" secondItem="cRS-lO-iCq" secondAttribute="trailing" id="Nga-xh-9gm"/>
                                                 <constraint firstItem="cRS-lO-iCq" firstAttribute="leading" secondItem="wCW-0i-FjD" secondAttribute="leading" id="Tif-X4-Wok"/>
-                                                <constraint firstAttribute="bottom" secondItem="cRS-lO-iCq" secondAttribute="bottom" id="gWB-Qh-DcP"/>
+                                                <constraint firstAttribute="trailing" secondItem="8FQ-Uz-lPe" secondAttribute="trailing" id="UQz-P0-yNA"/>
+                                                <constraint firstAttribute="bottom" secondItem="cRS-lO-iCq" secondAttribute="bottom" constant="-1" id="gWB-Qh-DcP"/>
                                                 <constraint firstAttribute="trailing" secondItem="m85-fl-ufG" secondAttribute="trailing" id="sQc-1X-aXa"/>
-                                                <constraint firstItem="cRS-lO-iCq" firstAttribute="top" secondItem="m85-fl-ufG" secondAttribute="bottom" constant="10" id="y9T-O4-ydB"/>
+                                                <constraint firstItem="8FQ-Uz-lPe" firstAttribute="leading" secondItem="wCW-0i-FjD" secondAttribute="leading" id="ufN-Vn-Qdb"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2701,7 +2732,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentNewsCell" rowHeight="84" id="0Kr-dT-c5N" customClass="CommentCell" customModule="Itboost" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="410" width="375" height="84"/>
+                                        <rect key="frame" x="0.0" y="346" width="375" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Kr-dT-c5N" id="hlP-0n-eBW">
                                             <frame key="frameInset" width="375" height="83"/>
@@ -2772,8 +2803,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="LZS-Oq-SOC" id="0Jq-3Y-kRd"/>
-                                    <outlet property="delegate" destination="LZS-Oq-SOC" id="gzF-gs-GEA"/>
+                                    <outlet property="dataSource" destination="LZS-Oq-SOC" id="wh1-i2-Bv5"/>
+                                    <outlet property="delegate" destination="LZS-Oq-SOC" id="ynm-hl-Aw7"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKT-9h-ko2">
@@ -2799,7 +2830,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="sendComment:" destination="E2B-jS-h6d" eventType="touchUpInside" id="WPi-SW-MgJ"/>
+                                            <action selector="sendComment:" destination="LZS-Oq-SOC" eventType="touchUpInside" id="uAY-9z-1Yc"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ваш комментарий" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pQ1-AP-4fk">
@@ -2813,7 +2844,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="delegate" destination="LZS-Oq-SOC" id="UWY-ZO-mbD"/>
+                                            <outlet property="delegate" destination="LZS-Oq-SOC" id="ncf-aF-bpa"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -2838,12 +2869,14 @@
                             <constraint firstItem="EHl-Ck-1Hz" firstAttribute="leading" secondItem="v3b-Pm-1fx" secondAttribute="leading" id="Wv9-on-p5I"/>
                             <constraint firstItem="dKT-9h-ko2" firstAttribute="top" secondItem="EHl-Ck-1Hz" secondAttribute="bottom" id="fMC-x2-cw0"/>
                             <constraint firstAttribute="trailing" secondItem="dKT-9h-ko2" secondAttribute="trailing" id="sKV-bg-nVT"/>
-                            <constraint firstItem="EHl-Ck-1Hz" firstAttribute="top" secondItem="v3b-Pm-1fx" secondAttribute="top" id="yKm-dD-m5w"/>
+                            <constraint firstItem="EHl-Ck-1Hz" firstAttribute="top" secondItem="v3b-Pm-1fx" secondAttribute="top" constant="64" id="yKm-dD-m5w"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="JRX-ge-lP6" id="nMH-is-ZTP"/>
                         <outlet property="newCommentField" destination="pQ1-AP-4fk" id="YUz-zq-e8H"/>
-                        <outlet property="tableView" destination="EHl-Ck-1Hz" id="WTZ-XC-TEr"/>
+                        <outlet property="tableView" destination="EHl-Ck-1Hz" id="Z4z-ms-6WF"/>
+                        <outlet property="viewMore" destination="5CX-cj-Vz8" id="LIm-KI-vur"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B9O-jn-vaJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2855,7 +2888,7 @@
             <objects>
                 <navigationController id="xl7-Ye-6Lm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Моя лента" image="World" id="7mM-sA-4Uy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GIT-5o-iRT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GIT-5o-iRT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3302,7 +3335,7 @@
         <scene sceneID="Lce-8H-CcX">
             <objects>
                 <navigationController storyboardIdentifier="NavigationEnterScreen" id="WTc-RK-JWm" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tbe-qQ-R95">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tbe-qQ-R95">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

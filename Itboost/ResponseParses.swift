@@ -100,6 +100,10 @@ class ResponseParser {
                 
                 newNews.newsID = currentNews["id"] as! Int
                 
+                if let threadID = currentNews["thread_id"] as? Int {
+                    newNews.threadID = threadID
+                }
+                
                 if let newsTitle = currentNews["title"] as? String {
                     newNews.title = newsTitle
                 }
