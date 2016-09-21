@@ -914,7 +914,7 @@
                                 <color key="backgroundColor" red="0.84313725490196079" green="0.9137254901960784" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="FAL-my-9tE">
-                                    <rect key="frame" x="0.0" y="996" width="414" height="25"/>
+                                    <rect key="frame" x="0.0" y="981" width="414" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="161-Ih-VoV"/>
@@ -1334,11 +1334,11 @@
                                             <outlet property="titleLabel" destination="CrD-Hg-JZq" id="1aO-a9-DbU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WallPostCell" rowHeight="100" id="rSE-rY-tHH" customClass="WallPostCell" customModule="Itboost" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="896" width="414" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WallPostCell" rowHeight="85" id="rSE-rY-tHH" customClass="WallPostCell" customModule="Itboost" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="896" width="414" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rSE-rY-tHH" id="qNA-lj-uYE">
-                                            <frame key="frameInset" width="414" height="99"/>
+                                            <frame key="frameInset" width="414" height="84"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gaben" translatesAutoresizingMaskIntoConstraints="NO" id="otC-dI-xQv">
@@ -1438,7 +1438,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="bjM-hy-wGq" secondAttribute="trailing" constant="13" id="f05-V9-nKk"/>
                                                 <constraint firstAttribute="trailing" secondItem="ixt-oG-TKZ" secondAttribute="trailing" constant="13" id="ifw-Sd-xTS"/>
                                                 <constraint firstAttribute="bottom" secondItem="xgJ-GX-X50" secondAttribute="bottom" constant="6" id="jTN-UW-gjP"/>
-                                                <constraint firstItem="1Yr-Ur-DZi" firstAttribute="top" secondItem="CJV-X9-G4Q" secondAttribute="bottom" constant="9" id="lF8-ab-kwb"/>
+                                                <constraint firstItem="1Yr-Ur-DZi" firstAttribute="top" secondItem="CJV-X9-G4Q" secondAttribute="bottom" constant="2" id="lF8-ab-kwb"/>
                                                 <constraint firstItem="eV0-Qk-qQT" firstAttribute="centerY" secondItem="xgJ-GX-X50" secondAttribute="centerY" id="s4b-DD-usi"/>
                                                 <constraint firstItem="1Yr-Ur-DZi" firstAttribute="leading" secondItem="otC-dI-xQv" secondAttribute="trailing" constant="8" id="t4p-Pe-doX"/>
                                                 <constraint firstItem="CJV-X9-G4Q" firstAttribute="top" secondItem="qNA-lj-uYE" secondAttribute="top" constant="8" id="xit-NT-fS6"/>
@@ -1909,11 +1909,11 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WallPostCellDetail" rowHeight="112" id="h7A-v6-SjF" customClass="WallPostCell" customModule="Itboost" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="112"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WallPostCellDetail" rowHeight="105" id="h7A-v6-SjF" customClass="WallPostCell" customModule="Itboost" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h7A-v6-SjF" id="6NS-sj-j9c">
-                                            <frame key="frameInset" width="414" height="111"/>
+                                            <frame key="frameInset" width="414" height="104"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gaben" translatesAutoresizingMaskIntoConstraints="NO" id="Z5V-1T-Pid">
@@ -2006,17 +2006,17 @@
                                                 <constraint firstItem="Dbj-3T-TOf" firstAttribute="leading" secondItem="xau-IM-0vE" secondAttribute="trailing" id="7VH-0F-K0x"/>
                                                 <constraint firstAttribute="trailing" secondItem="7fb-3w-AmR" secondAttribute="trailing" constant="8" id="7vG-sg-4DW"/>
                                                 <constraint firstItem="1uI-2C-Tql" firstAttribute="leading" secondItem="Z5V-1T-Pid" secondAttribute="trailing" constant="8" id="8lP-nf-bas"/>
+                                                <constraint firstItem="Bmo-8a-lVA" firstAttribute="top" secondItem="CwQ-HQ-uRX" secondAttribute="bottom" constant="6" id="Ab5-JL-zQI"/>
                                                 <constraint firstItem="Bmo-8a-lVA" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" id="D9R-8E-Cs1"/>
                                                 <constraint firstAttribute="bottom" secondItem="7fb-3w-AmR" secondAttribute="bottom" id="KlT-49-dCC"/>
                                                 <constraint firstItem="Dbj-3T-TOf" firstAttribute="top" secondItem="6NS-sj-j9c" secondAttribute="top" constant="8" id="OXi-PD-igK"/>
                                                 <constraint firstItem="Z5V-1T-Pid" firstAttribute="top" secondItem="6NS-sj-j9c" secondAttribute="top" constant="10" id="TwN-S1-fxE"/>
                                                 <constraint firstItem="7fb-3w-AmR" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" constant="8" id="Z63-w1-GnA"/>
                                                 <constraint firstAttribute="trailing" secondItem="Bmo-8a-lVA" secondAttribute="trailing" id="aNR-5L-UGx"/>
-                                                <constraint firstItem="7fb-3w-AmR" firstAttribute="top" secondItem="CwQ-HQ-uRX" secondAttribute="bottom" constant="4" id="cE4-hq-IBj"/>
                                                 <constraint firstAttribute="trailing" secondItem="W9p-k8-pdm" secondAttribute="trailing" constant="13" id="eOP-lY-Vce"/>
                                                 <constraint firstItem="QJV-K6-n0M" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" id="lY3-O1-w09"/>
                                                 <constraint firstItem="Bmo-8a-lVA" firstAttribute="top" secondItem="1uI-2C-Tql" secondAttribute="bottom" constant="26" id="np8-yM-gfz"/>
-                                                <constraint firstItem="1uI-2C-Tql" firstAttribute="top" secondItem="xau-IM-0vE" secondAttribute="bottom" constant="9" id="qFr-rO-tSY"/>
+                                                <constraint firstItem="1uI-2C-Tql" firstAttribute="top" secondItem="xau-IM-0vE" secondAttribute="bottom" constant="2" id="qFr-rO-tSY"/>
                                                 <constraint firstAttribute="trailing" secondItem="QJV-K6-n0M" secondAttribute="trailing" id="r0M-fx-PdE"/>
                                                 <constraint firstAttribute="trailing" secondItem="Dbj-3T-TOf" secondAttribute="trailing" constant="13" id="tlj-pY-rW0"/>
                                                 <constraint firstAttribute="bottom" secondItem="QJV-K6-n0M" secondAttribute="bottom" id="vGH-Xy-ep1"/>
@@ -2037,7 +2037,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="84" id="qwE-r8-0Cg" customClass="CommentCell" customModule="Itboost" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="140" width="414" height="84"/>
+                                        <rect key="frame" x="0.0" y="133" width="414" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qwE-r8-0Cg" id="TZo-7W-SQl">
                                             <frame key="frameInset" width="414" height="83"/>

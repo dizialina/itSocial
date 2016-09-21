@@ -182,7 +182,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             if let detailDescription = event.detailDescription {
                 
                 let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
-                let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset:2.0, device: nil)
+                let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset: 2.0, device: nil)
             
                 eventCell.heightDescriptionLabel.constant = descriptionHeight
                 eventCell.descriptionLabel.text = detailDescription
@@ -251,7 +251,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             let postBody = wallPost.postBody
             let font = UIFont.systemFont(ofSize: 12.0)
-            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset: 2.0, device: nil)
                 
             wallPostCell.heightBodyView.constant = bodyHeight
             wallPostCell.postBodyLabel.text = postBody
@@ -279,7 +279,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             let detailDescription = community.detailDescription!
             
             let font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
-            let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset:2.0, device: nil)
+            let descriptionHeight = detailDescription.heightForText(detailDescription as NSString, neededFont:font, viewWidth: (self.view.frame.width - 20), offset: 2.0, device: nil)
             
             guard descriptionHeight > 15 else { return 868.0 }
             
@@ -292,12 +292,12 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             let postBody = wallPost.postBody
             let font = UIFont.systemFont(ofSize: 12.0)
-            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset:2.0, device: nil)
+            let bodyHeight = postBody.heightForText(postBody as NSString, neededFont:font, viewWidth: (self.view.frame.width - 71), offset: 2.0, device: nil)
            
-            guard bodyHeight > 16 else { return 100.0 }
+            guard bodyHeight > 16 else { return 85.0 }
             
             let deltaHeight =  bodyHeight - 16
-            return 100.0 + deltaHeight
+            return 85.0 + deltaHeight
         }
         
     }
