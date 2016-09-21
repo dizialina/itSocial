@@ -11,7 +11,6 @@ import UIKit
 
 class WallPostCell: UITableViewCell {
     
-    @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var postBodyLabel: UILabel!
     @IBOutlet weak var postTimeLabel: UILabel!
     @IBOutlet weak var postDateLabel: UILabel!

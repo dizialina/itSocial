@@ -44,6 +44,8 @@ class Constants {
     static let placeholderDefaultColor = UIColor(red:0.62, green:0.69, blue:0.73, alpha:1)
     static let redAlertColor = UIColor(red:0.89, green:0.12, blue:0.22, alpha:1)
     static let mainMintBlue = UIColor(red:0.57, green:0.78, blue:0.81, alpha:1)
+    static let navigationBarBlue = UIColor(red:0.69, green:0.84, blue:0.87, alpha:1)
+
     
     // MARK: Flaticon links
     

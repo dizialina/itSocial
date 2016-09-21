@@ -231,10 +231,6 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 1]
             
-            if wallPost.postTitle.characters.count > 0 {
-                wallPostCell.postTitleLabel.text = wallPost.postTitle
-            }
-            
             if wallPost.authorUsername.characters.count > 0 {
                 wallPostCell.authorLabel.text = wallPost.authorUsername
             }

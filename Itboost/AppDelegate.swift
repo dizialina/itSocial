@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Change status bar color
         let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
-        view.backgroundColor = Constants.mainMintBlue
+        view.backgroundColor = Constants.navigationBarBlue
         self.window?.rootViewController?.view.addSubview(view)
         
         // Set text color for all alerts buttons in application

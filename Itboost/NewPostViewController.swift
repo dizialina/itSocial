@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
@@ -29,8 +30,12 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
+        IQKeyboardManager.sharedManager().enable = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,10 +45,10 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     @IBAction func sendPost(_ sender: AnyObject) {
         
-        if (titleField.text?.characters.count)! > 0 && postBodyTextView.text.characters.count > 0 {
+        if postBodyTextView.text.characters.count > 0 {
             let threadIDsDict = ["id": wallThreadID]
             
-            ServerManager().postNewMessageOnWall(threadIDsDict, title: titleField.text!, body: postBodyTextView.text, success: { (response) in
+            ServerManager().postNewMessageOnWall(threadIDsDict, title: "", body: postBodyTextView.text, success: { (response) in
                 self.showAlertWithHandler()
             }, failure: { (error) in
                 print("Error while adding new post on wall: " + error!.localizedDescription)

@@ -747,7 +747,7 @@ class ServerManager: NSObject {
         }
         
         sessionManager.get("news", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
-            print(responseObject)
+            //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let newsArray = results["items"] as? [AnyObject] {

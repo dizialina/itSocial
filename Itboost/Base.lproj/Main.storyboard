@@ -1347,21 +1347,12 @@
                                                         <constraint firstAttribute="width" constant="40" id="EU8-kv-OOT"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет названия" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.55000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="CJV-X9-G4Q">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пользователь" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.55000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="CJV-X9-G4Q">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="SqS-4E-5LP"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                     <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пользователь" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Fi-eF-9TM">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="94" id="b8v-Ub-tLq"/>
-                                                        <constraint firstAttribute="height" constant="16" id="kex-BG-tEc"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" red="0.54117647058823526" green="0.54117647058823526" blue="0.54117647058823526" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет даты" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjM-hy-wGq">
@@ -1442,14 +1433,12 @@
                                                 <constraint firstItem="bjM-hy-wGq" firstAttribute="leading" secondItem="CJV-X9-G4Q" secondAttribute="trailing" id="7kd-hA-GYp"/>
                                                 <constraint firstItem="ixt-oG-TKZ" firstAttribute="top" secondItem="bjM-hy-wGq" secondAttribute="bottom" constant="-2" id="8KV-J9-gP2"/>
                                                 <constraint firstItem="otC-dI-xQv" firstAttribute="leading" secondItem="qNA-lj-uYE" secondAttribute="leading" constant="10" id="AeQ-Ph-221"/>
-                                                <constraint firstItem="1Yr-Ur-DZi" firstAttribute="top" secondItem="2Fi-eF-9TM" secondAttribute="bottom" constant="2" id="CBf-Lr-HvV"/>
                                                 <constraint firstItem="bjM-hy-wGq" firstAttribute="top" secondItem="qNA-lj-uYE" secondAttribute="top" constant="8" id="Cmj-pH-gZP"/>
-                                                <constraint firstItem="2Fi-eF-9TM" firstAttribute="leading" secondItem="otC-dI-xQv" secondAttribute="trailing" constant="8" id="PEW-5U-SBi"/>
                                                 <constraint firstItem="CJV-X9-G4Q" firstAttribute="leading" secondItem="otC-dI-xQv" secondAttribute="trailing" constant="8" id="dph-SZ-JKh"/>
                                                 <constraint firstAttribute="trailing" secondItem="bjM-hy-wGq" secondAttribute="trailing" constant="13" id="f05-V9-nKk"/>
                                                 <constraint firstAttribute="trailing" secondItem="ixt-oG-TKZ" secondAttribute="trailing" constant="13" id="ifw-Sd-xTS"/>
                                                 <constraint firstAttribute="bottom" secondItem="xgJ-GX-X50" secondAttribute="bottom" constant="6" id="jTN-UW-gjP"/>
-                                                <constraint firstItem="2Fi-eF-9TM" firstAttribute="top" secondItem="CJV-X9-G4Q" secondAttribute="bottom" id="m6n-GC-ePu"/>
+                                                <constraint firstItem="1Yr-Ur-DZi" firstAttribute="top" secondItem="CJV-X9-G4Q" secondAttribute="bottom" constant="9" id="lF8-ab-kwb"/>
                                                 <constraint firstItem="eV0-Qk-qQT" firstAttribute="centerY" secondItem="xgJ-GX-X50" secondAttribute="centerY" id="s4b-DD-usi"/>
                                                 <constraint firstItem="1Yr-Ur-DZi" firstAttribute="leading" secondItem="otC-dI-xQv" secondAttribute="trailing" constant="8" id="t4p-Pe-doX"/>
                                                 <constraint firstItem="CJV-X9-G4Q" firstAttribute="top" secondItem="qNA-lj-uYE" secondAttribute="top" constant="8" id="xit-NT-fS6"/>
@@ -1457,14 +1446,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="authorLabel" destination="2Fi-eF-9TM" id="pYz-4i-dZh"/>
+                                            <outlet property="authorLabel" destination="CJV-X9-G4Q" id="JOD-B1-PuC"/>
                                             <outlet property="commentsButton" destination="xgJ-GX-X50" id="FLL-5q-gCv"/>
                                             <outlet property="deletePostButton" destination="eV0-Qk-qQT" id="tAI-b6-Np5"/>
                                             <outlet property="heightBodyView" destination="hG3-ye-w5h" id="RuC-hC-dEW"/>
                                             <outlet property="postBodyLabel" destination="1Yr-Ur-DZi" id="AfP-2L-h7o"/>
                                             <outlet property="postDateLabel" destination="bjM-hy-wGq" id="Axl-bu-iDg"/>
                                             <outlet property="postTimeLabel" destination="ixt-oG-TKZ" id="Jdt-4s-ORN"/>
-                                            <outlet property="postTitleLabel" destination="CJV-X9-G4Q" id="HWL-cf-Dlt"/>
                                             <outlet property="userAvatar" destination="otC-dI-xQv" id="oJv-5T-aCx"/>
                                         </connections>
                                     </tableViewCell>
@@ -1503,6 +1491,7 @@
         <!--Новая запись-->
         <scene sceneID="jUS-2u-VhA">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HEW-08-fjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="RbP-Po-d1j" customClass="NewPostViewController" customModule="Itboost" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Psy-Gy-hup"/>
@@ -1512,35 +1501,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Название" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yEm-9n-WzT">
-                                <color key="backgroundColor" red="0.78823529411764703" green="0.88627450980392153" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="B9c-Kk-bcf"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="RbP-Po-d1j" id="oSy-xD-dgZ"/>
-                                </connections>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Введите текст" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Jc-yI-8IG">
-                                <color key="backgroundColor" red="0.78823529410000004" green="0.8862745098" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="185" id="SLX-21-xtg"/>
-                                </constraints>
-                                <color key="textColor" red="0.61568627450980395" green="0.69019607843137254" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="RbP-Po-d1j" id="OZF-lV-zdc"/>
-                                </connections>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDu-pd-EdS">
                                 <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1559,18 +1519,32 @@
                                     <action selector="sendPost:" destination="RbP-Po-d1j" eventType="touchUpInside" id="Rse-L7-7ax"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Введите текст" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AEg-dk-qZT">
+                                <color key="backgroundColor" red="0.78823529410000004" green="0.8862745098" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="185" id="Rr8-LZ-ldH"/>
+                                </constraints>
+                                <color key="textColor" red="0.61568627450000002" green="0.69019607839999997" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="RbP-Po-d1j" id="jFR-ui-fRX"/>
+                                </connections>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.56862745098039214" green="0.77647058823529413" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="yDu-pd-EdS" firstAttribute="width" secondItem="8Jc-yI-8IG" secondAttribute="width" id="20c-Ja-7Ax"/>
-                            <constraint firstItem="8Jc-yI-8IG" firstAttribute="width" secondItem="yEm-9n-WzT" secondAttribute="width" id="AVT-oc-TVm"/>
-                            <constraint firstItem="8Jc-yI-8IG" firstAttribute="centerX" secondItem="yEm-9n-WzT" secondAttribute="centerX" id="Ghq-KB-4rt"/>
-                            <constraint firstItem="8Jc-yI-8IG" firstAttribute="top" secondItem="yEm-9n-WzT" secondAttribute="bottom" constant="12" id="QxG-0m-Pbh"/>
-                            <constraint firstAttribute="trailing" secondItem="yEm-9n-WzT" secondAttribute="trailing" constant="20" id="aPQ-1u-25D"/>
-                            <constraint firstItem="yDu-pd-EdS" firstAttribute="top" secondItem="8Jc-yI-8IG" secondAttribute="bottom" constant="12" id="g8a-f7-HfC"/>
-                            <constraint firstItem="yEm-9n-WzT" firstAttribute="leading" secondItem="wBe-Z9-nWs" secondAttribute="leading" constant="20" id="iLe-l7-pGV"/>
-                            <constraint firstItem="yEm-9n-WzT" firstAttribute="top" secondItem="Psy-Gy-hup" secondAttribute="bottom" constant="40" id="mpj-qz-umQ"/>
-                            <constraint firstItem="yDu-pd-EdS" firstAttribute="centerX" secondItem="8Jc-yI-8IG" secondAttribute="centerX" id="x9x-Ng-PoZ"/>
+                            <constraint firstItem="AEg-dk-qZT" firstAttribute="top" secondItem="Psy-Gy-hup" secondAttribute="bottom" constant="20" id="93g-zI-Ecz"/>
+                            <constraint firstItem="yDu-pd-EdS" firstAttribute="width" secondItem="AEg-dk-qZT" secondAttribute="width" id="Iv5-JD-jEq"/>
+                            <constraint firstItem="yDu-pd-EdS" firstAttribute="centerX" secondItem="AEg-dk-qZT" secondAttribute="centerX" id="QE5-cY-a9j"/>
+                            <constraint firstAttribute="trailing" secondItem="AEg-dk-qZT" secondAttribute="trailing" constant="20" id="iX2-8x-iAE"/>
+                            <constraint firstItem="yDu-pd-EdS" firstAttribute="top" secondItem="AEg-dk-qZT" secondAttribute="bottom" constant="12" id="kRv-8V-ia9"/>
+                            <constraint firstItem="AEg-dk-qZT" firstAttribute="leading" secondItem="wBe-Z9-nWs" secondAttribute="leading" constant="20" id="yNy-MO-ZOT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Новая запись" id="xf5-ts-j5f">
@@ -1579,13 +1553,11 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="667"/>
                     <connections>
-                        <outlet property="postBodyTextView" destination="8Jc-yI-8IG" id="lXK-K9-4SA"/>
-                        <outlet property="titleField" destination="yEm-9n-WzT" id="nTH-dU-3cK"/>
+                        <outlet property="postBodyTextView" destination="AEg-dk-qZT" id="xWu-mx-rmg"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HEW-08-fjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3141" y="-894"/>
+            <point key="canvasLocation" x="3140.8000000000002" y="-894.60269865067471"/>
         </scene>
         <!--Event Table View Controller-->
         <scene sceneID="c3H-6C-RKj">
@@ -1950,21 +1922,12 @@
                                                         <constraint firstAttribute="height" constant="40" id="lm4-kj-vi4"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет названия" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.55000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="xau-IM-0vE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пользователь" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.55000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="xau-IM-0vE">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="q8U-is-bbz"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                     <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пользователь" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPT-rI-hgg">
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="78b-KE-SHo"/>
-                                                        <constraint firstAttribute="width" constant="94" id="Jmb-2D-dGo"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет даты" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dbj-3T-TOf">
@@ -2046,17 +2009,15 @@
                                                 <constraint firstItem="Bmo-8a-lVA" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" id="D9R-8E-Cs1"/>
                                                 <constraint firstAttribute="bottom" secondItem="7fb-3w-AmR" secondAttribute="bottom" id="KlT-49-dCC"/>
                                                 <constraint firstItem="Dbj-3T-TOf" firstAttribute="top" secondItem="6NS-sj-j9c" secondAttribute="top" constant="8" id="OXi-PD-igK"/>
-                                                <constraint firstItem="1uI-2C-Tql" firstAttribute="top" secondItem="IPT-rI-hgg" secondAttribute="bottom" constant="2" id="PWp-3T-UVk"/>
                                                 <constraint firstItem="Z5V-1T-Pid" firstAttribute="top" secondItem="6NS-sj-j9c" secondAttribute="top" constant="10" id="TwN-S1-fxE"/>
                                                 <constraint firstItem="7fb-3w-AmR" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" constant="8" id="Z63-w1-GnA"/>
                                                 <constraint firstAttribute="trailing" secondItem="Bmo-8a-lVA" secondAttribute="trailing" id="aNR-5L-UGx"/>
                                                 <constraint firstItem="7fb-3w-AmR" firstAttribute="top" secondItem="CwQ-HQ-uRX" secondAttribute="bottom" constant="4" id="cE4-hq-IBj"/>
                                                 <constraint firstAttribute="trailing" secondItem="W9p-k8-pdm" secondAttribute="trailing" constant="13" id="eOP-lY-Vce"/>
-                                                <constraint firstItem="IPT-rI-hgg" firstAttribute="leading" secondItem="Z5V-1T-Pid" secondAttribute="trailing" constant="8" id="kfb-DP-CSb"/>
                                                 <constraint firstItem="QJV-K6-n0M" firstAttribute="leading" secondItem="6NS-sj-j9c" secondAttribute="leading" id="lY3-O1-w09"/>
-                                                <constraint firstItem="Bmo-8a-lVA" firstAttribute="top" secondItem="1uI-2C-Tql" secondAttribute="bottom" constant="17" id="np8-yM-gfz"/>
+                                                <constraint firstItem="Bmo-8a-lVA" firstAttribute="top" secondItem="1uI-2C-Tql" secondAttribute="bottom" constant="26" id="np8-yM-gfz"/>
+                                                <constraint firstItem="1uI-2C-Tql" firstAttribute="top" secondItem="xau-IM-0vE" secondAttribute="bottom" constant="9" id="qFr-rO-tSY"/>
                                                 <constraint firstAttribute="trailing" secondItem="QJV-K6-n0M" secondAttribute="trailing" id="r0M-fx-PdE"/>
-                                                <constraint firstItem="IPT-rI-hgg" firstAttribute="top" secondItem="xau-IM-0vE" secondAttribute="bottom" id="rZg-66-bge"/>
                                                 <constraint firstAttribute="trailing" secondItem="Dbj-3T-TOf" secondAttribute="trailing" constant="13" id="tlj-pY-rW0"/>
                                                 <constraint firstAttribute="bottom" secondItem="QJV-K6-n0M" secondAttribute="bottom" id="vGH-Xy-ep1"/>
                                                 <constraint firstAttribute="trailing" secondItem="CwQ-HQ-uRX" secondAttribute="trailing" constant="8" id="wTv-3x-E9y"/>
@@ -2065,14 +2026,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="authorLabel" destination="IPT-rI-hgg" id="6pc-vz-YgZ"/>
+                                            <outlet property="authorLabel" destination="xau-IM-0vE" id="7bR-aY-ipz"/>
                                             <outlet property="commentsCountLabel" destination="7fb-3w-AmR" id="hH5-gF-K8f"/>
                                             <outlet property="deletePostButton" destination="CwQ-HQ-uRX" id="Cyc-dU-vR5"/>
                                             <outlet property="heightBodyView" destination="Xb5-VF-hBw" id="HjL-4S-zgw"/>
                                             <outlet property="postBodyLabel" destination="1uI-2C-Tql" id="6d8-lS-uDU"/>
                                             <outlet property="postDateLabel" destination="Dbj-3T-TOf" id="7A6-uH-Mo9"/>
                                             <outlet property="postTimeLabel" destination="W9p-k8-pdm" id="EjI-vh-aY8"/>
-                                            <outlet property="postTitleLabel" destination="xau-IM-0vE" id="9jm-pi-tvR"/>
                                             <outlet property="userAvatar" destination="Z5V-1T-Pid" id="Uui-dd-YwW"/>
                                         </connections>
                                     </tableViewCell>

@@ -80,10 +80,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             
             let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCellDetail", for: indexPath) as! WallPostCell
             
-            if currentPost.postTitle.characters.count > 0 {
-                wallPostCell.postTitleLabel.text = currentPost.postTitle
-            }
-            
             if currentPost.authorUsername.characters.count > 0 {
                 wallPostCell.authorLabel.text = currentPost.authorUsername
             }
