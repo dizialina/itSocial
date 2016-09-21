@@ -154,7 +154,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             if event.locations != nil {
                 let locationDictionary = NSKeyedUnarchiver.unarchiveObject(with: event.locations!) as! [String:AnyObject]
-                eventCell.adressLabel.text = ReusableMethods().convertLocationDictionaryToAdressString(locationDictionary)
+                let adress = ReusableMethods().convertLocationDictionaryToAdressString(locationDictionary)
+                if adress.characters.count > 0 {
+                    eventCell.adressLabel.text = adress
+                }
             }
             
             if event.eventDate != nil {

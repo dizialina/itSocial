@@ -25,22 +25,34 @@ class ReusableMethods: NSObject {
         var fullAdress = [String]()
         
         if let country = locationDictionary["country"] as? String {
-            fullAdress.append(country)
+            if country.characters.count > 0 {
+                fullAdress.append(country)
+            }
         }
         if let city = locationDictionary["city"] as? String {
-            fullAdress.append(city)
+            if city.characters.count > 0 {
+                fullAdress.append(city)
+            }
         }
         if let state = locationDictionary["state"] as? String {
-            fullAdress.append(state)
+            if state.characters.count > 0 {
+                fullAdress.append(state)
+            }
         }
         if let region = locationDictionary["region"] as? String {
-            fullAdress.append(region)
+            if region.characters.count > 0 {
+                fullAdress.append(region)
+            }
         }
         if let street = locationDictionary["street"] as? String {
-            fullAdress.append(street)
+            if street.characters.count > 0 {
+                fullAdress.append(street)
+            }
         }
         if let place = locationDictionary["place"] as? String {
-            fullAdress.append(place)
+            if place.characters.count > 0 {
+                fullAdress.append(place)
+            }
         }
         
         return fullAdress.joined(separator: ", ")
