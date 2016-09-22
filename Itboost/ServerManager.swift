@@ -423,28 +423,6 @@ class ServerManager: NSObject {
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     success(results as AnyObject?)
-                    
-//                    response =     {
-//                        about = "<null>";
-//                        "avatar_album_id" = 5;
-//                        birthday = "<null>";
-//                        certificates =         (
-//                        );
-//                        city = "<null>";
-//                        country = "<null>";
-//                        "default_album_id" = 6;
-//                        description = "<null>";
-//                        email = "qwerty@mail.ru";
-//                        firstname = "<null>";
-//                        id = 3;
-//                        lastname = "<null>";
-//                        skills =         (
-//                        );
-//                        "speaker_id" = "<null>";
-//                        "thread_id" = 5;
-//                        username = qwerty;
-//                    };
-                    
                 }
             } else {
                 print("Response profile info is empty")

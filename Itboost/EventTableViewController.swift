@@ -16,6 +16,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var timeSegmantedControl: UISegmentedControl!
     @IBOutlet weak var viewMore: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var mainActivityIndicator: UIActivityIndicatorView!
     
     var refreshControl:UIRefreshControl!
     var searchBar = UISearchBar()
@@ -72,6 +73,10 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         navigationController?.navigationBar.barTintColor = Constants.darkMintBlue
         
+        if eventList.count == 0 {
+            mainActivityIndicator.startAnimating()
+        }
+        
         loadEventsFromServer()
     }
     
@@ -119,6 +124,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             self.loadMoreStatus = false
             self.activityIndicator.stopAnimating()
             self.tableView.tableFooterView!.isHidden = true
+            self.mainActivityIndicator.stopAnimating()
             
         } catch {
             print("Collection can't get all communities from database")

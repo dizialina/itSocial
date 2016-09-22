@@ -8,27 +8,7 @@
 
 import Foundation
 import CoreData
-/*
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-*/
+import UIKit
 
 class DataBaseManager: NSObject {
     
@@ -47,8 +27,17 @@ class DataBaseManager: NSObject {
                 let currentCommunity = NSEntityDescription.insertNewObject(forEntityName: "Community", into: self.managedObjectContext) as! Community
                 
                 currentCommunity.name = (communityDictionary["name"] as? String)!
-                currentCommunity.detailDescription = communityDictionary["description"] as? String
                 currentCommunity.eventSite = communityDictionary["event_site"] as? String
+                
+                if let detailDescription = communityDictionary["description"] as? String {
+                    // Remove HTML tags
+                    
+                    let attributedString = try! NSAttributedString(
+                        data: detailDescription.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
+                        options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                        documentAttributes: nil)
+                    currentCommunity.detailDescription = attributedString.string
+                }
                 
                 if let eventAvatar = communityDictionary["avatar"] as? [String:AnyObject] {
                     if let eventAvatar = eventAvatar["path"] as? String {
