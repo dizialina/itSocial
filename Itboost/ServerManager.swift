@@ -81,6 +81,27 @@ class ServerManager: NSObject {
         }
     }
     
+    func getOnePageEventsWithPagination(currentPage:Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
+        
+        let params:NSDictionary = ["page": currentPage]
+        
+        sessionManager.get("event.getAll", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
+            if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
+                //print(response)
+                if let results = response["response"] {
+                    if let communitiesArray = results["items"] as? [AnyObject] {
+                        success(communitiesArray as AnyObject?)
+                    } else {
+                        print("Response of events page has 0 items")
+                    }
+                }
+            }
+        }) { (operation, error) in
+            print("Error loading one page events with pagination: " + error.localizedDescription)
+            failure(error)
+        }
+    }
+    
     func getEvent(_ eventID: Int, success: @escaping (_ response: [String:AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         let params:NSDictionary = ["id": eventID]

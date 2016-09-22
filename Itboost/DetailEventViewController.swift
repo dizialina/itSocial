@@ -146,6 +146,20 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             eventCell.titleLabel.text = event.name
             
+            eventCell.logoImage.isHidden = false
+            if event.avatarImage != nil {
+                eventCell.logoImage.image = UIImage(data: event.avatarImage!)
+            } else if event.eventAvatar != nil {
+                if let url = URL(string: event.eventAvatar!) {
+                    if let data = try? Data(contentsOf: url) {
+                        eventCell.logoImage.image = UIImage(data: data)
+                    }
+                }
+            } else {
+                eventCell.logoImage.isHidden = true
+                eventCell.authorLabel.text = event.createdBy.userName
+            }
+            
             if let price = event.eventPrice {
                 if price != 0 {
                     eventCell.priceLabel.text = "\(event.eventPrice!) грн."

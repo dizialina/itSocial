@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Load all events for initial event screen
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
-           LoadPaginaionManager().loadAllEventsFromServer()
+           //LoadPaginaionManager().loadAllEventsFromServer()
         })
         
         // Fabric + Chrashlytics

@@ -12,7 +12,7 @@
             <objects>
                 <navigationController id="Wc9-hl-f9t" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="События" image="Calendar" id="YU6-Tk-qOO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KUL-N4-qz0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="KUL-N4-qz0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,7 +34,7 @@
             <objects>
                 <navigationController id="iCd-2n-KOa" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Организации" image="Comments" id="MUO-D1-Ezu"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vwk-Wy-5KJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vwk-Wy-5KJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,7 +57,7 @@
                     <tabBarItem key="tabBarItem" title="Профиль" image="CreatorProfile" id="qPO-9W-4D3"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="obe-F2-Rdj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="obe-F2-Rdj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -667,10 +667,10 @@
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CiclumLogo" translatesAutoresizingMaskIntoConstraints="NO" id="gpU-j8-gUd">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CiclumLogo" translatesAutoresizingMaskIntoConstraints="NO" id="gpU-j8-gUd">
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="107" id="FZB-ZO-1l5"/>
-                                                                <constraint firstAttribute="height" constant="28" id="la2-xp-DXP"/>
+                                                                <constraint firstAttribute="height" constant="40" id="la2-xp-DXP"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название события не указано" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CrD-Hg-JZq">
@@ -708,7 +708,6 @@
                                                         <constraint firstItem="Tiv-SI-CLN" firstAttribute="width" secondItem="2Ay-kd-N8e" secondAttribute="width" id="Xbn-TB-CyD"/>
                                                         <constraint firstAttribute="trailing" secondItem="ZVu-Xy-FkD" secondAttribute="trailing" constant="12" id="XhA-6S-2Dg"/>
                                                         <constraint firstAttribute="trailing" secondItem="HXn-XM-HXa" secondAttribute="trailing" id="XhW-da-teA"/>
-                                                        <constraint firstItem="B9u-mz-meB" firstAttribute="leading" secondItem="geR-fz-vZv" secondAttribute="trailing" constant="8" id="Y5h-MU-cZS"/>
                                                         <constraint firstItem="ZVu-Xy-FkD" firstAttribute="top" secondItem="2Ay-kd-N8e" secondAttribute="bottom" constant="-12" id="Yrh-iH-ycn"/>
                                                         <constraint firstItem="B9u-mz-meB" firstAttribute="leading" secondItem="CrD-Hg-JZq" secondAttribute="trailing" constant="8" id="Z4b-iD-jBi"/>
                                                         <constraint firstItem="HXn-XM-HXa" firstAttribute="leading" secondItem="KmG-o1-jL9" secondAttribute="leading" id="eOy-nc-nkG"/>
@@ -1268,6 +1267,31 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="146" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jey-Ik-boe">
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="CLl-LT-d1d">
+                                    <rect key="frame" x="0.0" y="179" width="375" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ysn-Sp-FOW">
+                                            <color key="color" red="0.56862745100000001" green="0.77647058820000003" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLE-s1-3fY">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="86F-S6-ahl"/>
+                                                <constraint firstAttribute="height" constant="21" id="NlZ-zy-QW2"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                            <color key="textColor" red="0.56862745100000001" green="0.77647058820000003" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.94901960780000005" green="0.98431372549999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="SLE-s1-3fY" firstAttribute="leading" secondItem="ysn-Sp-FOW" secondAttribute="trailing" constant="8" id="LyA-Ke-SQ6"/>
+                                        <constraint firstItem="ysn-Sp-FOW" firstAttribute="centerX" secondItem="CLl-LT-d1d" secondAttribute="centerX" constant="-44" id="QLR-sT-5Ph"/>
+                                        <constraint firstItem="ysn-Sp-FOW" firstAttribute="centerY" secondItem="CLl-LT-d1d" secondAttribute="centerY" constant="-2" id="jKB-Y8-tlF"/>
+                                        <constraint firstItem="SLE-s1-3fY" firstAttribute="centerY" secondItem="ysn-Sp-FOW" secondAttribute="centerY" id="kSF-3G-2L5"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventsTableCell" rowHeight="151" id="g6W-Ca-c6N" customClass="EventsTableCell" customModule="Itboost" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="151"/>
@@ -1468,8 +1492,10 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="IWA-Cc-GP0"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="ysn-Sp-FOW" id="jhK-aj-8ET"/>
                         <outlet property="tableView" destination="jey-Ik-boe" id="ssZ-xf-3kj"/>
                         <outlet property="timeSegmantedControl" destination="Ejr-vv-UBo" id="Q1a-Jh-qmY"/>
+                        <outlet property="viewMore" destination="CLl-LT-d1d" id="nxv-q4-itE"/>
                         <segue destination="SZv-6U-qod" kind="show" identifier="openEvent" id="Hae-NZ-j6s"/>
                     </connections>
                 </viewController>
@@ -2446,7 +2472,7 @@
             <objects>
                 <navigationController id="xl7-Ye-6Lm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Моя лента" image="World" id="7mM-sA-4Uy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GIT-5o-iRT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GIT-5o-iRT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2893,7 +2919,7 @@
         <scene sceneID="Lce-8H-CcX">
             <objects>
                 <navigationController storyboardIdentifier="NavigationEnterScreen" id="WTc-RK-JWm" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tbe-qQ-R95">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tbe-qQ-R95">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

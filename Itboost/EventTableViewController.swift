@@ -14,13 +14,18 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var timeSegmantedControl: UISegmentedControl!
+    @IBOutlet weak var viewMore: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var refreshControl:UIRefreshControl!
     var searchBar = UISearchBar()
     
     var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
     
     var eventList = [Community]()
     var pictureList = [UIImage]()
+    var loadMoreStatus = false
+    var currentPostsPage = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +48,14 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             UserDefaults.standard.set(false,forKey:Constants.kAlreadyRun)
         }
         
+        // Set footer for pull to refresh
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.clear
+        tableView.addSubview(refreshControl)
+        self.tableView.tableFooterView = viewMore
+        self.tableView.tableFooterView!.isHidden = true
+        
         NotificationCenter.default.addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.LoadCommunitiesNotification, object: nil)
         
         // Make navigation bar translucent
@@ -59,7 +72,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         navigationController?.navigationBar.barTintColor = Constants.darkMintBlue
         
-        getCommunitiesFromDatabase()
+        loadEventsFromServer()
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,6 +85,20 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // MARK: Loading data for table view
+    
+    func loadEventsFromServer() {
+        
+        ServerManager().getOnePageEventsWithPagination(currentPage: self.currentPostsPage, success: { (response) in
+            
+            let communitiesArray = response as! [AnyObject]
+            DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:false)
+            self.currentPostsPage += 1
+            
+            }) { (error) in
+                print("Error loading one page events with pagination: " + error!.localizedDescription)
+        }
+        
+    }
     
     func getCommunitiesFromDatabase() {
         
@@ -87,7 +114,11 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         do {
             let allCommunities = try managedObjectContext.fetch(fetchRequest) as! [Community]
             eventList = allCommunities
-            tableView.reloadData()
+            
+            self.tableView.reloadData()
+            self.loadMoreStatus = false
+            self.activityIndicator.stopAnimating()
+            self.tableView.tableFooterView!.isHidden = true
             
         } catch {
             print("Collection can't get all communities from database")
@@ -217,5 +248,49 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         dateFormatter.dateFormat = "HH:mm  dd/MM/yyyy"
         return dateFormatter.string(from: date)
     }
+    
+    // MARK: Refreshing Table
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        
+        if deltaOffset <= 0 {
+            loadMore()
+        }
+    }
+    
+    func loadMore() {
+        if !loadMoreStatus {
+            self.loadMoreStatus = true
+            self.activityIndicator.startAnimating()
+            self.tableView.tableFooterView!.isHidden = false
+            loadMoreBegin("Load more",
+                          loadMoreEnd: {(x:Int) -> () in
+                            //self.tableView.reloadData()
+                            //self.loadMoreStatus = false
+                            //self.activityIndicator.stopAnimating()
+                            //self.tableView.tableFooterView!.isHidden = true
+            })
+        }
+    }
+    
+    func loadMoreBegin(_ newtext:String, loadMoreEnd:@escaping (Int) -> ()) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            print("loadmore")
+            
+            if self.currentPostsPage != 1 {
+                self.loadEventsFromServer()
+            }
+            
+            sleep(2)
+            
+            DispatchQueue.main.async {
+                loadMoreEnd(0)
+            }
+        }
+    }
+
     
 }
