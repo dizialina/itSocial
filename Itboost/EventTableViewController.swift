@@ -152,7 +152,11 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let event = eventList[indexPath.item]
         
-        eventCell.logoImage.image = pictureList[0]
+        eventCell.logoImage.image = nil
+        if event.avatarImage != nil {
+            //eventCell.logoImage.image = pictureList[0]
+            eventCell.logoImage.image = UIImage(data: event.avatarImage!)
+        }
         
         eventCell.titleLabel.text = event.name
         

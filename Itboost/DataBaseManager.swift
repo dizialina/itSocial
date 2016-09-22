@@ -49,7 +49,18 @@ class DataBaseManager: NSObject {
                 currentCommunity.name = (communityDictionary["name"] as? String)!
                 currentCommunity.detailDescription = communityDictionary["description"] as? String
                 currentCommunity.eventSite = communityDictionary["event_site"] as? String
-                currentCommunity.eventAvatar = communityDictionary["avatar"] as? String
+                
+                if let eventAvatar = communityDictionary["avatar"] as? [String:AnyObject] {
+                    if let eventAvatar = eventAvatar["path"] as? String {
+                        let formattedPath = eventAvatar.replacingOccurrences(of: "\\/", with: "\\")
+                        currentCommunity.eventAvatar = "http://api.itboost.org:88\(formattedPath)"
+                        if let url = URL(string: currentCommunity.eventAvatar!) {
+                            if let data = try? Data(contentsOf: url) {
+                                currentCommunity.avatarImage = data
+                            }
+                        }
+                    }
+                }
                 
                 if let eventPrice = communityDictionary["event_price"] as? Int {
                     currentCommunity.eventPrice = NSDecimalNumber(value: eventPrice)
@@ -220,9 +231,9 @@ class DataBaseManager: NSObject {
             
             do {
                 try managedObjectContext.save()
-                if isLastPage {
+                //if isLastPage {
                     NotificationCenter.default.post(name: Constants.LoadCommunitiesNotification, object: nil)
-                }
+                //}
             } catch let error as NSError {
                 print("Can't save to coredata new communities. Error: \(error.localizedDescription)")
             }

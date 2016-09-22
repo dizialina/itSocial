@@ -12,6 +12,8 @@
 		034430231D902BD1000723A1 /* NewsFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034430221D902BD1000723A1 /* NewsFooterCell.swift */; };
 		034430271D905403000723A1 /* DetailNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034430261D905403000723A1 /* DetailNewsCell.swift */; };
 		034430291D9055F0000723A1 /* DetailNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034430281D9055F0000723A1 /* DetailNewsViewController.swift */; };
+		0344302B1D92CB98000723A1 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0344302A1D92CB98000723A1 /* UserProfileViewController.swift */; };
+		034430601D943383000723A1 /* UIPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0344305F1D943383000723A1 /* UIPanGestureRecognizerExtension.swift */; };
 		038284971D8AC6A8000E3B82 /* Community+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */; };
 		038284981D8AC6A8000E3B82 /* Community+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */; };
 		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
@@ -69,6 +71,8 @@
 		034430221D902BD1000723A1 /* NewsFooterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFooterCell.swift; sourceTree = "<group>"; };
 		034430261D905403000723A1 /* DetailNewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailNewsCell.swift; sourceTree = "<group>"; };
 		034430281D9055F0000723A1 /* DetailNewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailNewsViewController.swift; sourceTree = "<group>"; };
+		0344302A1D92CB98000723A1 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		0344305F1D943383000723A1 /* UIPanGestureRecognizerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerExtension.swift; sourceTree = "<group>"; };
 		0382848E1D8AC565000E3B82 /* Itboost-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Itboost-Bridging-Header.h"; sourceTree = "<group>"; };
 		038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataClass.swift"; sourceTree = "<group>"; };
 		038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -327,6 +331,7 @@
 			children = (
 				03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */,
 				84A220061D5A3D3D0003E1BA /* ViewExtension.swift */,
+				0344305F1D943383000723A1 /* UIPanGestureRecognizerExtension.swift */,
 				84A43DF71D3E98A700F09B14 /* NSStringExtension.swift */,
 			);
 			name = Extensions;
@@ -341,6 +346,7 @@
 				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
 				03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */,
 				03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */,
+				0344302A1D92CB98000723A1 /* UserProfileViewController.swift */,
 				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
 			);
 			name = "View Controllers";
@@ -505,7 +511,9 @@
 				84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */,
 				03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
+				034430601D943383000723A1 /* UIPanGestureRecognizerExtension.swift in Sources */,
 				84A43DEC1D3E76AE00F09B14 /* TabBarViewController.swift in Sources */,
+				0344302B1D92CB98000723A1 /* UserProfileViewController.swift in Sources */,
 				84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */,
 				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
 				84023D051D5B2CA1005DD716 /* NewPostViewController.swift in Sources */,
