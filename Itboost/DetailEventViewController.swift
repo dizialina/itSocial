@@ -19,7 +19,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     var refreshControl:UIRefreshControl!
     
-    var communityObject: NSManagedObject!
+    //var communityObject: NSManagedObject!
+    var communityObject: Community!
     var eventLocation: CLLocationCoordinate2D?
     var wallPostsArray = [WallPost]()
     var loadMoreStatus = false
@@ -146,6 +147,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             eventCell.titleLabel.text = event.name
             
+            /*
             eventCell.logoImage.isHidden = false
             if event.avatarImage != nil {
                 eventCell.logoImage.image = UIImage(data: event.avatarImage!)
@@ -159,13 +161,16 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 eventCell.logoImage.isHidden = true
                 eventCell.authorLabel.text = event.createdBy.userName
             }
+            */
+            eventCell.logoImage.isHidden = true
+            eventCell.authorLabel.text = event.createdBy.userName
             
             if let price = event.eventPrice {
                 if price != 0 {
                     eventCell.priceLabel.text = "\(event.eventPrice!) грн."
                 }
             }
-            
+ 
             if event.locations != nil {
                 let locationDictionary = NSKeyedUnarchiver.unarchiveObject(with: event.locations!) as! [String:AnyObject]
                 let adress = ReusableMethods().convertLocationDictionaryToAdressString(locationDictionary)

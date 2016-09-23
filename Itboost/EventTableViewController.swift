@@ -27,6 +27,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var pictureList = [UIImage]()
     var loadMoreStatus = false
     var currentPostsPage = 1
+    var selectedEvent: Community?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -229,6 +230,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedEvent = eventList[indexPath.row]
         self.performSegue(withIdentifier: "openEvent", sender: nil)
     }
     
@@ -236,12 +238,15 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         return 151.0
     }
     
+    // MARK: Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "openEvent") {
             let viewController = segue.destination as! DetailEventViewController
-            let indexPath = tableView.indexPathForSelectedRow
-            viewController.communityObject = eventList[(indexPath?.row)!]
+            //let indexPath = tableView.indexPathForSelectedRow
+            //viewController.communityObject = eventList[(indexPath?.row)!]
+            viewController.communityObject = self.selectedEvent
         }
         
     }
