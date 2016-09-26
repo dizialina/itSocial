@@ -729,7 +729,7 @@
                         <viewControllerLayoutGuide type="top" id="xSC-o8-4Hb"/>
                         <viewControllerLayoutGuide type="bottom" id="d6K-ZP-l7n"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" id="aOt-q2-4ET">
+                    <view key="view" opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" id="aOt-q2-4ET">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -805,7 +805,7 @@
                         <viewControllerLayoutGuide type="top" id="gNe-pF-PsF"/>
                         <viewControllerLayoutGuide type="bottom" id="jH5-NO-qyT"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" id="xLl-BB-bX5">
+                    <view key="view" opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" id="xLl-BB-bX5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1558,9 +1558,8 @@
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ejr-vv-UBo">
                                         <segments>
-                                            <segment title="Прошедшие"/>
-                                            <segment title="Текущие"/>
                                             <segment title="Предстоящие"/>
+                                            <segment title="Прошедшие"/>
                                         </segments>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>

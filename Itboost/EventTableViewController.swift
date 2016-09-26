@@ -141,6 +141,18 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             predicatesArray.append(subPredicate)
         }
         
+        // Choose time
+        switch timeSegmantedControl.selectedSegmentIndex {
+        case 0:
+            let subPredicate = NSPredicate(format: "eventDate > %@", argumentArray:[Date.init()])
+            predicatesArray.append(subPredicate)
+        case 1:
+            let subPredicate = NSPredicate(format: "eventDate < %@", argumentArray:[Date.init()])
+            predicatesArray.append(subPredicate)
+        default:
+            break
+        }
+        
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicatesArray)
         
         do {
@@ -194,6 +206,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: Actions
     
     @IBAction func changeEventTimeControl(_ sender: AnyObject) {
+        getCommunitiesFromDatabase()
     }
     
     func filterButtonDidTouch(_ sender: AnyObject) {
