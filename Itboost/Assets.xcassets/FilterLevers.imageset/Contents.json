@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "three-equalizer-bars.png",
+      "filename" : "controls.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "three-equalizer-bars-2.png",
+      "filename" : "controls-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "three-equalizer-bars-1.png",
+      "filename" : "controls-2.png",
       "scale" : "3x"
     }
   ],

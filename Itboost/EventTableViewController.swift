@@ -28,7 +28,10 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var loadMoreStatus = false
     var currentPostsPage = 1
     var selectedEvent: Community?
+    
+    // Filters
     var searchFilter: String?
+    var selectedFilters = [String:FilterObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,22 +122,36 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         let sortDescriptor = NSSortDescriptor(key: "communityID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
+        // Append filters if exists
+        var predicatesArray = [NSPredicate]()
+        
+        // Append search filter
         if self.searchFilter != nil {
-            let filterPredicate = NSPredicate(format: "name CONTAINS[cd] %@", self.searchFilter!)
-            fetchRequest.predicate = filterPredicate
+            let subPredicate = NSPredicate(format: "name CONTAINS[cd] %@", self.searchFilter!)
+            predicatesArray.append(subPredicate)
         }
+        
+        // Append filters from menu Filters
+        if let filterCountry = selectedFilters["country"] {
+            let subPredicate = NSPredicate(format: "countryID = %ld", filterCountry.filterObjectID)
+            predicatesArray.append(subPredicate)
+        }
+        if let filterCity = selectedFilters["city"] {
+            let subPredicate = NSPredicate(format: "cityID = %ld", filterCity.filterObjectID)
+            predicatesArray.append(subPredicate)
+        }
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicatesArray)
         
         do {
             let allCommunities = try managedObjectContext.fetch(fetchRequest) as! [Community]
             eventList.removeAll()
             eventList = allCommunities
+            print("Results events count: \(eventList.count)")
             
             DispatchQueue.main.async {
+                self.mainActivityIndicator.stopAnimating()
                 self.tableView.reloadData()
-//                self.loadMoreStatus = false
-//                self.activityIndicator.stopAnimating()
-//                self.tableView.tableFooterView!.isHidden = true
-//                self.mainActivityIndicator.stopAnimating()
             }
             
         } catch {

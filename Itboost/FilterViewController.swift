@@ -39,6 +39,12 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: Actions
     
     @IBAction func acceptFilters(_ sender: AnyObject) {
+        
+        let eventViewController = (presentingViewController as! UINavigationController).viewControllers.first as! EventTableViewController
+        eventViewController.selectedFilters = selectedFilters
+        self.dismiss(animated: true, completion: nil)
+        eventViewController.getCommunitiesFromDatabase()
+        
     }
     
     @IBAction func closeFilters(_ sender: AnyObject) {
