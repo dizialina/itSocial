@@ -43,7 +43,7 @@ class ServerManager: NSObject {
             if let response:Dictionary<String, AnyObject> = responseObject as? Dictionary {
                 if let results = response["response"] {
                     print(results)
-                    DataBaseManager().writeAllCommunities(results as! [AnyObject], isLastPage:true)
+                    DataBaseManager().writeAllCommunities(results as! [AnyObject], isFirstPage: true,isLastPage:true)
                 } else {
                     print("Reques all events from server is nil")
                 }
@@ -104,13 +104,13 @@ class ServerManager: NSObject {
     
     func getEvent(_ eventID: Int, success: @escaping (_ response: [String:AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
-        let params:NSDictionary = ["id": eventID]
+        //let params:NSDictionary = ["id": eventID]
         
         if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.get("event.get", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
+        sessionManager.get("event/\(eventID)", parameters:nil, success: { (task: URLSessionDataTask, responseObject: Any?) in
             //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {

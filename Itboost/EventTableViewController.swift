@@ -28,6 +28,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var loadMoreStatus = false
     var currentPostsPage = 1
     var selectedEvent: Community?
+    var searchFilter: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +79,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             mainActivityIndicator.startAnimating()
         }
         
-        loadEventsFromServer()
+        //getCommunitiesFromDatabase()
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,6 +93,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: Loading data for table view
     
+    /*
     func loadEventsFromServer() {
         
         ServerManager().getOnePageEventsWithPagination(currentPage: self.currentPostsPage, success: { (response) in
@@ -105,27 +107,35 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
     }
+    */
     
     func getCommunitiesFromDatabase() {
         
         let dataBaseManager = DataBaseManager()
         managedObjectContext = dataBaseManager.managedObjectContext
-        eventList.removeAll()
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Community")
-        fetchRequest.fetchBatchSize = 15
-        let sortDescriptor = NSSortDescriptor(key: "eventDate", ascending: true)
+        fetchRequest.fetchBatchSize = 10
+        let sortDescriptor = NSSortDescriptor(key: "communityID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if self.searchFilter != nil {
+            let filterPredicate = NSPredicate(format: "name CONTAINS[cd] %@", self.searchFilter!)
+            fetchRequest.predicate = filterPredicate
+        }
         
         do {
             let allCommunities = try managedObjectContext.fetch(fetchRequest) as! [Community]
+            eventList.removeAll()
             eventList = allCommunities
             
-            self.tableView.reloadData()
-            self.loadMoreStatus = false
-            self.activityIndicator.stopAnimating()
-            self.tableView.tableFooterView!.isHidden = true
-            self.mainActivityIndicator.stopAnimating()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+//                self.loadMoreStatus = false
+//                self.activityIndicator.stopAnimating()
+//                self.tableView.tableFooterView!.isHidden = true
+//                self.mainActivityIndicator.stopAnimating()
+            }
             
         } catch {
             print("Collection can't get all communities from database")
@@ -155,6 +165,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
                     searchBarTextField.backgroundColor = Constants.backgroundBlue
                     searchBarTextField.textColor = UIColor.white
                     searchBarTextField.attributedPlaceholder = NSAttributedString(string: "Введите ключ поиска...", attributes: [NSForegroundColorAttributeName:UIColor.white])
+                    searchBarTextField.autocapitalizationType = UITextAutocapitalizationType.none
                     //searchBarTextField.layer.cornerRadius = 15
                 }
             }
@@ -176,6 +187,13 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(false)
+        
+        if (searchBar.text?.characters.count)! > 0 {
+            self.searchFilter = searchBar.text
+        } else {
+            self.searchFilter = nil
+        }
+        getCommunitiesFromDatabase()
     }
     
     // MARK: TableView DataSource and Delegate
@@ -244,9 +262,9 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if (segue.identifier == "openEvent") {
             let viewController = segue.destination as! DetailEventViewController
-            //let indexPath = tableView.indexPathForSelectedRow
-            //viewController.communityObject = eventList[(indexPath?.row)!]
-            viewController.communityObject = self.selectedEvent
+            let indexPath = tableView.indexPathForSelectedRow
+            viewController.communityObject = eventList[(indexPath?.row)!]
+            //viewController.communityObject = self.selectedEvent
         }
         
     }
@@ -279,10 +297,10 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             self.tableView.tableFooterView!.isHidden = false
             loadMoreBegin("Load more",
                           loadMoreEnd: {(x:Int) -> () in
-                            //self.tableView.reloadData()
-                            //self.loadMoreStatus = false
-                            //self.activityIndicator.stopAnimating()
-                            //self.tableView.tableFooterView!.isHidden = true
+                            self.tableView.reloadData()
+                            self.loadMoreStatus = false
+                            self.activityIndicator.stopAnimating()
+                            self.tableView.tableFooterView!.isHidden = true
             })
         }
     }
@@ -291,9 +309,9 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             print("loadmore")
             
-            if self.currentPostsPage != 1 {
-                self.loadEventsFromServer()
-            }
+            //if self.currentPostsPage != 1 {
+            self.getCommunitiesFromDatabase()
+            //}
             
             sleep(2)
             

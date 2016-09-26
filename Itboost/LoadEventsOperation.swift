@@ -19,6 +19,7 @@ class LoadEventsOperation: Operation {
     let dispatchQueue:OperationQueue
     let dataType:LoadingDataType
     let currentPage:Int
+    var isFirstPage = true
     
     // Designed initializer
     init(linkToData:String, currentPage:Int, queue:OperationQueue, dataType:LoadingDataType) {
@@ -54,14 +55,15 @@ class LoadEventsOperation: Operation {
                 let countOfCommunitiesPerOnePage = communitiesArray.count
                 if countOfCommunitiesPerOnePage == 10 {
                     
-                    DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:false)
+                    DataBaseManager().writeAllCommunities(communitiesArray, isFirstPage: self.isFirstPage, isLastPage: false)
                     let nextPage = currentPage + 1
                     let newLoadEventsOperataion = LoadEventsOperation(linkToData: self.linkToRequestData, currentPage: nextPage, queue: self.dispatchQueue, dataType: self.dataType)
+                    newLoadEventsOperataion.isFirstPage = false
                     self.dispatchQueue.addOperation(newLoadEventsOperataion)
                     
                 } else {
                     print("Load done for all events pages")
-                    DataBaseManager().writeAllCommunities(communitiesArray, isLastPage:true)
+                    DataBaseManager().writeAllCommunities(communitiesArray, isFirstPage: self.isFirstPage, isLastPage:true)
                 }
                 
             }) { (error) in

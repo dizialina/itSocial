@@ -30,6 +30,8 @@ extension Community {
     @NSManaged public var subscribersCount: NSDecimalNumber?
     @NSManaged public var eventAvatar: String?
     @NSManaged public var avatarImage: Data?
+    @NSManaged public var countryID: NSDecimalNumber?
+    @NSManaged public var cityID: NSDecimalNumber?
     @NSManaged var createdBy: User
 
 }

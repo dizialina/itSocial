@@ -34,8 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().enable = true
         
         // Load all events for initial event screen
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
-           //LoadPaginaionManager().loadAllEventsFromServer()
+           LoadPaginaionManager().loadAllEventsFromServer()
         })
         
         // Fabric + Chrashlytics

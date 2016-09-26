@@ -19,8 +19,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     var refreshControl:UIRefreshControl!
     
-    //var communityObject: NSManagedObject!
-    var communityObject: Community!
+    var communityObject: NSManagedObject!
+    //var communityObject: Community!
     var eventLocation: CLLocationCoordinate2D?
     var wallPostsArray = [WallPost]()
     var loadMoreStatus = false

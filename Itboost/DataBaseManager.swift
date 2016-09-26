@@ -14,7 +14,7 @@ class DataBaseManager: NSObject {
     
     // MARK: Custom methods
     
-    func writeAllCommunities(_ communitiesArray:[AnyObject], isLastPage:Bool) {
+    func writeAllCommunities(_ communitiesArray:[AnyObject], isFirstPage:Bool, isLastPage:Bool) {
         
         if communitiesArray.count > 0 {
             
@@ -113,11 +113,17 @@ class DataBaseManager: NSObject {
                         for location in locations {
                             if location is [String:AnyObject] {
                                 if let country = location["country"] as? [String:AnyObject] {
+                                    if let countryID = country["id"] as? Int {
+                                        currentCommunity.countryID = NSDecimalNumber(value: countryID)
+                                    }
                                     if let countryName = country["country_name"] {
                                         locationsDictionary["country"] = countryName
                                     }
                                 }
                                 if let city = location["city"] as? [String:AnyObject] {
+                                    if let cityID = city["id"] as? Int {
+                                        currentCommunity.cityID = NSDecimalNumber(value: cityID)
+                                    }
                                     if let cityName = city["city_name"] as? String {
                                         locationsDictionary["city"] = cityName as AnyObject?
                                     }
@@ -210,6 +216,7 @@ class DataBaseManager: NSObject {
                     requestCommunity.subscribersCount = newCommunity?.subscribersCount
                     requestCommunity.eventAvatar = newCommunity?.eventAvatar
                     requestCommunity.createdBy = (newCommunity?.createdBy)!
+                    requestCommunity.avatarImage = newCommunity?.avatarImage
                     
                     managedObjectContext.delete(newCommunity!)
                 }
@@ -220,9 +227,12 @@ class DataBaseManager: NSObject {
             
             do {
                 try managedObjectContext.save()
-                //if isLastPage {
+                if isFirstPage {
                     NotificationCenter.default.post(name: Constants.LoadCommunitiesNotification, object: nil)
-                //}
+                }
+                if isLastPage {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
             } catch let error as NSError {
                 print("Can't save to coredata new communities. Error: \(error.localizedDescription)")
             }
