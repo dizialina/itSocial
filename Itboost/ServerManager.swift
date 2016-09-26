@@ -35,6 +35,51 @@ class ServerManager: NSObject {
         
     }
     
+    // MARK: Server database methods
+    
+    func getCountries(success: @escaping (_ response: [AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
+        
+        sessionManager.get("database.getCountries", parameters:nil, success: { (task: URLSessionDataTask, responseObject: Any?) in
+            //print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [AnyObject] {
+                    success(results)
+                }
+            } else {
+                print("Response with countries is empty")
+            }
+            })
+        { (task:URLSessionDataTask?, error:Error) in
+            print("Error receiving countries list: " + error.localizedDescription)
+            failure(error)
+        }
+    }
+    
+    func getCities(_ countryID: Int?, success: @escaping (_ response: [AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
+        
+        let params:NSDictionary
+        if countryID == nil {
+            params = ["country_id": 2]
+        } else {
+            params = ["country_id": countryID!]
+        }
+        
+        sessionManager.get("database.getCities", parameters: params, success: { (task: URLSessionDataTask, responseObject: Any?) in
+            //print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [AnyObject] {
+                    success(results)
+                }
+            } else {
+                print("Response with cities is empty")
+            }
+            })
+        { (task:URLSessionDataTask?, error:Error) in
+            print("Error receiving cities list: " + error.localizedDescription)
+            failure(error)
+        }
+    }
+    
     // MARK: Events methods
     
     func getAllEventsFromServer() {

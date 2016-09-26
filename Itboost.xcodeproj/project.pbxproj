@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0300409F1D90128E00E5768A /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0300409E1D90128E00E5768A /* NewsViewController.swift */; };
 		030040A11D901E1400E5768A /* NewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030040A01D901E1400E5768A /* NewsCollectionCell.swift */; };
+		0333E14B1D9918E900A5D56A /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333E14A1D9918E900A5D56A /* FilterViewController.swift */; };
+		0333E14D1D9926D300A5D56A /* SelectFilterTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333E14C1D9926D300A5D56A /* SelectFilterTypeViewController.swift */; };
 		034430231D902BD1000723A1 /* NewsFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034430221D902BD1000723A1 /* NewsFooterCell.swift */; };
 		034430271D905403000723A1 /* DetailNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034430261D905403000723A1 /* DetailNewsCell.swift */; };
 		034430291D9055F0000723A1 /* DetailNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034430281D9055F0000723A1 /* DetailNewsViewController.swift */; };
@@ -68,6 +70,8 @@
 /* Begin PBXFileReference section */
 		0300409E1D90128E00E5768A /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		030040A01D901E1400E5768A /* NewsCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCollectionCell.swift; sourceTree = "<group>"; };
+		0333E14A1D9918E900A5D56A /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		0333E14C1D9926D300A5D56A /* SelectFilterTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFilterTypeViewController.swift; sourceTree = "<group>"; };
 		034430221D902BD1000723A1 /* NewsFooterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFooterCell.swift; sourceTree = "<group>"; };
 		034430261D905403000723A1 /* DetailNewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailNewsCell.swift; sourceTree = "<group>"; };
 		034430281D9055F0000723A1 /* DetailNewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailNewsViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +145,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0333E14E1D9926DA00A5D56A /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				0333E14A1D9918E900A5D56A /* FilterViewController.swift */,
+				0333E14C1D9926D300A5D56A /* SelectFilterTypeViewController.swift */,
+			);
+			name = Filters;
+			sourceTree = "<group>";
+		};
 		034430241D902F96000723A1 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +192,7 @@
 				03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */,
 				84023D041D5B2CA1005DD716 /* NewPostViewController.swift */,
 				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
+				0333E14E1D9926DA00A5D56A /* Filters */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -298,11 +312,11 @@
 			isa = PBXGroup;
 			children = (
 				84A43DD01D3E735B00F09B14 /* AppDelegate.swift */,
+				84A43DD41D3E735B00F09B14 /* Main.storyboard */,
 				842A12E51D4F46B500AD2673 /* Managers */,
 				84A43DF91D3EBCE800F09B14 /* View Controllers */,
 				84A43DEF1D3E82BC00F09B14 /* Cells */,
 				84A43DF21D3E835B00F09B14 /* Extensions */,
-				84A43DD41D3E735B00F09B14 /* Main.storyboard */,
 				03ABF5681D60DF090053FAD9 /* Archive Classes */,
 				84A220051D57BE700003E1BA /* Hepler Classes */,
 				84A43DDA1D3E735B00F09B14 /* Assets.xcassets */,
@@ -508,6 +522,7 @@
 				842A12E71D4F47DA00AD2673 /* DataBaseManager.swift in Sources */,
 				84A43DE81D3E768900F09B14 /* ProfileViewController.swift in Sources */,
 				84A2200B1D5A577F0003E1BA /* DetailEventViewController.swift in Sources */,
+				0333E14B1D9918E900A5D56A /* FilterViewController.swift in Sources */,
 				84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */,
 				03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
@@ -541,6 +556,7 @@
 				84A43DF41D3E897600F09B14 /* Constants.swift in Sources */,
 				034430271D905403000723A1 /* DetailNewsCell.swift in Sources */,
 				03ABF57D1D6619D80053FAD9 /* SkillsCell.swift in Sources */,
+				0333E14D1D9926D300A5D56A /* SelectFilterTypeViewController.swift in Sources */,
 				84A220041D57BE6B0003E1BA /* ReusableMethods.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

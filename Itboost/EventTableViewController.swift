@@ -181,6 +181,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func filterButtonDidTouch(_ sender: AnyObject) {
         // Call profile view controller
+        self.performSegue(withIdentifier: "openFilters", sender: nil)
     }
     
     // MARK: SearchBarDelegate
@@ -265,7 +266,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             let indexPath = tableView.indexPathForSelectedRow
             viewController.communityObject = eventList[(indexPath?.row)!]
             //viewController.communityObject = self.selectedEvent
-        }
+        } 
         
     }
 
