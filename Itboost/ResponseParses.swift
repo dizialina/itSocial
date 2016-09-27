@@ -136,12 +136,13 @@ class ResponseParser {
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                 newNews.createdAt = dateFormatter.date(from: createdAtString)!
                 
-                let author = currentNews["owner"] as! [String:AnyObject]
-                if let authorUsername = author["username"] as? String {
-                    newNews.authorUsername = authorUsername
-                }
-                if let authorID = author["id"] as? Int {
-                    newNews.authorID = authorID
+                if let author = currentNews["owner"] as? [String:AnyObject] {
+                    if let authorUsername = author["username"] as? String {
+                        newNews.authorUsername = authorUsername
+                    }
+                    if let authorID = author["id"] as? Int {
+                        newNews.authorID = authorID
+                    }
                 }
                 
                 newsArray.append(newNews)

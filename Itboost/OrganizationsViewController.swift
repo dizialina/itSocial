@@ -89,7 +89,14 @@ class OrganizationsViewController: UIViewController, UITableViewDelegate, UITabl
         
         let organization = organizationList[(indexPath as NSIndexPath).item]
         
-        let textToShow = "\(organization.name) \n\nОрганизатор: \(organization.createdBy!.userName)"
+        var userName = String()
+        if let createdBy = organization.createdBy {
+            userName = createdBy.userName
+        } else {
+            userName = "Не указано"
+        }
+        
+        let textToShow = "\(organization.name) \n\nОрганизатор: \(userName)"
         
         // Make event title bold
         

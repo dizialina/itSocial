@@ -96,6 +96,8 @@ class NewsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if currentNews.authorUsername.characters.count > 0 {
             newsCell.authorLabel.text = currentNews.authorUsername
+        } else {
+            newsCell.authorLabel.text = "Аноним"
         }
         
         if currentNews.content.characters.count > 0 {

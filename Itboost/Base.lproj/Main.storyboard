@@ -12,7 +12,7 @@
             <objects>
                 <navigationController id="Wc9-hl-f9t" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="События" image="Calendar" id="YU6-Tk-qOO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="KUL-N4-qz0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KUL-N4-qz0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,7 +34,7 @@
             <objects>
                 <navigationController id="iCd-2n-KOa" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Организации" image="Comments" id="MUO-D1-Ezu"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vwk-Wy-5KJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vwk-Wy-5KJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.1647058824" green="0.33725490200000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,7 +57,7 @@
                     <tabBarItem key="tabBarItem" title="Профиль" image="CreatorProfile" id="qPO-9W-4D3"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="obe-F2-Rdj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="obe-F2-Rdj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -865,7 +865,7 @@
         <scene sceneID="J41-Nm-HSb">
             <objects>
                 <navigationController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="overCurrentContext" id="PUs-EW-TMn" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uxN-oD-o5b">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uxN-oD-o5b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2787,7 +2787,7 @@
             <objects>
                 <navigationController id="xl7-Ye-6Lm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Моя лента" image="World" id="7mM-sA-4Uy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GIT-5o-iRT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GIT-5o-iRT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3234,7 +3234,7 @@
         <scene sceneID="Lce-8H-CcX">
             <objects>
                 <navigationController storyboardIdentifier="NavigationEnterScreen" id="WTc-RK-JWm" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tbe-qQ-R95">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tbe-qQ-R95">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

@@ -261,6 +261,30 @@ class DataBaseManager: NSObject {
     
     func writeAllOrganizations(_ organizationsArray:[AnyObject], isLastPage:Bool) {
         
+        /*
+         {
+         "avatar": null,
+         "thread_id": 1247,
+         "id": 29,
+         "name": "Tap4parking",
+         "short_description": null,
+         "description": null,
+         "subscribers_count": 0,
+         "created_at": "2016-09-26T10:19:32+0000",
+         "organization_types": [],
+         "facebook_link": null,
+         "google_link": null,
+         "linked_in_link": null,
+         "vkontakte_link": null,
+         "web_site_link": null,
+         "created_by": null,
+         "locations": [],
+         "email": null,
+         "founding_date": null,
+         "about": null
+         }
+         */
+        
         if organizationsArray.count > 0 {
             
             var organizations = [Int:Organization]()
@@ -291,27 +315,28 @@ class DataBaseManager: NSObject {
                 let subscribersInt = organizationDictionary["subscribers_count"] as? Int
                 currentOrganization.subscribersCount = NSDecimalNumber(value: subscribersInt! as Int)
                 
-                let creator = organizationDictionary["created_by"] as? [String:AnyObject]
-                let currentCreator = NSEntityDescription.insertNewObject(forEntityName: "User", into: self.managedObjectContext) as! User
+                if let creator = organizationDictionary["created_by"] as? [String:AnyObject] {
+                    let currentCreator = NSEntityDescription.insertNewObject(forEntityName: "User", into: self.managedObjectContext) as! User
                 
-                currentCreator.userName = (creator!["username"] as? String)!
-                currentCreator.email = creator!["email"] as? String
-                currentCreator.firstName = creator!["firstname"] as? String
-                currentCreator.lastName = creator!["lastName"] as? String
-                currentCreator.site = creator!["site"] as? String
-                currentCreator.about = creator!["about"] as? String
+                    currentCreator.userName = (creator["username"] as? String)!
+                    currentCreator.email = creator["email"] as? String
+                    currentCreator.firstName = creator["firstname"] as? String
+                    currentCreator.lastName = creator["lastName"] as? String
+                    currentCreator.site = creator["site"] as? String
+                    currentCreator.about = creator["about"] as? String
                 
-                let userIDInt = (creator!["id"] as? Int)!
-                currentCreator.userID = NSDecimalNumber(value: userIDInt as Int)
+                    let userIDInt = (creator["id"] as? Int)!
+                    currentCreator.userID = NSDecimalNumber(value: userIDInt as Int)
                 
-                if let roles = creator!["roles"] as? [String] {
-                    if roles.count > 0 {
-                        let rolesData = NSKeyedArchiver.archivedData(withRootObject: roles)
-                        currentCreator.roles = rolesData
+                    if let roles = creator["roles"] as? [String] {
+                        if roles.count > 0 {
+                            let rolesData = NSKeyedArchiver.archivedData(withRootObject: roles)
+                            currentCreator.roles = rolesData
+                        }
                     }
-                }
                 
-                currentOrganization.createdBy = currentCreator
+                    currentOrganization.createdBy = currentCreator
+                }
                 
             }
             
