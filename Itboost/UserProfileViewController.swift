@@ -22,7 +22,8 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var heightAboutlabel: NSLayoutConstraint!
-    //14 medium
+    
+    var userInfo = [String:AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +86,8 @@ class UserProfileViewController: UIViewController {
             //                    };
             
             if response is [String:AnyObject] {
+                
+                self.userInfo = response as! [String : AnyObject]
                 
                 var userName = String()
                 if let userFirstName = response?["firstname"] as? String {
@@ -160,6 +163,17 @@ class UserProfileViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }
         }
+    }
+    
+    // MARK: Seque
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "editProfile") {
+            let viewController = segue.destination as! EditProfileViewController
+            viewController.userInfo = self.userInfo
+        }
+        
     }
     
 }

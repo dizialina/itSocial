@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ResponseParser {
     
@@ -109,7 +110,13 @@ class ResponseParser {
                 }
                 
                 if let newsContent = currentNews["content"] as? String {
-                    newNews.content = newsContent
+                    // Remove HTML tags
+                    
+                    let attributedString = try! NSAttributedString(
+                        data: newsContent.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
+                        options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                        documentAttributes: nil)
+                    newNews.content = attributedString.string
                 }
                 
                 if let newsImageURL = currentNews["image"] as? String {

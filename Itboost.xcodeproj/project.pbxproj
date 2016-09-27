@@ -18,6 +18,8 @@
 		034430601D943383000723A1 /* UIPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0344305F1D943383000723A1 /* UIPanGestureRecognizerExtension.swift */; };
 		038284971D8AC6A8000E3B82 /* Community+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */; };
 		038284981D8AC6A8000E3B82 /* Community+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */; };
+		0393A4501D9AC13300362D9D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0393A44F1D9AC13300362D9D /* EditProfileViewController.swift */; };
+		0393A4531D9AC91E00362D9D /* UserLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0393A4521D9AC91E00362D9D /* UserLocationViewController.swift */; };
 		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
 		03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */; };
 		03ABF5271D5E22130053FAD9 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5261D5E22130053FAD9 /* CommentCell.swift */; };
@@ -80,6 +82,8 @@
 		0382848E1D8AC565000E3B82 /* Itboost-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Itboost-Bridging-Header.h"; sourceTree = "<group>"; };
 		038284951D8AC6A8000E3B82 /* Community+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataClass.swift"; sourceTree = "<group>"; };
 		038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0393A44F1D9AC13300362D9D /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		0393A4521D9AC91E00362D9D /* UserLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationViewController.swift; sourceTree = "<group>"; };
 		03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadEventsOperation.swift; sourceTree = "<group>"; };
 		03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPaginaionManager.swift; sourceTree = "<group>"; };
 		03ABF5261D5E22130053FAD9 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -171,6 +175,16 @@
 				034430221D902BD1000723A1 /* NewsFooterCell.swift */,
 			);
 			name = "News Cells";
+			sourceTree = "<group>";
+		};
+		0393A4511D9AC13D00362D9D /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0344302A1D92CB98000723A1 /* UserProfileViewController.swift */,
+				0393A44F1D9AC13300362D9D /* EditProfileViewController.swift */,
+				0393A4521D9AC91E00362D9D /* UserLocationViewController.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		03ABF5681D60DF090053FAD9 /* Archive Classes */ = {
@@ -357,10 +371,10 @@
 				84A220001D57BB1C0003E1BA /* Login/Registration */,
 				03ABF5691D60DF2C0053FAD9 /* Events */,
 				034430241D902F96000723A1 /* News */,
-				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
+				0393A4511D9AC13D00362D9D /* Profile */,
 				03ABF58A1D6B36FA0053FAD9 /* FeedsViewController.swift */,
+				84A43DE71D3E768900F09B14 /* ProfileViewController.swift */,
 				03FC365B1D86E61000C530FF /* OrganizationsViewController.swift */,
-				0344302A1D92CB98000723A1 /* UserProfileViewController.swift */,
 				84A43DEB1D3E76AE00F09B14 /* TabBarViewController.swift */,
 			);
 			name = "View Controllers";
@@ -524,6 +538,7 @@
 				84A2200B1D5A577F0003E1BA /* DetailEventViewController.swift in Sources */,
 				0333E14B1D9918E900A5D56A /* FilterViewController.swift in Sources */,
 				84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */,
+				0393A4531D9AC91E00362D9D /* UserLocationViewController.swift in Sources */,
 				03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
 				034430601D943383000723A1 /* UIPanGestureRecognizerExtension.swift in Sources */,
@@ -537,6 +552,7 @@
 				034430231D902BD1000723A1 /* NewsFooterCell.swift in Sources */,
 				03FC36661D88044500C530FF /* News.swift in Sources */,
 				03ABF58B1D6B36FA0053FAD9 /* FeedsViewController.swift in Sources */,
+				0393A4501D9AC13300362D9D /* EditProfileViewController.swift in Sources */,
 				03FC365C1D86E61000C530FF /* OrganizationsViewController.swift in Sources */,
 				03FC36681D8962E700C530FF /* EventsTableCell.swift in Sources */,
 				03ABF5291D5E22C20053FAD9 /* CommentsViewController.swift in Sources */,
