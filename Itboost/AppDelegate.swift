@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Google services
         GMSServices.provideAPIKey(Constants.APIKey)
         
-        //Updating user's token
+        // Updating user's token
         if UserDefaults.standard.value(forKey: Constants.kUserLogin) != nil {
             let login = UserDefaults.standard.value(forKey: Constants.kUserLogin)
             let password = UserDefaults.standard.value(forKey: Constants.kUserPassword)
@@ -58,6 +58,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Error while reauthorization: " + error!.localizedDescription)
             }
         }
+        
+        // Temp
+        /*
+        let image = UIImage(named: "Doge")
+        ServerManager().uploadImage(image: image!, albumID: 5, success: { (response) in
+            //
+            }) { (error) in
+                //
+        }
+        
+        ServerManager().getAlbum(albumID: 5, success: { (response) in
+            print(response!["album_name"])
+            }) { (error) in
+                //
+        }
+        */
         
         return true
     }

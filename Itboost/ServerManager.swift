@@ -844,6 +844,71 @@ class ServerManager: NSObject {
     
     // MARK: Photos methods
     
+    func uploadImage(image: UIImage, albumID: Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
+        
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.responseSerializer = AFHTTPResponseSerializer()
+        
+        let params:NSDictionary = ["album_id": albumID]
+        
+        let imageData = UIImageJPEGRepresentation(image, 1)
+        
+        sessionManager.post("_uploader/gallery/upload", parameters: params, constructingBodyWith: { (formData) in
+            
+            formData.appendPart(withFileData: imageData!, name: "file", fileName: "photo.jpg", mimeType: "image/jpeg")
+            
+            }, success: { (sessionTask, response) in
+                print(response)
+                
+                do {
+                    let responseDict = try JSONSerialization.jsonObject(with: response as! Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                    print(responseDict)
+                    if responseDict.count > 0 {
+                        success(responseDict)
+                    } else {
+                        print("Response dict after upload image is empty")
+                    }
+                } catch {
+                    print("Error parsing data from response when upload image")
+                }
+                
+            }) { (sessionTask, error) in
+                print("Error while uploading image: " + error.localizedDescription)
+                failure(error)
+        }
+        
+    }
+    
+    func getAlbum(albumID: Int, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
+        
+        let params:NSDictionary = ["album_id": albumID]
+        
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        sessionManager.get("photos.getAlbum", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
+            print(responseObject)
+            if let response = responseObject as? [String:AnyObject] {
+                if let results = response["response"] as? [String:AnyObject] {
+                    success(results as AnyObject?)
+                }
+            } else {
+                print("Response album empty")
+            }
+            })
+        { (task:URLSessionDataTask?, error:Error) in
+            print("Error receiving album: " + error.localizedDescription)
+            self.sessionManager.requestSerializer.clearAuthorizationHeader()
+            failure(error)
+        }
+    }
+
+
+    
     func getUserPhotoAlbums(otherUserID userID: Int?, success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         var params = [String:Int]()
@@ -877,11 +942,11 @@ class ServerManager: NSObject {
 //                    }
                 }
             } else {
-                print("Response profile info is empty")
+                print("Response albums is empty")
             }
             })
         { (task:URLSessionDataTask?, error:Error) in
-            print("Error receiving profile info: " + error.localizedDescription)
+            print("Error receiving user albums: " + error.localizedDescription)
             self.sessionManager.requestSerializer.clearAuthorizationHeader()
             failure(error)
         }
