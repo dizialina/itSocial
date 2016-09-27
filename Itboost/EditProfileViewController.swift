@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ActionSheetPicker_3_0
 
-class EditProfileViewController: UITableViewController, UITextFieldDelegate {
+class EditProfileViewController: UITableViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
@@ -23,6 +23,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     var userInfo = [String:AnyObject]()
     var selectedUserLocation = [String:FilterObject]()
     var userInput = [String:String]()
+    var pickedAvatar: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,11 +148,56 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
                 }, cancel: { ActionStringCancelBlock in return }, origin: tableView.superview!.superview)
             
             datePicker?.toolbarButtonsColor = Constants.mainMintBlue
-            
             datePicker?.show()
+            
+        } else if indexPath.row == 6 {
+            
+            let avatarMenu = UIAlertController(title: nil, message: "Выберите действие", preferredStyle: .actionSheet)
+
+            let pickFromGalleryAction = UIAlertAction(title: "Выбрать из галереи", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                
+                self.workWithImagePicker()
+            })
+            
+            let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+            
+            avatarMenu.addAction(pickFromGalleryAction)
+            avatarMenu.addAction(cancelAction)
+            
+            self.present(avatarMenu, animated: true, completion: nil)
+        }
+        
+    }
+    
+    // MARK: Image Picker
+    
+    func workWithImagePicker() {
+            
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        picker.dismiss(animated: true) {
+            
+            if pickedImage != nil {
+                self.avatarImage.image = pickedImage
+                self.pickedAvatar = pickedImage
+            }
         }
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+
     // MARK: Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
