@@ -592,6 +592,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wpR-Uo-dpi">
+                        <barButtonItem key="backBarButtonItem" title=" " id="DAj-PX-ctU"/>
                         <barButtonItem key="leftBarButtonItem" title="Выход" id="ebO-M1-2Cj">
                             <color key="tintColor" red="0.87058823529411766" green="0.16246562113945801" blue="0.17399148906745585" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

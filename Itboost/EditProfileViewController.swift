@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ActionSheetPicker_3_0
 
 class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     
@@ -21,7 +22,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     
     var userInfo = [String:AnyObject]()
     var selectedUserLocation = [String:FilterObject]()
-    var userInput = [String:AnyObject]()
+    var userInput = [String:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         if let firstName = userInput["firstName"] {
-            firstNameField.text = firstName as? String
+            firstNameField.text = firstName
         } else {
             if let userFirstName = userInfo["firstname"] as? String {
                 firstNameField.text = userFirstName
@@ -40,15 +41,23 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
         }
         
         if let lastName = userInput["lastName"] {
-            lastNameField.text = lastName as? String
+            lastNameField.text = lastName
         } else {
             if let userLastName = userInfo["lastname"] as? String {
                 lastNameField.text = userLastName
             }
         }
         
+        if let birthDate = userInput["birthDate"] {
+            birthDateLabel.text = birthDate
+        } else {
+            if let userBirthDate = userInfo["birthday"] as? String {
+                birthDateLabel.text = userBirthDate
+            }
+        }
+        
         if let about = userInput["about"] {
-            aboutField.text = about as? String
+            aboutField.text = about
         } else {
             if let userDescription = userInfo["description"] as? String {
                 aboutField.text = userDescription
@@ -100,11 +109,11 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         
         if textField == firstNameField {
-            userInput["firstName"] = textField.text as AnyObject?
+            userInput["firstName"] = textField.text
         } else if textField == lastNameField {
-            userInput["lastName"] = textField.text as AnyObject?
+            userInput["lastName"] = textField.text
         } else if textField == aboutField {
-            userInput["about"] = textField.text as AnyObject?
+            userInput["about"] = textField.text
         }
         
         return true
@@ -116,6 +125,30 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
         
         if indexPath.row == 3 || indexPath.row == 4 {
             performSegue(withIdentifier: "selectLocation", sender: nil)
+            
+        } else if indexPath.row == 5 {
+            
+            let datePicker = ActionSheetDatePicker(title: "Дата рождения", datePickerMode: UIDatePickerMode.date, selectedDate: Date(), doneBlock: {
+                picker, value, index in
+                
+                if value != nil {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                    self.userInput["birthDateTimastamp"] = formatter.string(from: value! as! Date)
+                    formatter.dateFormat = "dd/MM/yyyy"
+                    self.userInput["birthDate"] = formatter.string(from: value! as! Date)
+                    
+                    DispatchQueue.main.async {
+                        self.birthDateLabel.text = self.userInput["birthDate"]
+                    }
+                }
+                
+                return
+                }, cancel: { ActionStringCancelBlock in return }, origin: tableView.superview!.superview)
+            
+            datePicker?.toolbarButtonsColor = Constants.mainMintBlue
+            
+            datePicker?.show()
         }
     }
     

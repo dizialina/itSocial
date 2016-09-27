@@ -9,6 +9,7 @@ pod 'Crashlytics'
 pod 'GoogleMaps', '~> 2.0'
 pod 'IQKeyboardManager', '~> 4.0'
 pod 'IQKeyboardManagerSwift', '~> 4.0.6'
+pod 'ActionSheetPicker-3.0', '~> 2.2'
 
 end
 
