@@ -449,7 +449,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarDefault" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-zu-Klc">
-                                <color key="backgroundColor" red="0.85098039215686272" green="0.85490196078431369" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="428" id="xPN-Lx-COG"/>
                                 </constraints>
@@ -580,12 +580,17 @@
                                     <constraint firstItem="A0r-t7-e7h" firstAttribute="centerX" secondItem="job-wG-ySc" secondAttribute="centerX" id="zq0-dC-hFK"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="clg-eU-WPY">
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="clg-eU-WPY" firstAttribute="centerX" secondItem="cpB-zu-Klc" secondAttribute="centerX" id="34k-xL-lpQ"/>
                             <constraint firstAttribute="bottom" secondItem="6Vh-k6-Bsj" secondAttribute="bottom" id="A6G-0u-oTe"/>
                             <constraint firstItem="cpB-zu-Klc" firstAttribute="leading" secondItem="QAI-4D-IG6" secondAttribute="leading" id="S9a-oi-6c4"/>
                             <constraint firstAttribute="trailing" secondItem="6Vh-k6-Bsj" secondAttribute="trailing" id="YlA-6x-ZyI"/>
+                            <constraint firstItem="clg-eU-WPY" firstAttribute="centerY" secondItem="cpB-zu-Klc" secondAttribute="centerY" id="gVy-e1-Gf9"/>
                             <constraint firstItem="6Vh-k6-Bsj" firstAttribute="leading" secondItem="QAI-4D-IG6" secondAttribute="leading" id="lAa-ez-ind"/>
                             <constraint firstItem="cpB-zu-Klc" firstAttribute="top" secondItem="2dv-kP-mox" secondAttribute="bottom" constant="-64" id="uBS-5G-Rjb"/>
                             <constraint firstAttribute="trailing" secondItem="cpB-zu-Klc" secondAttribute="trailing" id="xR2-qC-ZAx"/>
@@ -608,11 +613,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="aboutLabel" destination="Oby-qy-jaP" id="mz1-f5-ygm"/>
+                        <outlet property="avatarActivityIndicator" destination="clg-eU-WPY" id="TG4-5f-poI"/>
                         <outlet property="avatarImage" destination="cpB-zu-Klc" id="cY5-zo-IX0"/>
                         <outlet property="birthDateLabel" destination="tbY-5f-PNn" id="KWT-Ry-iwy"/>
                         <outlet property="bottomSpaceInfoViewToView" destination="A6G-0u-oTe" id="V4Q-hn-ClQ"/>
                         <outlet property="cityLabel" destination="job-wG-ySc" id="Ue6-4X-Cw4"/>
                         <outlet property="countryLabel" destination="A0r-t7-e7h" id="1U3-Kw-XEr"/>
+                        <outlet property="editUserInfoButton" destination="Kyz-bK-Yxn" id="6nf-Xn-yPA"/>
                         <outlet property="emailLabel" destination="Q43-ya-UJo" id="irX-Tv-ceT"/>
                         <outlet property="heightAboutlabel" destination="eyg-i2-d0d" id="ud4-dW-SfL"/>
                         <outlet property="infoView" destination="6Vh-k6-Bsj" id="bdN-l2-kg7"/>
@@ -1061,11 +1068,14 @@
                                                     <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="nma-LR-Jid"/>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="nma-LR-Jid" firstAttribute="centerX" secondItem="cly-wQ-isT" secondAttribute="centerX" id="8ye-zs-gzK"/>
                                                 <constraint firstItem="bvq-Ux-5xG" firstAttribute="centerY" secondItem="Shj-wv-eeO" secondAttribute="centerY" id="C0q-XB-ZqZ"/>
                                                 <constraint firstItem="cly-wQ-isT" firstAttribute="leading" secondItem="Shj-wv-eeO" secondAttribute="leading" constant="15" id="FQs-xw-574"/>
                                                 <constraint firstAttribute="trailing" secondItem="bvq-Ux-5xG" secondAttribute="trailing" id="bk5-zx-RSc"/>
+                                                <constraint firstItem="nma-LR-Jid" firstAttribute="centerY" secondItem="cly-wQ-isT" secondAttribute="centerY" id="dDT-Rq-hzX"/>
                                                 <constraint firstItem="cly-wQ-isT" firstAttribute="centerY" secondItem="Shj-wv-eeO" secondAttribute="centerY" id="psp-B0-gHs"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1079,10 +1089,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Редактирование" id="bHx-m3-Zqq">
-                        <barButtonItem key="rightBarButtonItem" title="Применить" id="eH4-VD-cZp"/>
+                        <barButtonItem key="rightBarButtonItem" title="Применить" id="eH4-VD-cZp">
+                            <connections>
+                                <action selector="acceptEditing:" destination="sxn-iK-b0U" id="jPg-YQ-XOq"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="aboutField" destination="lRt-Um-woJ" id="0O0-Em-SzU"/>
+                        <outlet property="activityIndicator" destination="nma-LR-Jid" id="H4u-US-T44"/>
                         <outlet property="avatarImage" destination="cly-wQ-isT" id="w4a-cw-pgF"/>
                         <outlet property="birthDateLabel" destination="ASS-dT-fpE" id="tBi-nr-dk4"/>
                         <outlet property="cityLabel" destination="NQP-sR-LMD" id="peq-Ma-LG0"/>

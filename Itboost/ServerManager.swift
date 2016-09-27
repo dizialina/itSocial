@@ -482,17 +482,23 @@ class ServerManager: NSObject {
     
     func editUserProfile(_ userInfo:[String:AnyObject], success: @escaping (_ response: AnyObject?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
-        // Pay attention not to pass empty keys in userInfo dictionary! Put there empty strings or arrays when calling this methood
+        let params:NSMutableDictionary = ["firstname": userInfo["firstname"]!,
+                                           "lastname": userInfo["lastname"]!,
+                                        "description": userInfo["description"]!,
+                                             "skills": [],  // array
+                                       "sertificates": []]  // array
         
-        let params:NSDictionary = ["birthday": userInfo["birthday"]!,
-                                      "about": userInfo["about"]!,
-                                  "firstname": userInfo["firstname"]!,
-                                   "lastname": userInfo["lastname"]!,
-                                    "country": userInfo["country"]!,       // array
-                                       "city": userInfo["city"]!,          // array
-                                "description": userInfo["description"]!,
-                                     "skills": userInfo["skills"]!,        // array
-                               "sertificates": userInfo["sertificates"]!]  // array
+        if let birthday = userInfo["birthday"] {
+            params.setObject(birthday, forKey: "birthday" as NSCopying)
+        }
+        
+        if let country = userInfo["country"] {
+            params.setObject(country, forKey: "country" as NSCopying)
+        }
+        
+        if let city = userInfo["city"] {
+            params.setObject(city, forKey: "city" as NSCopying)
+        }
         
         if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -862,6 +868,14 @@ class ServerManager: NSObject {
             
             }, success: { (sessionTask, response) in
                 print(response)
+                
+                /*
+                {
+                    "image_path" = "/uploads/gallery/57eac64888a94.jpg";
+                }
+                 
+                http://api.itboost.org:88/uploads/gallery/57eac64888a94.jpg
+                */
                 
                 do {
                     let responseDict = try JSONSerialization.jsonObject(with: response as! Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary

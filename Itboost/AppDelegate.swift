@@ -59,22 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        // Temp
-        /*
-        let image = UIImage(named: "Doge")
-        ServerManager().uploadImage(image: image!, albumID: 5, success: { (response) in
-            //
-            }) { (error) in
-                //
-        }
-        
-        ServerManager().getAlbum(albumID: 5, success: { (response) in
-            print(response!["album_name"])
-            }) { (error) in
-                //
-        }
-        */
-        
         return true
     }
 

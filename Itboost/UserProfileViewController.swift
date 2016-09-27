@@ -22,6 +22,8 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var heightAboutlabel: NSLayoutConstraint!
+    @IBOutlet weak var avatarActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var editUserInfoButton: UIBarButtonItem!
     
     var userInfo = [String:AnyObject]()
     
@@ -62,28 +64,61 @@ class UserProfileViewController: UIViewController {
     
     func getUserProfileInfoFromServer() {
         
+        self.avatarActivityIndicator.startAnimating()
+        self.editUserInfoButton.isEnabled = false
+        
         ServerManager().getUserProfile(otherUserProfileID: nil, success: { (response) in
             
-            //                    response =     {
-            //                        about = "<null>";
-            //                        "avatar_album_id" = 5;
-            //                        birthday = "<null>";
-            //                        certificates =         (
-            //                        );
-            //                        city = "<null>";
-            //                        country = "<null>";
-            //                        "default_album_id" = 6;
-            //                        description = "<null>";
-            //                        email = "qwerty@mail.ru";
-            //                        firstname = "<null>";
-            //                        id = 3;
-            //                        lastname = "<null>";
-            //                        skills =         (
-            //                        );
-            //                        "speaker_id" = "<null>";
-            //                        "thread_id" = 5;
-            //                        username = qwerty;
-            //                    };
+//            response =     {
+//                about = "<null>";
+//                avatar =         {
+//                    album =             {
+//                        "album_name" = "\U0410\U0432\U0430\U0442\U0430\U0440\U043a\U0438";
+//                        cover = "<null>";
+//                        "created_at" = "2016-09-27T19:18:05+0000";
+//                        id = 1231;
+//                        images =                 (
+//                        );
+//                        owner = "<null>";
+//                    };
+//                    "created_at" = "2016-09-27T19:19:36+0000";
+//                    id = 1156;
+//                    path = "/uploads/gallery/57eac64888a94.jpg";
+//                };
+//                "avatar_album_id" = 1231;
+//                birthday = "2006-11-29T23:26:27+0200";
+//                certificates = "<null>";
+//                city =         {
+//                    "biggest_city" = 1;
+//                    "city_name" = "\U041a\U0438\U0435\U0432";
+//                    country =             {
+//                        "country_name" = "\U0423\U043a\U0440\U0430\U0438\U043d\U0430";
+//                        id = 2;
+//                    };
+//                    id = 2;
+//                    "region_name" = "\U041a\U0438\U0435\U0432\U0441\U043a\U0430\U044f \U043e\U0431\U043b\U0430\U0441\U0442\U044c";
+//                    "state_name" = "<null>";
+//                };
+//                country =         {
+//                    "country_name" = "\U0423\U043a\U0440\U0430\U0438\U043d\U0430";
+//                    id = 2;
+//                };
+//                "default_album_id" = 1232;
+//                description = iOS;
+//                email = "koteykaa@mail.ru";
+//                firstname = Alina;
+//                id = 30;
+//                lastname = Egorova;
+//                roles =         (
+//                    "ROLE_USER"
+//                );
+//                skills = "<null>";
+//                "speaker_id" = "<null>";
+//                "thread_id" = 1259;
+//                username = koteykaa;
+//            };
+//        })
+
             
             if response is [String:AnyObject] {
                 
@@ -108,6 +143,51 @@ class UserProfileViewController: UIViewController {
                     self.emailLabel.text = userEmail
                 }
                 
+                if let country = response?["country"] as? [String:AnyObject] {
+                    if let countryName = country["country_name"] as? String {
+                        self.countryLabel.text = countryName
+                    }
+                }
+                
+                if let city = response?["city"] as? [String:AnyObject] {
+                    if let cityName = city["city_name"] as? String {
+                        self.cityLabel.text = cityName
+                    }
+                }
+                
+                if let birthday = response?["birthday"] as? String {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                    let date = dateFormatter.date(from: birthday)
+                    dateFormatter.dateFormat = "dd/MM/yyyy"
+                    if date != nil {
+                        self.birthDateLabel.text = dateFormatter.string(from: date!)
+                    }
+                }
+
+                
+                if let avatar = response?["avatar"] as? [String:AnyObject] {
+                    if let avatarPath = avatar["path"] as? String {
+                        
+                        let avatarURL = URL(string: Constants.shortLinkToServerAPI + avatarPath)
+                        
+                        let downloadImageTask = URLSession.shared.dataTask(with: avatarURL!) { (data, response, error) in
+                            if data != nil {
+                                // Get full size image
+                                let avatarImage = UIImage(data: data!)
+                                DispatchQueue.main.async {
+                                    self.avatarActivityIndicator.stopAnimating()
+                                    self.avatarImage.image = avatarImage
+                                }
+                            }
+                        }
+                        downloadImageTask.resume()
+                        
+                    } else {
+                        self.avatarActivityIndicator.stopAnimating()
+                    }
+                }
+                
                 // Calculate height of description
                 
                 if let userDescription = response?["description"] as? String {
@@ -125,6 +205,8 @@ class UserProfileViewController: UIViewController {
                     
                     self.aboutLabel.text = userDescription
                 }
+                
+                self.editUserInfoButton.isEnabled = true
                 
             }
             }) { (error) in

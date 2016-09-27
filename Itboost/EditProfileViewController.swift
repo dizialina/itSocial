@@ -19,6 +19,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var birthDateLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var userInfo = [String:AnyObject]()
     var selectedUserLocation = [String:FilterObject]()
@@ -52,8 +53,14 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
         if let birthDate = userInput["birthDate"] {
             birthDateLabel.text = birthDate
         } else {
-            if let userBirthDate = userInfo["birthday"] as? String {
-                birthDateLabel.text = userBirthDate
+            if let birthday = userInfo["birthday"] as? String {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                let date = dateFormatter.date(from: birthday)
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                if date != nil {
+                    self.birthDateLabel.text = dateFormatter.string(from: date!)
+                }
             }
         }
         
@@ -65,43 +72,127 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
             }
         }
         
-        if let userCountry = userInfo["country"] as? [String:AnyObject] {
-            var countryObject = FilterObject()
-            if let countryName = userCountry["country_name"] as? String {
-                countryObject.filterObjectName = countryName
-            }
-            if let countryID = userCountry["country_id"] as? Int {
-                countryObject.filterObjectID = countryID
-                selectedUserLocation["country"] = countryObject
+        if selectedUserLocation["country"] == nil {
+            if let userCountry = userInfo["country"] as? [String:AnyObject] {
+                var countryObject = FilterObject()
+                if let countryName = userCountry["country_name"] as? String {
+                    countryObject.filterObjectName = countryName
+                }
+                if let countryID = userCountry["id"] as? Int {
+                    countryObject.filterObjectID = countryID
+                    selectedUserLocation["country"] = countryObject
+                }
             }
         }
         
-        if let userCity = userInfo["city"] as? [String:AnyObject] {
-            var cityObject = FilterObject()
-            if let cityName = userCity["city_name"] as? String {
-                cityObject.filterObjectName = cityName
-            }
-            if let cityID = userCity["city_id"] as? Int {
-                cityObject.filterObjectID = cityID
+        countryLabel.text = selectedUserLocation["country"]!.filterObjectName
+        
+        if selectedUserLocation["city"] == nil {
+            if let userCity = userInfo["city"] as? [String:AnyObject] {
+                var cityObject = FilterObject()
+                if let cityName = userCity["city_name"] as? String {
+                    cityObject.filterObjectName = cityName
+                }
+                if let cityID = userCity["id"] as? Int {
+                    cityObject.filterObjectID = cityID
                 selectedUserLocation["city"] = cityObject
+                }
+            } else {
+                cityLabel.text = "Не указано"
             }
         }
         
-        if selectedUserLocation["country"] != nil {
-            countryLabel.text = selectedUserLocation["country"]!.filterObjectName
-        }
+        cityLabel.text = selectedUserLocation["city"]!.filterObjectName
         
-        if selectedUserLocation["city"] != nil {
-            cityLabel.text = selectedUserLocation["city"]!.filterObjectName
-        } else {
-            cityLabel.text = "Не указано"
+        if let avatar = userInfo["avatar"] as? [String:AnyObject] {
+            if let avatarPath = avatar["path"] as? String {
+                activityIndicator.startAnimating()
+                let avatarURL = URL(string: Constants.shortLinkToServerAPI + avatarPath)
+                
+                let downloadImageTask = URLSession.shared.dataTask(with: avatarURL!) { (data, response, error) in
+                    if data != nil {
+                        let avatarImage = UIImage(data: data!)
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                            self.avatarImage.image = avatarImage
+                        }
+                    }
+                }
+                downloadImageTask.resume()
+                
+            }
         }
-
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Actions
+    
+    @IBAction func acceptEditing(_ sender: AnyObject) {
+        
+        var editedUserInfo = [String:AnyObject]()
+        
+        editedUserInfo["firstname"] = self.firstNameField.text as AnyObject?
+        editedUserInfo["lastname"] = self.lastNameField.text as AnyObject?
+        editedUserInfo["description"] = self.aboutField.text as AnyObject?
+        
+        if let birthDate = self.userInput["birthDateTimestamp"] {
+            editedUserInfo["birthday"] = birthDate as AnyObject?
+        } else {
+            if birthDateLabel.text != "Не указано" {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                let date = dateFormatter.date(from: birthDateLabel.text!)
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                if date != nil {
+                    editedUserInfo["birthday"] = dateFormatter.string(from: date!) as AnyObject?
+                }
+            }
+        }
+        
+        if let country = selectedUserLocation["country"] {
+            editedUserInfo["country"] = ["id": country.filterObjectID] as AnyObject?
+        }
+        
+        if let city = selectedUserLocation["city"] {
+            editedUserInfo["city"] = ["id": city.filterObjectID] as AnyObject?
+        }
+        
+        ServerManager().editUserProfile(editedUserInfo, success: { (response) in
+            
+            if self.pickedAvatar != nil {
+                
+                if let avatarAlbumID = self.userInfo["avatar_album_id"] as? Int {
+                ServerManager().uploadImage(image: self.pickedAvatar!, albumID: avatarAlbumID, success: { (response) in
+                    
+                    self.showAlertWithHandler()
+                    
+                    }, failure: { (error) in
+                        print("Error while uploading image: " + error!.localizedDescription)
+                })
+                }
+                
+            } else {
+                self.showAlertWithHandler()
+            }
+            
+            }) { (error) in
+                print("Error while editing profile info: " + error!.localizedDescription)
+        }
+        
+    }
+    
+    func showAlertWithHandler() {
+        
+        let alertController = UIAlertController(title: "", message: "Информация Вашего профиля успешно изменена", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alertAction) in
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: TextField Delegate
@@ -135,7 +226,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
                 if value != nil {
                     let formatter = DateFormatter()
                     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                    self.userInput["birthDateTimastamp"] = formatter.string(from: value! as! Date)
+                    self.userInput["birthDateTimestamp"] = formatter.string(from: value! as! Date)
                     formatter.dateFormat = "dd/MM/yyyy"
                     self.userInput["birthDate"] = formatter.string(from: value! as! Date)
                     
@@ -215,6 +306,47 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
             }
         }
     }
+    
+    /*
+     {
+     "id": 11,
+     "firstname": "test_firstname",
+     "lastname": "test_lastname",
+     "about": "test_about",
+     "birthday": "1993-06-08",
+     "country": {
+        "id": 1
+     },
+     "city": {
+        "id": 1
+     },
+     "description": "test_description",
+     "skills": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        }
+     ],
+     "certificates": [
+        {
+            "name": "test_name",
+            "url": "test_url"
+        }
+     ]
+     }
+     
+     let params:NSDictionary = ["birthday": userInfo["birthday"]!,
+     "about": userInfo["about"]!,
+     "firstname": userInfo["firstname"]!,
+     "lastname": userInfo["lastname"]!,
+     "country": userInfo["country"]!,       // array
+     "city": userInfo["city"]!,          // array
+     "description": userInfo["description"]!,
+     "skills": userInfo["skills"]!,        // array
+     "sertificates": userInfo["sertificates"]!]  // array
+     */
     
     
 }
