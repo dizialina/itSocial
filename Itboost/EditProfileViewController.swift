@@ -104,7 +104,10 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
         
         cityLabel.text = selectedUserLocation["city"]!.filterObjectName
         
-        if let avatar = userInfo["avatar"] as? [String:AnyObject] {
+        if pickedAvatar != nil {
+            self.avatarImage.image = pickedAvatar
+            
+        } else if let avatar = userInfo["avatar"] as? [String:AnyObject] {
             if let avatarPath = avatar["path"] as? String {
                 activityIndicator.startAnimating()
                 let avatarURL = URL(string: Constants.shortLinkToServerAPI + avatarPath)

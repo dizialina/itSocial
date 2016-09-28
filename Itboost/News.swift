@@ -21,7 +21,7 @@ class News: NSObject {
     var content = ""
     var authorUsername = ""
     var authorID = Int()
-    var tagsArray = [String]()
+    var tagsArray = [[String:AnyObject]]()
     var viewsCount = 0
     var createdAt = Date()
     var type: NewsType?

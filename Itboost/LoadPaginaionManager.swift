@@ -30,7 +30,7 @@ class LoadPaginaionManager: NSObject {
         
         let operationQueue = OperationQueue()
         
-        let urlString = Constants.linkToServerAPI + "organization.getAllByLoginUser"
+        let urlString = Constants.linkToServerAPI + "organizations"
         
         let loadOrganizationOperation = LoadEventsOperation(linkToData: urlString, currentPage: 1, queue: operationQueue, dataType: .organizations)
         operationQueue.addOperation(loadOrganizationOperation)

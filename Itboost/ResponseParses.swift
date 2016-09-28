@@ -129,7 +129,7 @@ class ResponseParser {
                     }
                 }
                 
-                let tags = currentNews["tags"] as! [String]
+                let tags = currentNews["tags"] as! [[String:AnyObject]]
                 if tags.count > 0 {
                     newNews.tagsArray = tags
                 }
