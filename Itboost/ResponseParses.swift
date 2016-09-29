@@ -160,4 +160,81 @@ class ResponseParser {
         return newsArray
     }
     
+    func parseMembers(_ response: [AnyObject]) -> [Member] {
+        
+        var membersArray = [Member]()
+        
+        if response.count > 0 {
+            
+            for member in response {
+                
+                let currentMember = member as! [String:AnyObject]
+                let newMember = Member()
+                
+                if let memberID = currentMember["tid"] as? Int {
+                    newMember.memberID = memberID
+                }
+                
+                var username = String()
+                if let userFirstName = currentMember["firstname"] as? String {
+                    username.append(userFirstName)
+                    if let userLastName = currentMember["lastname"] as? String {
+                        username.append(" \(userLastName)")
+                    }
+                } else {
+                    if let userServerName = currentMember["username"] as? String {
+                        username.append(userServerName)
+                    }
+                }
+                if username.characters.count > 0 {
+                    newMember.username = username
+                } else {
+                    newMember.username = "Имя не указано"
+                }
+                
+                if let userEmail = currentMember["email"] as? String {
+                    newMember.email = userEmail
+                } else {
+                    newMember.email = "Не указан"
+                }
+                
+                if let country = currentMember["country"] as? [String:AnyObject] {
+                    if let countryName = country["country_name"] as? String {
+                        newMember.adress.append(countryName)
+                    }
+                }
+                
+                if let city = currentMember["city"] as? [String:AnyObject] {
+                    if let cityName = city["city_name"] as? String {
+                        newMember.adress.append(cityName)
+                    }
+                }
+                
+                if let birthday = currentMember["birthday"] as? String {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                    let date = dateFormatter.date(from: birthday)
+                    dateFormatter.dateFormat = "dd/MM/yyyy"
+                    if date != nil {
+                        newMember.birthday = dateFormatter.string(from: date!)
+                    }
+                } else {
+                    newMember.birthday = "Не указана"
+                }
+                
+                if let avatar = currentMember["avatar"] as? [String:AnyObject] {
+                    if let avatarPath = avatar["path"] as? String {
+                        newMember.avatarURL = URL(string: Constants.shortLinkToServerAPI + avatarPath)
+                    }
+                }
+                
+                membersArray.append(newMember)
+            }
+            
+        }
+        
+        return membersArray
+    }
+
+    
 }

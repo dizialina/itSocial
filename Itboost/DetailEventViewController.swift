@@ -26,6 +26,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     var loadMoreStatus = false
     var currentPostsPage = 1
     var isJoin = false
+    var membersList = [AnyObject]()
+    var memberAvatarsArray = [UIImage]()
+    var isMembersLoading = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +70,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.reloadData()
         getEventWallPosts()
         getJoiningStatus()
+        
+        if membersList.count == 0 {
+            getMembersList()
+        }
         
         // Make navigation bar translucent
         
@@ -126,7 +133,70 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         }) { (error) in
             print("Error receiving wall posts from event: " + error!.localizedDescription)
         }
+    }
+    
+    func getMembersList() {
         
+        let community = communityObject as! Community
+        let eventID = community.communityID.intValue
+        
+        ServerManager().getMembersList(eventID, success: { (response) in
+            self.membersList = response!
+            
+            if (response?.count)! > 0 {
+                var avatarPaths = [String]()
+                
+                for i in 0..<response!.count {
+                    if response?[i] is [String:AnyObject] {
+                        if let avatar = response?[i]["avatar"] as? [String:AnyObject] {
+                            if let path = avatar["path"] as? String {
+                                avatarPaths.append(path)
+                                if avatarPaths.count == 5 {
+                                    self.loadAvatarsFromPath(paths: avatarPaths)
+                                    break
+                                }
+                            }
+                        }
+                    }
+                    if i == ((response?.count)! - 1) {
+                        self.loadAvatarsFromPath(paths: avatarPaths)
+                    }
+                }
+            } else {
+                self.isMembersLoading = false
+            }
+            
+            }) { (error) in
+                print("Error receiving members: " + error!.localizedDescription)
+        }
+    }
+    
+    func loadAvatarsFromPath(paths:[String]) {
+        
+        self.memberAvatarsArray.removeAll()
+        
+        for i in 0..<paths.count {
+            let avatarURL = URL(string: Constants.shortLinkToServerAPI + paths[i])
+            
+            if avatarURL != nil {
+                let downloadImageTask = URLSession.shared.dataTask(with: avatarURL!) { (data, response, error) in
+                    if data != nil {
+                        let avatarImage = UIImage(data: data!)
+                        if avatarImage != nil {
+                            self.memberAvatarsArray.append(avatarImage!)
+                            
+                            DispatchQueue.main.async {
+                                if i == (paths.count - 1) {
+                                    self.isMembersLoading = false
+                                }
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+                downloadImageTask.resume()
+            }
+        }
     }
     
     // MARK: TableView DataSource and Delegate
@@ -196,6 +266,18 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             eventCell.addPostButton.addTarget(self, action: #selector(DetailEventViewController.addPost(_:)), for: UIControlEvents.touchUpInside)
             
+            eventCell.membersButton.addTarget(self, action: #selector(DetailEventViewController.openMembersList(_:)), for: UIControlEvents.touchUpInside)
+            if membersList.count == 0 {
+                eventCell.membersButton.isEnabled = false
+            } else {
+                eventCell.membersButton.isEnabled = true
+            }
+            if isMembersLoading {
+                eventCell.membersActivityIndicator.startAnimating()
+            } else {
+                eventCell.membersActivityIndicator.stopAnimating()
+            }
+            
             // Set height of description label
             
             if let detailDescription = event.detailDescription {
@@ -217,12 +299,22 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 eventCell.joinEventButton.backgroundColor = Constants.lightGrayColor
             }
             
-            // Make avatar images round
+            // Make avatar images round and show them
             
             let avatarsArray = [eventCell.firstAvatar, eventCell.secondAvatar, eventCell.thirdAvatar, eventCell.fourthAvatar, eventCell.fifthAvatar]
-            for avatar in avatarsArray {
-                avatar?.layer.cornerRadius = (avatar?.frame.size.width)! / 2
-                avatar?.clipsToBounds = true
+            for i in 0..<avatarsArray.count {
+                avatarsArray[i]?.layer.cornerRadius = (avatarsArray[i]?.frame.size.width)! / 2
+                avatarsArray[i]?.clipsToBounds = true
+                
+                if memberAvatarsArray.count > i {
+                    avatarsArray[i]?.image = memberAvatarsArray[i]
+                } else {
+                    if membersList.count > i {
+                        avatarsArray[i]?.image = UIImage(named: "AvatarDefault")
+                    } else {
+                        avatarsArray[i]?.image = nil
+                    }
+                }
             }
             
             // Add screenshot of the map
@@ -366,6 +458,11 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Actions
     
+    func openMembersList(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "openMembers", sender: nil)
+    }
+
+    
     func addToCalendar(_ sender: UIButton) {
         
     }
@@ -491,6 +588,10 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         } else if (segue.identifier == "showPostComments") {
             let viewController = segue.destination as! CommentsViewController
             viewController.postID = sender as! Int
+            
+        } else if (segue.identifier == "openMembers") {
+            let viewController = segue.destination as! MembersViewController
+            viewController.membersResponseList = membersList
         }
         
     }

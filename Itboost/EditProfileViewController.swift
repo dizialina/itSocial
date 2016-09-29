@@ -82,10 +82,13 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
                     countryObject.filterObjectID = countryID
                     selectedUserLocation["country"] = countryObject
                 }
+                countryLabel.text = selectedUserLocation["country"]!.filterObjectName
+            } else {
+                countryLabel.text = "Не указано"
             }
+        } else {
+            countryLabel.text = selectedUserLocation["country"]!.filterObjectName
         }
-        
-        countryLabel.text = selectedUserLocation["country"]!.filterObjectName
         
         if selectedUserLocation["city"] == nil {
             if let userCity = userInfo["city"] as? [String:AnyObject] {
@@ -97,12 +100,13 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
                     cityObject.filterObjectID = cityID
                 selectedUserLocation["city"] = cityObject
                 }
+                cityLabel.text = selectedUserLocation["city"]!.filterObjectName
             } else {
                 cityLabel.text = "Не указано"
             }
+        } else {
+            cityLabel.text = selectedUserLocation["city"]!.filterObjectName
         }
-        
-        cityLabel.text = selectedUserLocation["city"]!.filterObjectName
         
         if pickedAvatar != nil {
             self.avatarImage.image = pickedAvatar
@@ -240,6 +244,10 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate, UII
                 
                 return
                 }, cancel: { ActionStringCancelBlock in return }, origin: tableView.superview!.superview)
+            
+            //acp.setTextColor(UIColor.redColor())
+            //acp.pickerBackgroundColor = UIColor.blackColor()
+            //acp.toolbarBackgroundColor = UIColor.yellowColor()
             
             datePicker?.toolbarButtonsColor = Constants.mainMintBlue
             datePicker?.show()

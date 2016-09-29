@@ -137,22 +137,30 @@ class UserProfileViewController: UIViewController {
                 }
                 if userName.characters.count > 0 {
                     self.userNamelabel.text = userName
+                } else {
+                    self.userNamelabel.text = "Имя не указано"
                 }
                 
                 if let userEmail = response?["email"] as? String {
                     self.emailLabel.text = userEmail
+                } else {
+                    self.emailLabel.text = "Не указан"
                 }
                 
                 if let country = response?["country"] as? [String:AnyObject] {
                     if let countryName = country["country_name"] as? String {
                         self.countryLabel.text = countryName
                     }
+                } else {
+                    self.countryLabel.text = "Не указана"
                 }
                 
                 if let city = response?["city"] as? [String:AnyObject] {
                     if let cityName = city["city_name"] as? String {
                         self.cityLabel.text = cityName
                     }
+                } else {
+                    self.cityLabel.text = "Не указан"
                 }
                 
                 if let birthday = response?["birthday"] as? String {
@@ -163,6 +171,8 @@ class UserProfileViewController: UIViewController {
                     if date != nil {
                         self.birthDateLabel.text = dateFormatter.string(from: date!)
                     }
+                } else {
+                    self.birthDateLabel.text = "Не указан"
                 }
 
                 
@@ -184,8 +194,12 @@ class UserProfileViewController: UIViewController {
                         downloadImageTask.resume()
                         
                     } else {
+                        self.avatarImage.image = UIImage(named: "AvatarDefault")
                         self.avatarActivityIndicator.stopAnimating()
                     }
+                } else {
+                    self.avatarImage.image = UIImage(named: "AvatarDefault")
+                    self.avatarActivityIndicator.stopAnimating()
                 }
                 
                 // Calculate height of description

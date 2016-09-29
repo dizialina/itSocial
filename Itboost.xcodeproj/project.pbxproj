@@ -20,6 +20,9 @@
 		038284981D8AC6A8000E3B82 /* Community+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */; };
 		0393A4501D9AC13300362D9D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0393A44F1D9AC13300362D9D /* EditProfileViewController.swift */; };
 		0393A4531D9AC91E00362D9D /* UserLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0393A4521D9AC91E00362D9D /* UserLocationViewController.swift */; };
+		0393A4551D9D2C4F00362D9D /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0393A4541D9D2C4F00362D9D /* MemberCell.swift */; };
+		0393A4571D9D2DC100362D9D /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0393A4561D9D2DC100362D9D /* MembersViewController.swift */; };
+		0393A4591D9D2FDB00362D9D /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0393A4581D9D2FDB00362D9D /* Member.swift */; };
 		03ABF4EC1D5DBAFB0053FAD9 /* LoadEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */; };
 		03ABF4EE1D5DBDE50053FAD9 /* LoadPaginaionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */; };
 		03ABF5271D5E22130053FAD9 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ABF5261D5E22130053FAD9 /* CommentCell.swift */; };
@@ -84,6 +87,9 @@
 		038284961D8AC6A8000E3B82 /* Community+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Community+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0393A44F1D9AC13300362D9D /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		0393A4521D9AC91E00362D9D /* UserLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationViewController.swift; sourceTree = "<group>"; };
+		0393A4541D9D2C4F00362D9D /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
+		0393A4561D9D2DC100362D9D /* MembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
+		0393A4581D9D2FDB00362D9D /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		03ABF4EB1D5DBAFB0053FAD9 /* LoadEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadEventsOperation.swift; sourceTree = "<group>"; };
 		03ABF4ED1D5DBDE50053FAD9 /* LoadPaginaionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPaginaionManager.swift; sourceTree = "<group>"; };
 		03ABF5261D5E22130053FAD9 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -206,6 +212,7 @@
 				03ABF5281D5E22C20053FAD9 /* CommentsViewController.swift */,
 				84023D041D5B2CA1005DD716 /* NewPostViewController.swift */,
 				84A43DE91D3E769B00F09B14 /* NewEventViewController.swift */,
+				0393A4561D9D2DC100362D9D /* MembersViewController.swift */,
 				0333E14E1D9926DA00A5D56A /* Filters */,
 			);
 			name = Events;
@@ -227,6 +234,7 @@
 				03FC36691D89CA4400C530FF /* EventDetailTableCell.swift */,
 				84023D021D5A835D005DD716 /* AddPostToEventCell.swift */,
 				03FC36671D8962E700C530FF /* EventsTableCell.swift */,
+				0393A4541D9D2C4F00362D9D /* MemberCell.swift */,
 				84A220081D5A52B30003E1BA /* DetailEventCell.swift */,
 				84023D061D5B3B4E005DD716 /* WallPostCell.swift */,
 				03ABF5261D5E22130053FAD9 /* CommentCell.swift */,
@@ -256,6 +264,7 @@
 			children = (
 				84023D0A1D5B3F86005DD716 /* WallPost.swift */,
 				03ABF52A1D5E28670053FAD9 /* PostComment.swift */,
+				0393A4581D9D2FDB00362D9D /* Member.swift */,
 				03FC36651D88044500C530FF /* News.swift */,
 			);
 			name = "Simple Models";
@@ -537,12 +546,14 @@
 				84A43DE81D3E768900F09B14 /* ProfileViewController.swift in Sources */,
 				84A2200B1D5A577F0003E1BA /* DetailEventViewController.swift in Sources */,
 				0333E14B1D9918E900A5D56A /* FilterViewController.swift in Sources */,
+				0393A4551D9D2C4F00362D9D /* MemberCell.swift in Sources */,
 				84A21FFD1D57BAFD0003E1BA /* LoginViewController.swift in Sources */,
 				0393A4531D9AC91E00362D9D /* UserLocationViewController.swift in Sources */,
 				03ABF52B1D5E28670053FAD9 /* PostComment.swift in Sources */,
 				84A43DD11D3E735B00F09B14 /* AppDelegate.swift in Sources */,
 				034430601D943383000723A1 /* UIPanGestureRecognizerExtension.swift in Sources */,
 				84A43DEC1D3E76AE00F09B14 /* TabBarViewController.swift in Sources */,
+				0393A4591D9D2FDB00362D9D /* Member.swift in Sources */,
 				0344302B1D92CB98000723A1 /* UserProfileViewController.swift in Sources */,
 				84023D031D5A835D005DD716 /* AddPostToEventCell.swift in Sources */,
 				842A132A1D50D37400AD2673 /* User+CoreDataProperties.swift in Sources */,
@@ -571,6 +582,7 @@
 				84A220091D5A52B30003E1BA /* DetailEventCell.swift in Sources */,
 				84A43DF41D3E897600F09B14 /* Constants.swift in Sources */,
 				034430271D905403000723A1 /* DetailNewsCell.swift in Sources */,
+				0393A4571D9D2DC100362D9D /* MembersViewController.swift in Sources */,
 				03ABF57D1D6619D80053FAD9 /* SkillsCell.swift in Sources */,
 				0333E14D1D9926D300A5D56A /* SelectFilterTypeViewController.swift in Sources */,
 				84A220041D57BE6B0003E1BA /* ReusableMethods.swift in Sources */,

@@ -183,7 +183,7 @@ class RegistrationViewController: UIViewController {
                 }
             }
             
-            let validationSet = CharacterSet(charactersIn: "qwertyuiopasdfghjklzcvbnm!#$%&'*+-/=?^_`{}|~1234567890@.").inverted
+            let validationSet = CharacterSet(charactersIn: "qwertyuiopasdfghjklzxcvbnm!#$%&'*+-/=?^_`{}|~1234567890@.").inverted
             let components = string.components(separatedBy: validationSet)
             if components.count > 1 {
                 return false

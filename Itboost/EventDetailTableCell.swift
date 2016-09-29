@@ -29,6 +29,10 @@ class EventDetailTableCell: UITableViewCell {
     @IBOutlet weak var fourthAvatar: UIImageView!
     @IBOutlet weak var fifthAvatar: UIImageView!
     
+    
+    @IBOutlet weak var membersActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var membersButton: UIButton!
+    
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var heightDescriptionLabel: NSLayoutConstraint!
     
