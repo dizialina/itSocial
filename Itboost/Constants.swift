@@ -20,6 +20,7 @@ class Constants {
     
     static let LoadCommunitiesNotification = Notification.Name("LoadCommunitiesNotification")
     static let LoadOrganizationsNotification = Notification.Name("LoadOrganizationsNotification")
+    static let LoadJoinedEventsNotification = Notification.Name("LoadJoinedEventsNotification")
     //static let kLoadCommunitiesNotification = "LoadCommunitiesNotification"
     //static let kLoadOrganizationsNotification = "LoadOrganizationsNotification"
     

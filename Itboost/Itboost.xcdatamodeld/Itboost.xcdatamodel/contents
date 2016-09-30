@@ -14,6 +14,7 @@
         <attribute name="eventSite" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventSpecializations" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="eventType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isJoined" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="locations" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subscribersCount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
@@ -43,7 +44,7 @@
         <relationship name="createdOrganization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="createdBy" inverseEntity="Organization" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Community" positionX="-3935" positionY="-447" width="128" height="315"/>
+        <element name="Community" positionX="-3935" positionY="-447" width="128" height="330"/>
         <element name="Organization" positionX="-3708" positionY="-244" width="128" height="163"/>
         <element name="User" positionX="-3708" positionY="-477" width="128" height="193"/>
     </elements>

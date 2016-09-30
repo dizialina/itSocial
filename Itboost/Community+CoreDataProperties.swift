@@ -32,6 +32,7 @@ extension Community {
     @NSManaged public var avatarImage: Data?
     @NSManaged public var countryID: NSDecimalNumber?
     @NSManaged public var cityID: NSDecimalNumber?
+    @NSManaged public var isJoined: NSNumber?
     @NSManaged var createdBy: User
 
 }

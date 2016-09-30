@@ -379,6 +379,51 @@ class DataBaseManager: NSObject {
         
     }
     
+    func writeJoinedEventParameter(_ joinedEventsArray:[AnyObject], isLastPage:Bool) {
+        
+        if joinedEventsArray.count > 0 {
+            
+            var joinedEventsID = [Int]()
+            
+            for joinedEvent in joinedEventsArray {
+                if joinedEvent is [String:AnyObject] {
+                    if let joinedEventID = joinedEvent["id"] as? Int {
+                        joinedEventsID.append(joinedEventID)
+                    }
+                }
+            }
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Community")
+            fetchRequest.includesPendingChanges = false
+            fetchRequest.predicate = NSPredicate(format: "communityID IN %@", joinedEventsID)
+            
+            do {
+                let existingEvents = try managedObjectContext.fetch(fetchRequest) as! [Community]
+                
+                for existingEvent in existingEvents {
+                    existingEvent.isJoined = NSNumber(value: true)
+                }
+                
+            } catch {
+                print("Can't execute fetch request by joined events groups need to write/update")
+            }
+            
+            do {
+                try managedObjectContext.save()
+                if isLastPage {
+                    NotificationCenter.default.post(name: Constants.LoadJoinedEventsNotification, object: nil)
+                }
+            } catch let error as NSError {
+                print("Can't save to coredata joined events. Error: \(error.localizedDescription)")
+            }
+            
+        } else {
+            if isLastPage {
+                NotificationCenter.default.post(name: Constants.LoadJoinedEventsNotification, object: nil)
+            }
+        }
+    }
+    
     
     // MARK: Core Data stack
     

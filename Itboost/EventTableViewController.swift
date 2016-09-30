@@ -63,7 +63,8 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.tableFooterView = viewMore
         self.tableView.tableFooterView!.isHidden = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EventCollectionViewController.getCommunitiesFromDatabase), name: Constants.LoadCommunitiesNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventTableViewController.getCommunitiesFromDatabase), name: Constants.LoadCommunitiesNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EventTableViewController.joinedEventsWasLoaded), name: Constants.LoadJoinedEventsNotification, object: nil)
         
         // Make navigation bar translucent
         
@@ -150,6 +151,9 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         case 1:
             let subPredicate = NSPredicate(format: "eventDate < %@", argumentArray:[Date.init()])
             predicatesArray.append(subPredicate)
+        case 2:
+            let subPredicate = NSPredicate(format: "isJoined = %ld", 1)
+            predicatesArray.append(subPredicate)
         default:
             break
         }
@@ -171,6 +175,14 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             print("Collection can't get all communities from database")
         }
         
+    }
+    
+    func joinedEventsWasLoaded() {
+        
+        mainActivityIndicator.stopAnimating()
+        timeSegmantedControl.isEnabled = true
+        getCommunitiesFromDatabase()
+    
     }
     
     func createSearchBar() {
@@ -206,8 +218,21 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: Actions
     
-    @IBAction func changeEventTimeControl(_ sender: AnyObject) {
-        getCommunitiesFromDatabase()
+    @IBAction func changeEventTimeControl(_ sender: UISegmentedControl) {
+        
+        if sender.selectedSegmentIndex == 2 {
+            
+            eventList.removeAll()
+            tableView.reloadData()
+            mainActivityIndicator.startAnimating()
+            timeSegmantedControl.isEnabled = false
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
+                LoadPaginaionManager().loadJoinedEventsFromServer()
+            })
+            
+        } else {
+            getCommunitiesFromDatabase()
+        }
     }
     
     func filterButtonDidTouch(_ sender: AnyObject) {

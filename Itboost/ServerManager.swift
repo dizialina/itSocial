@@ -148,6 +148,35 @@ class ServerManager: NSObject {
         }
     }
     
+    func getOnePageJoinedEventsFromServer(_ sourceURL:String, currentPage:Int, operationQueue:OperationQueue, success: @escaping (_ response: AnyObject?, _ currentPage:Int) -> Void, failure: (_ error: Error?) -> Void) {
+        
+        let manager = AFHTTPRequestOperationManager()
+        manager.operationQueue = operationQueue
+        
+        if let token = UserDefaults.standard.value(forKey: Constants.kUserToken) {
+            sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let params:NSDictionary = ["filter": "joined",
+                                     "page": currentPage]
+        
+        manager.get(sourceURL, parameters: params, success: { (operation, responce) in
+            if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
+                print(response)
+                if let results = response["response"] {
+                    if let communitiesArray = results["items"] as? [AnyObject] {
+                        let currentPage = results["current_page_number"] as! Int
+                        success(communitiesArray as AnyObject?, currentPage)
+                    } else {
+                        print("Response of joined events page has 0 items")
+                    }
+                }
+            }
+        }) { (operation, error) in
+            print("Error loading one page joined events with url \(sourceURL): " + error.localizedDescription)
+        }
+    }
+    
     func getEvent(_ eventID: Int, success: @escaping (_ response: [String:AnyObject]?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         
         //let params:NSDictionary = ["id": eventID]

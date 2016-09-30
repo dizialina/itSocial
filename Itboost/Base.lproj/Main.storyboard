@@ -1994,6 +1994,7 @@
                                         <segments>
                                             <segment title="Предстоящие"/>
                                             <segment title="Прошедшие"/>
+                                            <segment title="Я пойду"/>
                                         </segments>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>

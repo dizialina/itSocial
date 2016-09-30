@@ -93,6 +93,29 @@ class LoadEventsOperation: Operation {
                 print("Error loading one page organizations: " + error!.localizedDescription)
             }
             
+        case .joinedEvents:
+            
+            serverManager.getOnePageJoinedEventsFromServer(linkToRequestData, currentPage: currentPage, operationQueue: dispatchQueue, success: { (response, currentPage) in
+                
+                let joinedEventsArray = response as! [AnyObject]
+                
+                let countOfCommunitiesPerOnePage = joinedEventsArray.count
+                if countOfCommunitiesPerOnePage == 10 {
+                    
+                    DataBaseManager().writeJoinedEventParameter(joinedEventsArray, isLastPage:false)
+                    let nextPage = currentPage + 1
+                    let newLoadEventsOperataion = LoadEventsOperation(linkToData: self.linkToRequestData, currentPage: nextPage, queue: self.dispatchQueue, dataType: self.dataType)
+                    self.dispatchQueue.addOperation(newLoadEventsOperataion)
+                    
+                } else {
+                    print("Load done for all joined events pages")
+                    DataBaseManager().writeJoinedEventParameter(joinedEventsArray, isLastPage:true)
+                }
+                
+            }) { (error) in
+                print("Error loading one page joined events: " + error!.localizedDescription)
+            }
+            
         }
         
         

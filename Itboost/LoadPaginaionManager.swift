@@ -11,6 +11,7 @@ import Foundation
 enum LoadingDataType {
     case events
     case organizations
+    case joinedEvents
 }
 
 class LoadPaginaionManager: NSObject {
@@ -37,8 +38,15 @@ class LoadPaginaionManager: NSObject {
         operationQueue.waitUntilAllOperationsAreFinished()
     }
     
-    func loadObjectFirstRequest() {
+    func loadJoinedEventsFromServer() {
         
+        let operationQueue = OperationQueue()
+        
+        let urlString = Constants.linkToServerAPI + "events"
+        
+        let loadEventsOperation = LoadEventsOperation(linkToData: urlString, currentPage: 1, queue: operationQueue, dataType: .joinedEvents)
+        operationQueue.addOperation(loadEventsOperation)
+        operationQueue.waitUntilAllOperationsAreFinished()
     }
 
 }
