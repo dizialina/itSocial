@@ -96,10 +96,14 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         let wallThreadID = community.threadID.intValue
         
         ServerManager().getWallPosts(wallThreadID, currentPage: currentPostsPage, success: { (response) in
-            self.wallPostsArray += ResponseParser().parseWallPost(response!)
+            let wallPosts = ResponseParser().parseWallPost(response!)
+            self.wallPostsArray += wallPosts
             self.currentPostsPage += 1
             
             DispatchQueue.main.async {
+                if wallPosts.count > 0 {
+                    self.loadPostAvatars(posts: wallPosts)
+                }
                 self.tableView.reloadData()
             }
         }) { (error) in
@@ -199,6 +203,32 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    func loadPostAvatars(posts:[WallPost]) {
+        
+        for i in 0..<posts.count {
+            
+            if posts[i].avatarURL != nil {
+                let downloadImageTask = URLSession.shared.dataTask(with: posts[i].avatarURL!) { (data, response, error) in
+                    if data != nil {
+                        let avatarImage = UIImage(data: data!)
+                        if avatarImage != nil {
+                            posts[i].avatarImage = avatarImage
+                            
+                            
+                            DispatchQueue.main.async {
+                                if i == (posts.count - 1) {
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                }
+                downloadImageTask.resume()
+            }
+        }
+        
+    }
+    
     // MARK: TableView DataSource and Delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -255,7 +285,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             }
             
             if event.subscribersCount != nil {
-                eventCell.membersCountLabel.text = "\(event.subscribersCount!)"
+                //eventCell.membersCountLabel.text = "\(event.subscribersCount!)"
+                eventCell.membersCountLabel.text = "\(membersList.count)"
             }
             
             // Set actions for cell buttons
@@ -340,6 +371,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             
             let wallPostCell = tableView.dequeueReusableCell(withIdentifier: "WallPostCell", for: indexPath) as! WallPostCell
             
+            wallPostCell.userAvatar.image = nil
+            
             let wallPost = wallPostsArray[(indexPath as NSIndexPath).row - 1]
             
             if wallPost.authorUsername.characters.count > 0 {
@@ -366,6 +399,14 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 
             wallPostCell.heightBodyView.constant = bodyHeight
             wallPostCell.postBodyLabel.text = postBody
+            
+            // Load avatar
+            
+            if let avatarImage = wallPost.avatarImage {
+                wallPostCell.userAvatar.image = avatarImage
+            } else {
+                wallPostCell.userAvatar.image = UIImage(named: "AvatarDefault")
+            }
             
             // Make avatar image round
             

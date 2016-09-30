@@ -70,10 +70,14 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
         if currentNews.threadID != 0 {
         
             ServerManager().getWallPosts(currentNews.threadID, currentPage: currentPostsPage, success: { (response) in
-                self.commentsArray += ResponseParser().parseWallPost(response!)
+                let comments = ResponseParser().parseWallPost(response!)
+                self.commentsArray += comments
                 self.currentPostsPage += 1
             
                 DispatchQueue.main.async {
+                    if comments.count > 0 {
+                        self.loadPostAvatars(posts: comments)
+                    }
                     self.tableView.reloadData()
                 }
             }) { (error) in
@@ -81,6 +85,32 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
  
+    }
+    
+    func loadPostAvatars(posts:[WallPost]) {
+        
+        for i in 0..<posts.count {
+            
+            if posts[i].avatarURL != nil {
+                let downloadImageTask = URLSession.shared.dataTask(with: posts[i].avatarURL!) { (data, response, error) in
+                    if data != nil {
+                        let avatarImage = UIImage(data: data!)
+                        if avatarImage != nil {
+                            posts[i].avatarImage = avatarImage
+                            
+                            
+                            DispatchQueue.main.async {
+                                if i == (posts.count - 1) {
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                }
+                downloadImageTask.resume()
+            }
+        }
+        
     }
     
     // MARK: TableView DataSource and Delegate
@@ -160,6 +190,14 @@ class DetailNewsViewController: UIViewController, UITableViewDelegate, UITableVi
             
             commentCell.heightBodyView.constant = bodyHeight
             commentCell.commentBodyLabel.text = commentBodyText
+            
+            // Load avatar
+            
+            if let avatarImage = postComment.avatarImage {
+                commentCell.avatarImage.image = avatarImage
+            } else {
+                commentCell.avatarImage.image = UIImage(named: "AvatarDefault")
+            }
             
             // Make avatar image round
             

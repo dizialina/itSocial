@@ -58,12 +58,40 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             let commentsObjectsArray = postDictionary["comments"] as! [AnyObject]
             self.commentsArray = ResponseParser().parsePostComments(commentsObjectsArray)
             
+            self.loadPostAvatars()
+            
             DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             
         }) { (error) in
             print("Error receiving post comments from event: " + error!.localizedDescription)
+        }
+        
+    }
+    
+    func loadPostAvatars() {
+        
+        for i in 0..<commentsArray.count {
+            
+            if commentsArray[i].avatarURL != nil {
+                let downloadImageTask = URLSession.shared.dataTask(with: commentsArray[i].avatarURL!) { (data, response, error) in
+                    if data != nil {
+                        let avatarImage = UIImage(data: data!)
+                        if avatarImage != nil {
+                            self.commentsArray[i].avatarImage = avatarImage
+                            
+                            
+                            DispatchQueue.main.async {
+                                if i == (self.commentsArray.count - 1) {
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                }
+                downloadImageTask.resume()
+            }
         }
         
     }
@@ -100,6 +128,16 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             wallPostCell.heightBodyView.constant = bodyHeight
             wallPostCell.postBodyLabel.text = postBody
             
+            // Load avatar
+            
+            if let url = currentPost.avatarURL {
+                if let data = try? Data(contentsOf: url) {
+                    wallPostCell.userAvatar.image = UIImage(data: data)
+                }
+            } else {
+                wallPostCell.userAvatar.image = UIImage(named: "AvatarDefault")
+            }
+            
             // Make avatar image round
             
             wallPostCell.userAvatar.layer.cornerRadius = 40 / 2
@@ -127,6 +165,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             
             commentCell.heightBodyView.constant = bodyHeight
             commentCell.commentBodyLabel.text = commentBodyText
+            
+            // Load avatar
+            
+            if let avatarImage = postComment.avatarImage {
+                commentCell.avatarImage.image = avatarImage
+            } else {
+                commentCell.avatarImage.image = UIImage(named: "AvatarDefault")
+            }
             
             // Make avatar image round
             

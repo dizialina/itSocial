@@ -48,6 +48,14 @@ class ResponseParser {
                     newPost.authorUsername = authorUsername
                 }
                 
+                if let author = currentWallPost["author"] as? [String:AnyObject] {
+                    if let avatar = author["avatar"] as? [String:AnyObject] {
+                        if let avatarPath = avatar["path"] as? String {
+                            newPost.avatarURL = URL(string: Constants.shortLinkToServerAPI + avatarPath)
+                        }
+                    }
+                }
+                
                 postsArray.append(newPost)
             }
             
@@ -78,6 +86,14 @@ class ResponseParser {
                 let author = currentPostComment["author"] as! [String:AnyObject]
                 if let authorUsername = author["username"] as? String {
                     newComment.authorUsername = authorUsername
+                }
+                
+                if let author = currentPostComment["author"] as? [String:AnyObject] {
+                    if let avatar = author["avatar"] as? [String:AnyObject] {
+                        if let avatarPath = avatar["path"] as? String {
+                            newComment.avatarURL = URL(string: Constants.shortLinkToServerAPI + avatarPath)
+                        }
+                    }
                 }
                 
                 commentsArray.append(newComment)
@@ -171,7 +187,7 @@ class ResponseParser {
                 let currentMember = member as! [String:AnyObject]
                 let newMember = Member()
                 
-                if let memberID = currentMember["tid"] as? Int {
+                if let memberID = currentMember["id"] as? Int {
                     newMember.memberID = memberID
                 }
                 

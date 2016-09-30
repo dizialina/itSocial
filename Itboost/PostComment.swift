@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class PostComment: NSObject {
     
@@ -14,5 +15,7 @@ class PostComment: NSObject {
     var authorUsername = ""
     var commentID = Int()
     var postedAt = Date()
+    var avatarURL: URL?
+    var avatarImage: UIImage?
     
 }

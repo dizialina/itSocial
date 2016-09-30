@@ -77,7 +77,7 @@ class MembersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         if let email = member.email {
-            memberCell.emailLabel.text = "Дата рождения: \(email)"
+            memberCell.emailLabel.text = "E-mail: \(email)"
         }
         
         if member.adress.count > 0 {

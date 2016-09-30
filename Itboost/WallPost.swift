@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class WallPost: NSObject {
     
@@ -17,5 +18,7 @@ class WallPost: NSObject {
     var commentsCount = 0
     var postID = Int()
     var postedAt = Date()
+    var avatarURL: URL?
+    var avatarImage: UIImage?
     
 }

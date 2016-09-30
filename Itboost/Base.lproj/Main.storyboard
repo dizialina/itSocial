@@ -1648,7 +1648,7 @@
                                             <frame key="frameInset" width="375" height="84"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gaben" translatesAutoresizingMaskIntoConstraints="NO" id="otC-dI-xQv">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarDefault" translatesAutoresizingMaskIntoConstraints="NO" id="otC-dI-xQv">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="1hT-dX-3n1"/>
                                                         <constraint firstAttribute="width" constant="40" id="EU8-kv-OOT"/>
@@ -1879,7 +1879,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YMt-uG-oQt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YMt-uG-oQt">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MemberCell" rowHeight="91" id="DT4-8q-oQM" customClass="MemberCell" customModule="Itboost" customModuleProvider="target">
@@ -2361,7 +2361,7 @@
                                             <frame key="frameInset" width="414" height="104"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gaben" translatesAutoresizingMaskIntoConstraints="NO" id="Z5V-1T-Pid">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarDefault" translatesAutoresizingMaskIntoConstraints="NO" id="Z5V-1T-Pid">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="UVc-IZ-yel"/>
                                                         <constraint firstAttribute="height" constant="40" id="lm4-kj-vi4"/>
@@ -2488,7 +2488,7 @@
                                             <frame key="frameInset" width="414" height="83"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gaben" translatesAutoresizingMaskIntoConstraints="NO" id="JvQ-li-soa">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarDefault" translatesAutoresizingMaskIntoConstraints="NO" id="JvQ-li-soa">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Gbi-WK-fra"/>
                                                         <constraint firstAttribute="height" constant="40" id="thr-j3-28L"/>
@@ -3068,7 +3068,7 @@
                                             <frame key="frameInset" width="375" height="83"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gaben" translatesAutoresizingMaskIntoConstraints="NO" id="0WY-c0-kgr">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarDefault" translatesAutoresizingMaskIntoConstraints="NO" id="0WY-c0-kgr">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="GNY-My-jLT"/>
                                                         <constraint firstAttribute="width" constant="40" id="cIq-HF-b0M"/>
@@ -3846,7 +3846,6 @@
         <image name="Cup" width="32" height="32"/>
         <image name="Doge" width="256" height="256"/>
         <image name="Eye" width="32" height="32"/>
-        <image name="Gaben" width="150" height="150"/>
         <image name="GrayGradient" width="250" height="400"/>
         <image name="Letter" width="32" height="32"/>
         <image name="LightGreenGradient" width="562" height="418"/>

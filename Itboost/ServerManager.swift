@@ -200,7 +200,7 @@ class ServerManager: NSObject {
             sessionManager.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
+        //sessionManager.requestSerializer.httpMethodsEncodingParametersInURI = NSSet(array: ["GET", "HEAD"]) as! Set<String>
         
         sessionManager.delete("event.leave", parameters:params, success: { (task: URLSessionDataTask, responseObject: Any?) in
             print(responseObject)
@@ -256,7 +256,7 @@ class ServerManager: NSObject {
         }
         
         sessionManager.get("event/\(eventID)/members", parameters: params, success: { (task: URLSessionDataTask, responseObject: Any?) in
-            print(responseObject)
+            //print(responseObject)
             if let response = responseObject as? [String:AnyObject] {
                 if let results = response["response"] as? [String:AnyObject] {
                     if let members = results["members"] as? [String:AnyObject] {
