@@ -107,7 +107,8 @@ class ServerManager: NSObject {
         manager.operationQueue = operationQueue
         //manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        let params:NSDictionary = ["page": currentPage]
+        let params:NSDictionary = ["page": currentPage,
+                                  "limit": 50]
         
         manager.get(sourceURL, parameters: params, success: { (operation, responce) in
             if let response:Dictionary<String, AnyObject> = responce as? Dictionary {

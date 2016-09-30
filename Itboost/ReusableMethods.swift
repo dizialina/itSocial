@@ -58,4 +58,15 @@ class ReusableMethods: NSObject {
         return fullAdress.joined(separator: ", ")
     }
     
+    func wasEventPresented(eventDate: Date) -> Bool {
+        
+        let laterDate = NSDate().laterDate(eventDate)
+        if laterDate == eventDate {
+            return false
+        } else {
+            return true
+        }
+        
+    }
+    
 }

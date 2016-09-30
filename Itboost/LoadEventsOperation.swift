@@ -53,7 +53,7 @@ class LoadEventsOperation: Operation {
                 let communitiesArray = response as! [AnyObject]
                 
                 let countOfCommunitiesPerOnePage = communitiesArray.count
-                if countOfCommunitiesPerOnePage == 10 {
+                if countOfCommunitiesPerOnePage == 50 {
                     
                     DataBaseManager().writeAllCommunities(communitiesArray, isFirstPage: self.isFirstPage, isLastPage: false)
                     let nextPage = currentPage + 1

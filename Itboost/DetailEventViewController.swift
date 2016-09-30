@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 import GoogleMaps
+import EventKit
 
 class DetailEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
@@ -201,6 +202,9 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                 downloadImageTask.resume()
             }
         }
+        if paths.count == 0 {
+            self.isMembersLoading = false
+        }
     }
     
     func loadPostAvatars(posts:[WallPost]) {
@@ -328,6 +332,15 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
             } else {
                 eventCell.joinEventButton.setTitle("Я не пойду", for: UIControlState.normal)
                 eventCell.joinEventButton.backgroundColor = Constants.lightGrayColor
+            }
+            
+            if let eventDate = event.eventDate {
+                let wasEventPresented = ReusableMethods().wasEventPresented(eventDate: eventDate)
+                if wasEventPresented {
+                    eventCell.joinEventButton.setTitle("Событие закончилось", for: UIControlState.normal)
+                    eventCell.joinEventButton.backgroundColor = Constants.lightGrayColor
+                    eventCell.joinEventButton.isEnabled = false
+                }
             }
             
             // Make avatar images round and show them
@@ -506,6 +519,51 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     func addToCalendar(_ sender: UIButton) {
         
+        let community = communityObject as! Community
+        let eventStore = EKEventStore()
+        
+        eventStore.requestAccess(to: EKEntityType.event, completion:{(granted, error) in
+            
+            if (granted) && (error == nil) {
+                print("granted \(granted)")
+                print("error \(error)")
+                
+                let event = EKEvent(eventStore: eventStore)
+                
+                if let eventTitle = community.name {
+                    event.title = eventTitle
+                } else {
+                    event.title = "Событие Itboost"
+                }
+                
+                event.notes = "Добавлено с помощью приложения Itboost"
+                
+                if let eventDate = community.eventDate {
+                    event.startDate = eventDate
+                    event.endDate = eventDate
+                } else {
+                    event.startDate = Date()
+                    event.endDate = Date()
+                }
+                
+                event.calendar = eventStore.defaultCalendarForNewEvents
+                
+                var event_id = ""
+                do {
+                    try eventStore.save(event, span: .thisEvent)
+                    event_id = event.eventIdentifier
+                } catch let error as NSError {
+                    print("json error: \(error.localizedDescription)")
+                }
+                
+                if(event_id != ""){
+                    print("event added !")
+                    
+                    let alertController = ReusableMethods().showAlertWithTitle("", message: "Событие добавлено в Ваш календарь")
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        })
     }
     
     func joinEvent(_ sender: UIButton) {

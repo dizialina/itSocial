@@ -21,7 +21,8 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var refreshControl:UIRefreshControl!
     var searchBar = UISearchBar()
     
-    var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
+    //var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
+    var managedObjectContext: NSManagedObjectContext?
     
     var eventList = [Community]()
     var pictureList = [UIImage]()
@@ -82,7 +83,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             mainActivityIndicator.startAnimating()
         }
         
-        //getCommunitiesFromDatabase()
+        getCommunitiesFromDatabase()
     }
     
     override func didReceiveMemoryWarning() {
@@ -156,7 +157,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicatesArray)
         
         do {
-            let allCommunities = try managedObjectContext.fetch(fetchRequest) as! [Community]
+            let allCommunities = try managedObjectContext?.fetch(fetchRequest) as! [Community]
             eventList.removeAll()
             eventList = allCommunities
             print("Results events count: \(eventList.count)")
