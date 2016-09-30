@@ -297,6 +297,7 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
             let indexPath = tableView.indexPathForSelectedRow
             viewController.communityObject = eventList[(indexPath?.row)!]
             //viewController.communityObject = self.selectedEvent
+            viewController.managedObjectContext = managedObjectContext
         } 
         
     }

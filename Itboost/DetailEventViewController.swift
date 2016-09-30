@@ -19,6 +19,7 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var refreshControl:UIRefreshControl!
+    var managedObjectContext: NSManagedObjectContext?
     
     var communityObject: NSManagedObject!
     //var communityObject: Community!
@@ -340,6 +341,8 @@ class DetailEventViewController: UIViewController, UITableViewDelegate, UITableV
                     eventCell.joinEventButton.setTitle("Событие закончилось", for: UIControlState.normal)
                     eventCell.joinEventButton.backgroundColor = Constants.lightGrayColor
                     eventCell.joinEventButton.isEnabled = false
+                    eventCell.addToCalendarButton.backgroundColor = Constants.lightGrayColor
+                    eventCell.addToCalendarButton.isEnabled = false
                 }
             }
             

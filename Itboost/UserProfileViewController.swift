@@ -42,9 +42,9 @@ class UserProfileViewController: UIViewController {
         
         // Set navigation bar
         
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.isTranslucent = true
+        //self.navigationController?.navigationBar.shadowImage = UIImage()
+        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        //self.navigationController?.navigationBar.isTranslucent = true
         
         bottomSpaceInfoViewToView.constant = -155.0
         

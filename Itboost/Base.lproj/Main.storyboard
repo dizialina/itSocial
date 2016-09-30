@@ -61,7 +61,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.5568627451" green="0.78039215689999997" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="cxY-Oh-L6g" kind="relationship" relationship="rootViewController" id="gyq-dO-cmC"/>
@@ -448,7 +449,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarDefault" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-zu-Klc">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarDefault" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-zu-Klc">
                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85490196080000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="428" id="xPN-Lx-COG"/>
@@ -592,7 +593,7 @@
                             <constraint firstAttribute="trailing" secondItem="6Vh-k6-Bsj" secondAttribute="trailing" id="YlA-6x-ZyI"/>
                             <constraint firstItem="clg-eU-WPY" firstAttribute="centerY" secondItem="cpB-zu-Klc" secondAttribute="centerY" id="gVy-e1-Gf9"/>
                             <constraint firstItem="6Vh-k6-Bsj" firstAttribute="leading" secondItem="QAI-4D-IG6" secondAttribute="leading" id="lAa-ez-ind"/>
-                            <constraint firstItem="cpB-zu-Klc" firstAttribute="top" secondItem="2dv-kP-mox" secondAttribute="bottom" constant="-64" id="uBS-5G-Rjb"/>
+                            <constraint firstItem="cpB-zu-Klc" firstAttribute="top" secondItem="2dv-kP-mox" secondAttribute="bottom" id="uBS-5G-Rjb"/>
                             <constraint firstAttribute="trailing" secondItem="cpB-zu-Klc" secondAttribute="trailing" id="xR2-qC-ZAx"/>
                         </constraints>
                     </view>
@@ -605,6 +606,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Изменить" id="Kyz-bK-Yxn">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="editUserInfo:" destination="cxY-Oh-L6g" id="ZnQ-Xd-Uvh"/>
                                 <segue destination="sxn-iK-b0U" kind="show" identifier="editProfile" id="Rkw-Tz-Xqs"/>
@@ -1090,6 +1092,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Редактирование" id="bHx-m3-Zqq">
                         <barButtonItem key="rightBarButtonItem" title="Применить" id="eH4-VD-cZp">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="acceptEditing:" destination="sxn-iK-b0U" id="jPg-YQ-XOq"/>
                             </connections>
