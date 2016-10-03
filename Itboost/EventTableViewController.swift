@@ -116,8 +116,10 @@ class EventTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func getCommunitiesFromDatabase() {
         
-        let dataBaseManager = DataBaseManager()
-        managedObjectContext = dataBaseManager.managedObjectContext
+        if managedObjectContext == nil {
+            let dataBaseManager = DataBaseManager()
+            managedObjectContext = dataBaseManager.managedObjectContext
+        }
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Community")
         fetchRequest.fetchBatchSize = 10

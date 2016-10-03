@@ -159,10 +159,12 @@ class ServerManager: NSObject {
         
         let params:NSDictionary = ["filter": "joined",
                                      "page": currentPage]
+        //print(params)
+        //print(sourceURL)
         
         manager.get(sourceURL, parameters: params, success: { (operation, responce) in
             if let response:Dictionary<String, AnyObject> = responce as? Dictionary {
-                print(response)
+                //print(response)
                 if let results = response["response"] {
                     if let communitiesArray = results["items"] as? [AnyObject] {
                         let currentPage = results["current_page_number"] as! Int
